@@ -45,7 +45,7 @@ let addSong = {
 
 userInfo = {
     "records": [{"fields":{
-            "userID": "","userName": "","userCountry": "","#songs": 1
+            "userID": "","userName": "","userCountry": "","#songs": 0
         }
     }]}
 
@@ -144,6 +144,51 @@ async function addUser(){
     })
 }
 
+
+async function sendSong(message,registeredUsers,userID) {
+
+
+    requestOptions.body = JSON.stringify({"key": message.body})
+    let songPath = await fetch(apiUrl, requestOptions)
+        .then((response) => {
+            if (response.ok) {
+                return response.text()
+            }
+            return "Error"
+        }).then((data) => {
+            let response = data
+            let apiResponse = response.replace("api", "app")
+            return apiResponse
+        }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
+
+    if (typeof songPath !== "undefined" && songPath !== "Error") {
+        let song = MessageMedia.fromFilePath(songPath)
+
+        try {
+            await message.reply(song)
+            addSong.fields["#songs"] = registeredUsers[userID][1] + 1
+            await songIncrement(registeredUsers[userID][0])
+        } catch (e) {
+            console.log(`An error has occurred while sending media: ${e}`)
+        }
+
+        fs.unlink(songPath, (err) => {
+            if (err) {
+                console.error(`Error deleting file: ${err.message}`);
+            } else {
+                console.log(`${message.body.toLocaleLowerCase()} sent`);
+            }
+        });
+
+    }
+}
+
+
+
+
+
+
+
 client.on('message', async (message) => {
 
 
@@ -151,11 +196,15 @@ client.on('message', async (message) => {
     let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
     let isGroup = (await message.getChat()).isGroup
 
+    if (message.body.toLocaleLowerCase().startsWith("!get_id ") && message.body.length > 6 && isGroup){
+        console.log((await message.getChat()).id.user)
+    }
+
 
     if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
 
 
-        if ((await message.getChat()).id.user === "120363213455576189") {
+        if ((await message.getChat()).id.user === "120363213455576189" || (await message.getChat()).id.user === "2348034690865-1596391813") {
 
             let userID = (await message.id.participant).substring(0,(await message.id.participant).indexOf('@'))
             let userName = await message._data.notifyName
@@ -168,53 +217,19 @@ client.on('message', async (message) => {
             Object.keys(registeredUsers).includes(userID) ? await (async function () {
 
                 if (registeredUsers[userID][1] < 10) {
-                    console.log("Sending song ")
-                    requestOptions.body = JSON.stringify({"key": message.body})
-                    let songPath = await fetch(apiUrl, requestOptions)
-                        .then((response) => {
-                            if (response.ok) {
-                                return response.text()
-                            }
-                            return "Error"
-                        }).then((data) => {
-                            let response = data
-                            let apiResponse = response.replace("api", "app")
-                            return apiResponse
-                        }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
-
-                    if (typeof songPath !== "undefined" && songPath !== "Error") {
-                        let song = MessageMedia.fromFilePath(songPath)
-
-                        try {
-                            await message.reply(song)
-                            songIncrement(registeredUsers[userID][0])
-                        } catch (e) {
-                            console.log(`An error has occurred while sending media: ${e}`)
-                        }
-
-                        fs.unlink(songPath, (err) => {
-                            if (err) {
-                                console.error(`Error deleting file: ${err.message}`);
-                            } else {
-                                console.log(`${message.body.toLocaleLowerCase()} sent`);
-                            }
-                        });
-
-                    }
-
-                    addSong.fields["#songs"] = registeredUsers[userID][1] + 1
-
+                    await sendSong(message,registeredUsers,userID)
 
 
                 } else {
                     message.reply("You have exceeded your daily limit...")
                 }
 
-            })():(function () {
+            })():await  (async function () {
                 userInfo.records[0].fields.userID = userID
                 userInfo.records[0].fields.userName = userName
                 userInfo.records[0].fields.userCountry = userCountry
-                addUser()
+                await addUser()
+                await sendSong(message,registeredUsers,userID)
             })()
 
 
