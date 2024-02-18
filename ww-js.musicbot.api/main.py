@@ -15,7 +15,7 @@ def hello_world():
     tagger(song_metadata["title"], song_metadata["artist"], song_metadata["album_name"], song_metadata["url"], song)
 
     print(song)
-    return song
+    return "Hello world"
 
 
 
