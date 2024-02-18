@@ -217,9 +217,7 @@ client.on('message', async (message) => {
             Object.keys(registeredUsers).includes(userID) ? await (async function () {
 
                 if (registeredUsers[userID][1] < 10) {
-                    // await sendSong(message,registeredUsers,userID)
-                    console.log("Song has been downloaded and sent!!!!!!!!!!!!")
-
+                    await sendSong(message,registeredUsers,userID)
 
                 } else {
                     message.reply("You have exceeded your daily limit...")
