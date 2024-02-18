@@ -217,7 +217,8 @@ client.on('message', async (message) => {
             Object.keys(registeredUsers).includes(userID) ? await (async function () {
 
                 if (registeredUsers[userID][1] < 10) {
-                    await sendSong(message,registeredUsers,userID)
+                    // await sendSong(message,registeredUsers,userID)
+                    console.log("Song has been downloaded and sent!!!!!!!!!!!!")
 
 
                 } else {
