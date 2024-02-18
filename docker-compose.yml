@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  chatbot:
+    build:
+      context: ./ww-js.musicbot
+    volumes:
+      - shared-data:/usr/src/app/songs
+
+  api:
+    build:
+      context: ./ww-js.musicbot.api
+    ports:
+      - "5000:5000"
+
+    volumes:
+      - shared-data:/usr/src/api/songs
+
+
+
+volumes:
+  shared-data:
+
+

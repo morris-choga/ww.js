@@ -1,0 +1,6 @@
+flask
+ytmusicapi
+pytube
+moviepy
+mutagen
+gunicorn
