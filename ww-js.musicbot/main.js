@@ -38,6 +38,7 @@ let apiKey = "patg3nVCYWdoRthJn.56198a4363e0982055386462c75e70566e51bc2b4bac7cd6
 let airtableUrl = "https://api.airtable.com/v0/appAcgdXpcBoOwP5X/tblk48SN08xOlGQz9"
 let apiUrl = "http://api:5000";
 
+
 let addSong = {
     "fields": {"#songs":10}
 }
@@ -168,9 +169,7 @@ client.on('message', async (message) => {
 
                 if (registeredUsers[userID][1] < 10) {
                     console.log("Sending song ")
-                    addSong.fields["#songs"] = registeredUsers[userID][1] + 1
-                    songIncrement(registeredUsers[userID][0])
-
+                    requestOptions.body = JSON.stringify({"key": message.body})
                     let songPath = await fetch(apiUrl, requestOptions)
                         .then((response) => {
                             if (response.ok) {
@@ -181,7 +180,32 @@ client.on('message', async (message) => {
                             let response = data
                             let apiResponse = response.replace("api", "app")
                             return apiResponse
-                        }).catch(error => console.log('an error has occurred while fetching https://127.0.0.1:5000 ', error))
+                        }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
+
+                    if (typeof songPath !== "undefined" && songPath !== "Error") {
+                        let song = MessageMedia.fromFilePath(songPath)
+
+                        try {
+                            await message.reply(song)
+                            songIncrement(registeredUsers[userID][0])
+                        } catch (e) {
+                            console.log(`An error has occurred while sending media: ${e}`)
+                        }
+
+                        fs.unlink(songPath, (err) => {
+                            if (err) {
+                                console.error(`Error deleting file: ${err.message}`);
+                            } else {
+                                console.log(`${message.body.toLocaleLowerCase()} sent`);
+                            }
+                        });
+
+                    }
+
+                    addSong.fields["#songs"] = registeredUsers[userID][1] + 1
+
+
+
                 } else {
                     message.reply("You have exceeded your daily limit...")
                 }
@@ -193,30 +217,8 @@ client.on('message', async (message) => {
                 addUser()
             })()
 
-            requestOptions.body = JSON.stringify({"key": message.body})
 
 
-
-            if (typeof songPath !== "undefined" && songPath !== "Error") {
-                let song = MessageMedia.fromFilePath(songPath)
-
-                try {
-                    await message.reply(song)
-                } catch (e) {
-                    console.log(`An error has occurred while sending media: ${e}`)
-                }
-
-                fs.unlink(songPath, (err) => {
-                    if (err) {
-                        console.error(`Error deleting file: ${err.message}`);
-                    } else {
-                        console.log(`${message.body.toLocaleLowerCase()} sent`);
-                    }
-                });
-
-            } else if (!isGroup) {
-                await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
-            }
         }
 
 
