@@ -15,8 +15,6 @@ services:
     volumes:
       - shared-data:/usr/src/api/songs
 
-
-
 volumes:
   shared-data:
 
