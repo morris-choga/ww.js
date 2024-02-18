@@ -1,6 +1,6 @@
 const qrcode = require('qrcode-terminal');
 const { Client,LocalAuth ,MessageMedia, Buttons } = require('whatsapp-web.js');
-console.log("hello there")
+
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -142,6 +142,112 @@ async function addUser(){
         console.log(`An error occurred while addingUser https://api.airtable.com: ${error}`)
     })
 }
+
+client.on('message', async (message) => {
+
+
+
+    let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
+    let isGroup = (await message.getChat()).isGroup
+
+
+    if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
+
+
+        if ((await message.getChat()).id.user === "120363213455576189") {
+
+            let userID = (await message.id.participant).substring(0,(await message.id.participant).indexOf('@'))
+            let userName = await message._data.notifyName
+            let userCountry = await fetchCountry(userID)
+            let registeredUsers =await fetchUsers()
+
+
+
+
+            Object.keys(registeredUsers).includes(userID) ? await (async function () {
+
+                if (registeredUsers[userID][1] < 10) {
+                    console.log("Sending song ")
+                    addSong.fields["#songs"] = registeredUsers[userID][1] + 1
+                    songIncrement(registeredUsers[userID][0])
+
+                    let songPath = await fetch(apiUrl, requestOptions)
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.text()
+                            }
+                            return "Error"
+                        }).then((data) => {
+                            let response = data
+                            let apiResponse = response.replace("api", "app")
+                            return apiResponse
+                        }).catch(error => console.log('an error has occurred while fetching https://127.0.0.1:5000 ', error))
+                } else {
+                    message.reply("You have exceeded your daily limit...")
+                }
+
+            })():(function () {
+                userInfo.records[0].fields.userID = userID
+                userInfo.records[0].fields.userName = userName
+                userInfo.records[0].fields.userCountry = userCountry
+                addUser()
+            })()
+
+            requestOptions.body = JSON.stringify({"key": message.body})
+
+
+
+            if (typeof songPath !== "undefined" && songPath !== "Error") {
+                let song = MessageMedia.fromFilePath(songPath)
+
+                try {
+                    await message.reply(song)
+                } catch (e) {
+                    console.log(`An error has occurred while sending media: ${e}`)
+                }
+
+                fs.unlink(songPath, (err) => {
+                    if (err) {
+                        console.error(`Error deleting file: ${err.message}`);
+                    } else {
+                        console.log(`${message.body.toLocaleLowerCase()} sent`);
+                    }
+                });
+
+            } else if (!isGroup) {
+                await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
+            }
+        }
+
+
+        else if (groupParticipantsNumber < 11) {
+            setTimeout(async () => {
+                await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
+            }, 5000);
+        } else if (groupParticipantsNumber >= 11) {
+            setTimeout(async () => {
+                await message.reply("Join the community...")
+            }, 5000);
+
+        }
+
+    }
+
+    else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && !isGroup){
+        setTimeout(async () => {
+            await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
+        }, 5000);
+
+    }
+
+    else if (message.body.toLocaleLowerCase().startsWith("!album ") && message.body.length > 7 && isGroup) {
+        setTimeout(async () => {
+            await message.reply("Album request is still in development...")
+        }, 5000);
+
+    }
+
+})
 
 client.initialize();
 
