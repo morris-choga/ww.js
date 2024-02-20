@@ -5,7 +5,7 @@ from mutagen.easyid3 import EasyID3
 
 import os
 
-from pytube.exceptions import PytubeError
+# from pytube.exceptions import PytubeError
 
 
 # def download(title,video_id,location):
