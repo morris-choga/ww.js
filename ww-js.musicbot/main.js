@@ -162,9 +162,10 @@ async function sendSong(message,registeredUsers,userID) {
         }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
 
     if (typeof songPath !== "undefined" && songPath !== "Error") {
-        let song = MessageMedia.fromFilePath(songPath)
+
 
         try {
+            let song = MessageMedia.fromFilePath(songPath)
             await message.reply(song)
             addSong.fields["#songs"] = registeredUsers[userID][1] + 1
             await songIncrement(registeredUsers[userID][0])
