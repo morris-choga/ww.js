@@ -4,7 +4,7 @@ services:
     build:
       context: ./ww-js.musicbot
     volumes:
-      - /songs:/usr/src/app/songs
+      - shared-data:/usr/src/app/songs
 
   api:
     build:
@@ -13,7 +13,7 @@ services:
       - "5000:5000"
 
     volumes:
-      - /songs:/usr/src/api/songs
+      - shared-data:/usr/src/api/songs
 
 volumes:
   shared-data:
