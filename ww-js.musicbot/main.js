@@ -205,7 +205,7 @@ client.on('message', async (message) => {
     if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
 
 
-        if ((await message.getChat()).id.user === "120363213455576189" || (await message.getChat()).id.user === "2348034690865-1596391813") {
+        if ((await message.getChat()).id.user === "120363213455576189" || (await message.getChat()).id.user === "2348034690865-1596391813" || (await message.getChat()).id.user === "120363223962652835") {
 
             let userID = (await message.id.participant).substring(0,(await message.id.participant).indexOf('@'))
             let userName = await message._data.notifyName
