@@ -1,7 +1,7 @@
 from ytmusicapi import YTMusic
 import os
-header = f"{os.getcwd()}/oauth.json"
-yt = YTMusic(header)
+oauth = f"{os.getcwd()}/oauth.json"
+yt = YTMusic(oauth)
 
 
 

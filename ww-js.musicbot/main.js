@@ -148,7 +148,7 @@ async function addUser(){
 async function sendSong(message,registeredUsers,userID) {
 
 
-    requestOptions.body = JSON.stringify({"key": message.body})
+    requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
     let songPath = await fetch(apiUrl, requestOptions)
         .then((response) => {
             if (response.ok) {
