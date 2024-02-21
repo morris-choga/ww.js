@@ -242,25 +242,25 @@ client.on('message', async (message) => {
                 await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
             }, 5000);
         } else if (groupParticipantsNumber >= 11) {
-            setTimeout(async () => {
-                await message.reply("Join the community to request for songs \nhttps://chat.whatsapp.com/Fpe6qovwQtACtZWumjfMBt")
-            }, 5000);
+
+                await message.reply("Join the community to request for songs \n\nhttps://chat.whatsapp.com/Fpe6qovwQtACtZWumjfMBt")
+
 
         }
 
     }
 
     else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && !isGroup){
-        setTimeout(async () => {
+
             await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
-        }, 5000);
+
 
     }
 
     else if (message.body.toLocaleLowerCase().startsWith("!album ") && message.body.length > 7 && isGroup) {
-        setTimeout(async () => {
+
             await message.reply("Album request is still in development...")
-        }, 5000);
+
 
     }
 
