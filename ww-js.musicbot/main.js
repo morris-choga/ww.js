@@ -4,10 +4,10 @@ const { Client,LocalAuth ,MessageMedia, Buttons } = require('whatsapp-web.js');
 
 const client = new Client({
     authStrategy: new LocalAuth(),
-     puppeteer: {
-           headless: true,
-           args: ['--no-sandbox']
-           }
+    puppeteer: {
+        headless: true,
+        args: ['--no-sandbox']
+    }
 
 });
 process.on('SIGINT', async () => {
@@ -39,9 +39,7 @@ let airtableUrl = "https://api.airtable.com/v0/appAcgdXpcBoOwP5X/tblk48SN08xOlGQ
 let apiUrl = "http://api:5000";
 
 
-let addSong = {
-    "fields": {"#songs":10}
-}
+
 
 userInfo = {
     "records": [{"fields":{
@@ -67,7 +65,11 @@ async function fetchCountry(num){
     return result
 }
 
-async  function songIncrement(id){
+async  function songIncrement(id , songsNum){
+
+    let addSong = {
+        "fields": {"#songs":songsNum}
+    }
 
 
     let result = await fetch(`${airtableUrl}/${id}`, {
@@ -167,8 +169,9 @@ async function sendSong(message,registeredUsers,userID) {
         try {
             let song = MessageMedia.fromFilePath(songPath)
             await message.reply(song)
-            addSong.fields["#songs"] = registeredUsers[userID][1] + 1
-            await songIncrement(registeredUsers[userID][0])
+            let songsNum = registeredUsers[userID][1] + 1
+            // addSong.fields["#songs"] = registeredUsers[userID][1] + 1
+            await songIncrement(registeredUsers[userID][0], songsNum)
         } catch (e) {
             console.log(`An error has occurred while sending media: ${e}`)
         }
@@ -243,7 +246,7 @@ client.on('message', async (message) => {
             }, 5000);
         } else if (groupParticipantsNumber >= 11) {
 
-                await message.reply("Join the community to request for songs \n\nhttps://chat.whatsapp.com/Fpe6qovwQtACtZWumjfMBt")
+            await message.reply("Join the community to request for songs \n\nhttps://chat.whatsapp.com/Fpe6qovwQtACtZWumjfMBt")
 
 
         }
@@ -252,14 +255,14 @@ client.on('message', async (message) => {
 
     else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && !isGroup){
 
-            await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
+        await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
 
 
     }
 
     else if (message.body.toLocaleLowerCase().startsWith("!album ") && message.body.length > 7 && isGroup) {
 
-            await message.reply("Album request is still in development...")
+        await message.reply("Album request is still in development...")
 
 
     }
