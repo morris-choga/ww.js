@@ -221,7 +221,8 @@ client.on('message', async (message) => {
             Object.keys(registeredUsers).includes(userID) ? await (async function () {
 
                 if (registeredUsers[userID][1] < 10) {
-                    await sendSong(message,registeredUsers,userID)
+                    // await sendSong(message,registeredUsers,userID)
+                    await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
                 } else {
                     message.reply("You have exceeded your daily limit...")
@@ -232,7 +233,8 @@ client.on('message', async (message) => {
                 userInfo.records[0].fields.userName = userName
                 userInfo.records[0].fields.userCountry = userCountry
                 await addUser()
-                await sendSong(message,registeredUsers,userID)
+                await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                // await sendSong(message,registeredUsers,userID)
             })()
 
 
