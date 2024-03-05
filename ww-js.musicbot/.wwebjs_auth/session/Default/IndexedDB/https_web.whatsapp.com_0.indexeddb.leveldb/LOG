@@ -1,0 +1,26 @@
+2024/03/05-16:16:11.639 1ee0 Reusing MANIFEST C:\Users\Mchog\WebstormProjects\ww.js\ww-js.musicbot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/03/05-16:16:11.639 1ee0 Recovering log #36
+2024/03/05-16:16:11.793 1ee0 Reusing old log C:\Users\Mchog\WebstormProjects\ww.js\ww-js.musicbot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000036.log 
+2024/03/05-16:16:11.793 1ee0 Delete type=2 #35
+2024/03/05-16:16:11.793 1ee0 Delete type=2 #37
+2024/03/05-16:16:22.492 4e00 Level-0 table #41: started
+2024/03/05-16:16:22.511 4e00 Level-0 table #41: 762195 bytes OK
+2024/03/05-16:16:22.512 4e00 Delete type=0 #36
+2024/03/05-16:16:22.513 4e00 Manual compaction at level-0 from '\x00\x15\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x16\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/03/05-16:16:22.523 36cc Level-0 table #43: started
+2024/03/05-16:16:22.534 36cc Level-0 table #43: 467 bytes OK
+2024/03/05-16:16:22.535 36cc Delete type=0 #40
+2024/03/05-16:16:22.536 36cc Manual compaction at level-0 from '\x00\x16\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x17\x00\x00\x00' @ 0 : 0; will stop at '\x00\x16\x00\x00\x05' @ 89718 : 0
+2024/03/05-16:16:22.536 36cc Compacting 1@0 + 1@1 files
+2024/03/05-16:16:22.574 36cc Generated table #44@0: 15911 keys, 319746 bytes
+2024/03/05-16:16:22.574 36cc Compacted 1@0 + 1@1 files => 319746 bytes
+2024/03/05-16:16:22.576 36cc compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/03/05-16:16:22.577 36cc Delete type=2 #43
+2024/03/05-16:16:22.577 36cc Manual compaction at level-0 from '\x00\x16\x00\x00\x05' @ 89718 : 0 .. '\x00\x17\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/03/05-16:16:24.432 1ee0 Compacting 1@1 + 1@2 files
+2024/03/05-16:16:24.463 1ee0 Generated table #45@1: 16950 keys, 637502 bytes
+2024/03/05-16:16:24.463 1ee0 Compacted 1@1 + 1@2 files => 637502 bytes
+2024/03/05-16:16:24.465 1ee0 compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/03/05-16:16:24.465 1ee0 Delete type=2 #38
+2024/03/05-16:16:24.465 1ee0 Delete type=2 #41
+2024/03/05-16:16:24.465 1ee0 Delete type=2 #44
