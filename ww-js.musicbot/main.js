@@ -1,8 +1,14 @@
 const qrcode = require('qrcode-terminal');
-const { Client,LocalAuth ,MessageMedia, Buttons } = require('whatsapp-web.js');
+const { Client,LocalAuth ,MessageMedia, LinkingMethod } = require('whatsapp-web.js');
 
 
 const client = new Client({
+
+    // linkingMethod:  new LinkingMethod({
+    //     phone: {
+    //         number: "+639514176425"
+    //     }
+    // }),
     authStrategy: new LocalAuth(),
     puppeteer: {
         headless: true,
@@ -18,6 +24,11 @@ process.on('SIGINT', async () => {
 client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true });
 });
+
+// client.on('code', (code) => {
+//     console.log('CODE RECEIVED', code);
+//
+// });
 
 
 client.on('ready', () => {
