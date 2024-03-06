@@ -161,6 +161,10 @@ async function addUser(){
 async function sendSong(message,registeredUsers,userID) {
 
 
+
+
+
+
     requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
     let songPath = await fetch(apiUrl, requestOptions)
         .then((response) => {
@@ -180,8 +184,11 @@ async function sendSong(message,registeredUsers,userID) {
         try {
             let song = MessageMedia.fromFilePath(songPath)
             await message.reply(song)
-            let songsNum = registeredUsers[userID][1] + 1
-            // addSong.fields["#songs"] = registeredUsers[userID][1] + 1
+
+            let users =await fetchUsers();
+            let songsNum = parseInt(users[userID][1]) + 1;
+            // let songsNum = registeredUsers[userID][1] + 1
+
             await songIncrement(registeredUsers[userID][0], songsNum)
         } catch (e) {
             await message.reply("oops! this song seems to be unavailable")
