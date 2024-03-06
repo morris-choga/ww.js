@@ -127,20 +127,20 @@ async function fetchUsers(){
 
 }
 
-async function addUser(){
-
-    await fetch(airtableUrl, {
-        method: 'POST',
-        headers: {
-            "Authorization": `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-
-        },
-        body: JSON.stringify(userInfo)
-    }).catch(error=>{
-        console.log(`An error occurred while addingUser https://api.airtable.com: ${error}`)
-    })
-}
+// async function addUser(){
+//
+//     await fetch(airtableUrl, {
+//         method: 'POST',
+//         headers: {
+//             "Authorization": `Bearer ${apiKey}`,
+//             'Content-Type': 'application/json',
+//
+//         },
+//         body: JSON.stringify(userInfo)
+//     }).catch(error=>{
+//         console.log(`An error occurred while addingUser https://api.airtable.com: ${error}`)
+//     })
+// }
 
 async function addUser(){
 
@@ -184,6 +184,7 @@ async function sendSong(message,registeredUsers,userID) {
             // addSong.fields["#songs"] = registeredUsers[userID][1] + 1
             await songIncrement(registeredUsers[userID][0], songsNum)
         } catch (e) {
+            await message.reply("oops! this song seems to be unavailable")
             console.log(`An error has occurred while sending media: ${e}`)
         }
 
