@@ -267,7 +267,7 @@ client.on('message', async (message) => {
             }, 5000);
         } else if (groupParticipantsNumber >= 11) {
 
-            await message.reply("Join the community to request for songs \n\nhttps://chat.whatsapp.com/Fpe6qovwQtACtZWumjfMBt")
+            await message.reply("Join the community to request for songs \n\nhttps://chat.whatsapp.com/LE6i5lCWXNd5OwWBJGyZEO")
 
 
         }
