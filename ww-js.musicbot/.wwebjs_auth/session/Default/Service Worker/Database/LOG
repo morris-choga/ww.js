@@ -1,3 +1,2 @@
-2024/03/05-16:16:10.752 1ee0 Reusing MANIFEST C:\Users\Mchog\WebstormProjects\ww.js\ww-js.musicbot\.wwebjs_auth\session\Default\Service Worker\Database/MANIFEST-000001
-2024/03/05-16:16:10.753 1ee0 Recovering log #3
-2024/03/05-16:16:10.753 1ee0 Reusing old log C:\Users\Mchog\WebstormProjects\ww.js\ww-js.musicbot\.wwebjs_auth\session\Default\Service Worker\Database/000003.log 
+2024/03/06-10:15:35.191 5750 Creating DB C:\Users\Mchog\WebstormProjects\ww.js\ww-js.musicbot\.wwebjs_auth\session\Default\Service Worker\Database since it was missing.
+2024/03/06-10:15:35.199 5750 Reusing MANIFEST C:\Users\Mchog\WebstormProjects\ww.js\ww-js.musicbot\.wwebjs_auth\session\Default\Service Worker\Database/MANIFEST-000001
