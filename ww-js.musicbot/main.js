@@ -168,7 +168,6 @@ async function sendLyrics(message){
             }
             return "Error"
         }).then((data) => {
-            let response = data.body
             return response
         }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
     console.log("im here")
