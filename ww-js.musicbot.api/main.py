@@ -21,7 +21,7 @@ def hello_world():
     return song
 
 
-@app.route('/lyrics', methods=['GET'])
+@app.route('/lyrics', methods=['GET', 'POST'])
 def get_lyrics():
     requested_song = request.get_json()
     result = lyrics(f"{requested_song['key']}")
