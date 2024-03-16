@@ -161,6 +161,8 @@ async function sendLyrics(message){
     requestOptions.body = JSON.stringify({"key": message.body.substring(8)})
     let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
         .then((response) => {
+            console.log(response)
+            console.log(typeof response)
             if (response.ok) {
                 return response.json
             }
