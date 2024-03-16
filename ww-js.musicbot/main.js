@@ -157,13 +157,27 @@ async function addUser(){
     })
 }
 
+async function sendLyrics(message){
+    requestOptions.body = JSON.stringify({"key": message.body.substring(8)})
+    let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
+        .then((response) => {
+            if (response.ok) {
+                return response.text()
+            }
+            return "Error"
+        }).then((data) => {
+            let response = data
+            return response
+        }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
+
+    if (!Object.keys(lyrics).length === 0){
+
+        await message.reply(lyrics["album_art"])
+        await message.reply(lyrics["lyrics"])
+    }
+}
 
 async function sendSong(message,registeredUsers,userID) {
-
-
-
-
-
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
     let songPath = await fetch(apiUrl, requestOptions)
@@ -224,7 +238,12 @@ client.on('message', async (message) => {
     }
 
 
-    if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
+    else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && (await message.getChat()).id.user === "2348034690865-1596391813"){
+        await sendLyrics(message)
+    }
+
+
+    else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
 
 
         if ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "2348034690865-1596391813" || (await message.getChat()).id.user === "120363223962652835") {

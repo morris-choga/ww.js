@@ -24,4 +24,23 @@ def get_song_metadata(song):
     return {"title":title, "album_name":album_name, "artist":artist,"year":year,"video_id":video_id, "url":url}
 
 
+def lyrics(song):
+    try:
+        results = yt.search(song, filter="songs")
 
+        album = yt.get_album(results[0]["album"]["id"])
+        album_art = album['thumbnails'][-1]['url']
+
+
+
+
+        video_id = results[0]['videoId']
+        data = yt.get_watch_playlist(video_id)
+        lyrics_id = data["lyrics"]
+
+        lyrics = yt.get_lyrics(lyrics_id)
+        return {"album_art":album_art, "lyrics":lyrics}
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None

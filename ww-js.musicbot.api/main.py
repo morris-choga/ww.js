@@ -1,4 +1,4 @@
-from songmetadata import get_song_metadata
+from songmetadata import get_song_metadata, lyrics
 from download_song import tagger,download
 from downloadsong_api import download_song
 from flask import request, jsonify
@@ -21,6 +21,16 @@ def hello_world():
     return song
 
 
+@app.route('/lyrics', methods=['GET'])
+def get_lyrics():
+    requested_song = request.get_json()
+    result = lyrics(f"{requested_song['key']}")
+
+
+    if result is None:
+        return {}
+    else:
+        return result
 
 
 @app.route('/get_status', methods=['GET'])
