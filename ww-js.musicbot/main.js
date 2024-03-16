@@ -170,16 +170,14 @@ async function sendLyrics(message){
         }).then((data) => {
             return data
         }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
-    console.log("im here")
-    console.log(lyrics)
-    console.log(lyrics["album_art"])
-    console.log(typeof lyrics)
 
-    if (!Object.keys(lyrics).length === 0){
+
+    if (!Object.keys(lyrics).length == 0){
 
         await message.reply(lyrics["album_art"])
         await message.reply(lyrics["lyrics"])
     }
+    else { await message.reply("oops! lyrics for this song are unavailable")}
 }
 
 async function sendSong(message,registeredUsers,userID) {
