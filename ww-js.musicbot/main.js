@@ -173,7 +173,7 @@ async function sendLyrics(message){
 
 
     if (!Object.keys(lyrics).length == 0){
-        let picture = await MessageMedia.fromUrl(lyrics["album_art"])
+        let picture = await MessageMedia.fromUrl(lyrics["album_art"], { unsafeMime: true })
 
         await message.reply(picture)
         await message.reply(lyrics["lyrics"])
