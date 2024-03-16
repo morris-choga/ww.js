@@ -173,9 +173,9 @@ async function sendLyrics(message){
 
 
     if (!Object.keys(lyrics).length == 0){
+        let picture = await MessageMedia.fromUrl(lyrics["album_art"])
 
-        await message.reply.fromUrl(lyrics["album_art"])
-        // await message.reply(lyrics["album_art"])
+        await message.reply(picture)
         await message.reply(lyrics["lyrics"])
     }
     else { await message.reply("oops! lyrics for this song are unavailable")}
