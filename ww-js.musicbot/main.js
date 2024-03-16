@@ -175,8 +175,16 @@ async function sendLyrics(message){
     if (!Object.keys(lyrics).length == 0){
         let picture = await MessageMedia.fromUrl(lyrics["album_art"], { unsafeMime: true })
 
-        await message.reply(picture)
-        await message.reply(lyrics["lyrics"])
+        setTimeout(async ()=>{
+            await message.reply(picture)
+        }, 3000);
+
+        setTimeout(async ()=>{
+            await message.reply(lyrics["lyrics"])
+        }, 6000);
+
+
+
     }
     else { await message.reply("oops! lyrics for this song are unavailable")}
 }
