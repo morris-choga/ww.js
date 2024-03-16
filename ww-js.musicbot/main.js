@@ -162,14 +162,14 @@ async function sendLyrics(message){
     let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
         .then((response) => {
             if (response.ok) {
-                return response.text()
+                return response.json
             }
             return "Error"
         }).then((data) => {
             let response = data
             return response
         }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
-
+    console.log("im here")
     if (!Object.keys(lyrics).length === 0){
 
         await message.reply(lyrics["album_art"])
