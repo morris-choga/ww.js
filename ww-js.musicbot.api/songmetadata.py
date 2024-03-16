@@ -39,7 +39,7 @@ def lyrics(song):
         lyrics_id = data["lyrics"]
 
         lyrics = yt.get_lyrics(lyrics_id)
-        return {"album_art":album_art, "lyrics":lyrics}
+        return {"album_art":album_art, "lyrics":lyrics["lyrics"]}
 
     except Exception as e:
         print(f"An error occurred: {e}")
