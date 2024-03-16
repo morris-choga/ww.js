@@ -164,7 +164,7 @@ async function sendLyrics(message){
             console.log(response)
             console.log(typeof response)
             if (response.ok) {
-                return response.json
+                return response
             }
             return "Error"
         }).then((data) => {
@@ -173,6 +173,7 @@ async function sendLyrics(message){
         }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
     console.log("im here")
     console.log(lyrics)
+    console.log(lyrics["album_art"])
     console.log(typeof lyrics)
 
     if (!Object.keys(lyrics).length === 0){
