@@ -9,7 +9,7 @@ const client = new Client({
     //         number: "+639514176425"
     //     }
     // }),
-    authStrategy: new LocalAuth(),
+    authStrategy: new LocalAuth({dataPath: "/usr/src/app/songs/session"}),
     puppeteer: {
         headless: true,
         args: ['--no-sandbox']
