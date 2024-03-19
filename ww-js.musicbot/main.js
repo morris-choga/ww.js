@@ -223,6 +223,7 @@ async function sendSong(message,registeredUsers,userID) {
                     console.error(`Error deleting file: ${err.message}`);
                 } else {
                     console.log(`${message.body.toLocaleLowerCase()} sent`);
+
                 }
             });
 
