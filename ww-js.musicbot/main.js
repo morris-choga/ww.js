@@ -216,21 +216,24 @@ async function sendSong(message,registeredUsers,userID) {
 
             let users =await fetchUsers();
             let songsNum = parseInt(users[userID][1]) + 1;
-            // let songsNum = registeredUsers[userID][1] + 1
-
             await songIncrement(registeredUsers[userID][0], songsNum)
+
+            fs.unlink(songPath, (err) => {
+                if (err) {
+                    console.error(`Error deleting file: ${err.message}`);
+                } else {
+                    console.log(`${message.body.toLocaleLowerCase()} sent`);
+                }
+            });
+
+
         } catch (e) {
+
             await message.reply("oops! this song seems to be unavailable")
             console.log(`An error has occurred while sending media: ${e}`)
         }
 
-        fs.unlink(songPath, (err) => {
-            if (err) {
-                console.error(`Error deleting file: ${err.message}`);
-            } else {
-                console.log(`${message.body.toLocaleLowerCase()} sent`);
-            }
-        });
+
 
     }
 }

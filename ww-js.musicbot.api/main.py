@@ -13,12 +13,16 @@ def hello_world():
     requested_song = request.get_json()
     song_metadata = get_song_metadata(f"{requested_song['key']}")
 
-    # song = download_song(song_metadata["video_id"])
-    song = download(song_metadata["title"], song_metadata["video_id"], os.path.join("/usr/src/api", "songs"))
-    tagger(song_metadata["title"], song_metadata["artist"], song_metadata["album_name"], song_metadata["url"], song)
+    if song_metadata is None:
+        return {}
+    else:
+        song = download(song_metadata["title"], song_metadata["video_id"], os.path.join("/usr/src/api", "songs"))
+        tagger(song_metadata["title"], song_metadata["artist"], song_metadata["album_name"], song_metadata["url"], song)
+        return song
 
 
-    return song
+
+
 
 
 @app.route('/lyrics', methods=['GET', 'POST'])
