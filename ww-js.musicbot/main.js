@@ -340,12 +340,7 @@ client.on('message', async (message) => {
 
 
     }
-    else if (message.body.toLocaleLowerCase().startsWith("!clear")  && isGroup && (await message.getChat()).id.user === "120363243170575745" ||  (await message.getChat()).id.user === "120363223962652835") {
 
-        await message.reply(`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`)
-        await (await message.getChat()).clearMessages()
-
-    }
 
 })
 
