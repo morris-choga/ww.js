@@ -180,7 +180,14 @@ async function sendLyrics(message){
         }, 3000);
 
         setTimeout(async ()=>{
+            let a = Math.floor((Math.random() * 3) + 1)
+
             await message.reply(lyrics["lyrics"])
+
+            if (a == 1){
+                console.log((`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`))
+                await (await message.getChat()).clearMessages()
+            }
         }, 6000);
 
 
@@ -213,11 +220,19 @@ async function sendSong(message,registeredUsers,userID) {
 
         try {
             let song = MessageMedia.fromFilePath(songPath)
-            await message.reply(song)
+            let a = Math.floor((Math.random() * 3) + 1)
 
-            let users =await fetchUsers();
+            await message.reply(song)
+            let users = await fetchUsers();
             let songsNum = parseInt(users[userID][1]) + 1;
             await songIncrement(registeredUsers[userID][0], songsNum)
+
+            if (a == 1){
+                console.log((`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`))
+                await (await message.getChat()).clearMessages()
+            }
+
+
 
             fs.unlink(songPath, (err) => {
                 if (err) {
