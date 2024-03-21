@@ -340,12 +340,12 @@ client.on('message', async (message) => {
 
 
 
-        for (let x = 1; x <=3; x++){
+        for (let x = 1; x <=1000; x++){
 
             setTimeout(async () => {
                 console.log(`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`)
                 await (await message.getChat()).clearMessages()
-            }, 2000);
+            }, 5000);
 
         }
 
