@@ -180,14 +180,10 @@ async function sendLyrics(message){
         }, 3000);
 
         setTimeout(async ()=>{
-            let a = Math.floor((Math.random() * 3) + 1)
 
             await message.reply(lyrics["lyrics"])
 
-            if (a == 1){
-                console.log((`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`))
-                await (await message.getChat()).clearMessages()
-            }
+
         }, 6000);
 
 
@@ -220,17 +216,17 @@ async function sendSong(message,registeredUsers,userID) {
 
         try {
             let song = MessageMedia.fromFilePath(songPath)
-            let a = Math.floor((Math.random() * 3) + 1)
+            // let a = Math.floor((Math.random() * 3) + 1)
 
             await message.reply(song)
             let users = await fetchUsers();
             let songsNum = parseInt(users[userID][1]) + 1;
             await songIncrement(registeredUsers[userID][0], songsNum)
 
-            if (a == 1){
-                console.log((`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`))
-                await (await message.getChat()).clearMessages()
-            }
+            // if (a == 1){
+            //     console.log((`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`))
+            //     await (await message.getChat()).clearMessages()
+            // }
 
 
 
@@ -340,6 +336,23 @@ client.on('message', async (message) => {
 
 
     }
+    else if (message.body.toLocaleLowerCase() === "!clear"   && isGroup && (await message.getChat()).id.user === "120363243170575745" ||  (await message.getChat()).id.user === "120363223962652835") {
+
+
+
+        for (let x = 3; x <=3; x++){
+
+            setTimeout(async () => {
+                console.log(`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`)
+                await (await message.getChat()).clearMessages()
+            }, 2000);
+
+        }
+
+    }
+
+    // console.log((`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`))
+    //     await (await message.getChat()).clearMessages()
 
 
 })
