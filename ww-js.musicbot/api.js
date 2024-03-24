@@ -28,14 +28,15 @@ const fetchCountry = async (num) => {
 
 
 const addUser = async (userInfo) => {
-    console.log(userInfo)
-    await fetch(airtableUrl, {
+
+    let a = await fetch(airtableUrl, {
         method: 'POST',
         airtableHeaders,
         body: JSON.stringify(userInfo)
     }).catch(error=>{
         console.log(`An error occurred while addingUser https://api.airtable.com: ${error}`)
     })
+    console.log(a)
 }
 
 const fetchUsers = async () => {
