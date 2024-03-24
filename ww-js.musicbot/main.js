@@ -287,7 +287,7 @@ client.on('message', async (message) => {
 
             })():await  (async function () {
 
-                userInfo = {
+                let userInfo = {
                     "records": [{"fields":{
                             "userID": "","userName": "","userCountry": "","#songs": 0
                         }
