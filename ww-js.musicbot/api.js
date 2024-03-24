@@ -33,8 +33,8 @@ const addUser = async (userInfo) => {
         method: 'POST',
         airtableHeaders,
         body: JSON.stringify(userInfo)
-    }).then((response)=> response.body).then((data)=>{
-        console.log(data.text)
+    }).then((response)=> response.json).then((data)=>{
+        console.log(data)
     }).catch(error=>{
         console.log(`An error occurred while addingUser https://api.airtable.com: ${error}`)
     })
