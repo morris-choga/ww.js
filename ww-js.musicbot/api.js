@@ -31,10 +31,8 @@ const addUser = async (userInfo) => {
 
     let a = await fetch(airtableUrl, {
         method: 'POST',
-        airtableHeaders,
+        headers: airtableHeaders,
         body: JSON.stringify(userInfo)
-    }).then((response)=> response.json).then((data)=>{
-        console.log(data)
     }).catch(error=>{
         console.log(`An error occurred while addingUser https://api.airtable.com: ${error}`)
     })
@@ -87,6 +85,14 @@ const songIncrement = async (id , songsNum) => {
 }
 
 
+
+// (async function (){
+//     addUser({
+//         "records": [{"fields":{
+//                 "userID": "","userName": "","userCountry": "","#songs": 0
+//             }
+//         }]})
+// })()
 
 
 module.exports = { fetchCountry , fetchUsers , addUser , songIncrement};
