@@ -17,7 +17,6 @@ RUN apt-get update \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm i whatsapp-web.js@1.23.1-alpha.5
 
 COPY . .
 
