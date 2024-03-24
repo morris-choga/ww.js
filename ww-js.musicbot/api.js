@@ -28,7 +28,7 @@ const fetchCountry = async (num) => {
 
 
 const addUser = async (userInfo) => {
-
+    console.log(userInfo)
     await fetch(airtableUrl, {
         method: 'POST',
         airtableHeaders,

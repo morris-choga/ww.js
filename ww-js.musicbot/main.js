@@ -297,6 +297,7 @@ client.on('message', async (message) => {
                 userInfo.records[0].fields.userName = userName
                 userInfo.records[0].fields.userCountry = userCountry
 
+                console.log("Adding user")
                 await addUser(userInfo)
                 // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
                 await sendSong(message,registeredUsers,userID)
