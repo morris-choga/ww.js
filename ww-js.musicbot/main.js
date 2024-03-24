@@ -1,4 +1,5 @@
 const qrcode = require('qrcode-terminal');
+const { sendSong , sendLyrics} = require("./messenger");
 const { Client,LocalAuth ,MessageMedia, LinkingMethod } = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js");
 
@@ -47,111 +48,6 @@ client.on('qr', (qr) => {
 client.on('ready', () => {
     console.log('Client is ready!');
 });
-
-const fs = require('fs');
-
-
-let requestOptions = {
-    method: 'POST',
-    headers: {"Content-Type": "application/json"},
-    body: {},
-    redirect: 'follow'
-};
-
-// let apiKey = "patg3nVCYWdoRthJn.56198a4363e0982055386462c75e70566e51bc2b4bac7cd605b6996a87b51521";
-// let airtableUrl = "https://api.airtable.com/v0/appAcgdXpcBoOwP5X/tblk48SN08xOlGQz9"
-let apiUrl = "http://api:5000";
-
-
-async function sendLyrics(message){
-    requestOptions.body = JSON.stringify({"key": message.body.substring(8)})
-    let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
-        .then((response) => {
-
-
-            if (response.ok) {
-                return response.json()
-            }
-            return "Error"
-        }).then((data) => {
-            return data
-        }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
-
-
-    if (!Object.keys(lyrics).length == 0){
-        let picture = await MessageMedia.fromUrl(lyrics["album_art"], { unsafeMime: true })
-
-        setTimeout(async ()=>{
-            await message.reply(picture)
-        }, 3000);
-
-        setTimeout(async ()=>{
-
-            await message.reply(lyrics["lyrics"])
-
-
-        }, 6000);
-
-
-
-
-
-
-    }
-    else { await message.reply("oops! lyrics for this song are unavailable")}
-}
-
-async function sendSong(message,registeredUsers,userID) {
-
-    requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
-    let songPath = await fetch(apiUrl, requestOptions)
-        .then((response) => {
-            if (response.ok) {
-                return response.text()
-            }
-            return "Error"
-        }).then((data) => {
-            let response = data
-            let apiResponse = response.replace("api", "app")
-            return apiResponse
-        }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
-
-    if (typeof songPath !== "undefined" && songPath !== "Error") {
-
-
-
-        try {
-            let song = MessageMedia.fromFilePath(songPath)
-            // let a = Math.floor((Math.random() * 3) + 1)
-
-            await message.reply(song)
-            let users = await fetchUsers();
-            let songsNum = parseInt(users[userID][1]) + 1;
-            await songIncrement(registeredUsers[userID][0], songsNum)
-
-
-            fs.unlink(songPath, (err) => {
-                if (err) {
-                    console.error(`Error deleting file: ${err.message}`);
-                } else {
-                    console.log(`${message.body.toLocaleLowerCase()} sent`);
-
-                }
-            });
-
-
-        } catch (e) {
-            if (e.code === 'ENOENT'){await message.reply("oops! this song seems to be unavailable")}
-            console.log(`An error has occurred while sending media: ${e}`)
-        }
-
-
-
-    }
-}
-
-
-
 
 
 
