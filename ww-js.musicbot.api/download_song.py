@@ -2,7 +2,8 @@ import urllib
 
 from mutagen.id3 import ID3, TIT2, TALB, TPE1, TPE2, COMM, TCOM, TCON, TDRC, TRCK, APIC
 from mutagen.easyid3 import EasyID3
-from pytube import YouTube
+from pytubefix import YouTube
+from pytubefix.cli import on_progress
 from moviepy.editor import *
 import os
 
@@ -17,16 +18,20 @@ def download(title,video_id,location):
 
     try:
 
-        yt = YouTube(link)
+        yt = YouTube(link, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
         yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
         video = yt.streams.filter(only_audio=True).first()
         vid_file = video.download(output_path=location)
         base = os.path.splitext(vid_file)[0]
         audio_file = base + ".mp3"
 
+    except PytubeError as e:
+        print(f"An error occured with PytubeError: " + str(e))
+        return f"An error occured with PytubeError: " + str(e)
+
     except Exception as e:
-        print(f"Error has occured with ytmusicapi: {str(e)}")
-        return f"Error has occured with ytmusicapi: {str(e)}"
+        print(f"Error has occured with pytube: {str(e)}")
+        return f"Error has occured with pytube: {str(e)}"
 
 
 
@@ -43,9 +48,7 @@ def download(title,video_id,location):
         return audio_file
 
 
-    except PytubeError as e:
-        print(f"An error occured with PytubeError: " + str(e))
-        return f"An error occured with PytubeError: " + str(e)
+
 
     except Exception as e:
         print(f"Error has occured: {str(e)}")

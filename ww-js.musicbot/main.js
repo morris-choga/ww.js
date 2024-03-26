@@ -9,9 +9,9 @@ const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js")
 
 //
 // (async function (){
-//     console.log(await fetchUsers())
-//     console.log(await fetchCountry("48503374165"))
-// })()
+// //     console.log(await fetchUsers())
+// //     console.log(await fetchCountry("48503374165"))
+// // })()
 //
 
 
@@ -141,20 +141,7 @@ client.on('message', async (message) => {
 
 
     }
-    else if (message.body.toLocaleLowerCase() === "!clear"   && isGroup && (await message.getChat()).id.user === "120363243170575745" ||  (await message.getChat()).id.user === "120363223962652835") {
 
-
-
-        for (let x = 1; x <=1000; x++){
-
-            setTimeout(async () => {
-                console.log(`cleared: ${((await (await message.getChat()).fetchMessages()).length)}`)
-                await (await message.getChat()).clearMessages()
-            }, 5000);
-
-        }
-
-    }
 
 })
 

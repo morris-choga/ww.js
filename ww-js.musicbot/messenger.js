@@ -70,7 +70,6 @@ const sendSong = async (message,registeredUsers,userID) => {
 
         try {
             let song = MessageMedia.fromFilePath(songPath)
-            // let a = Math.floor((Math.random() * 3) + 1)
 
             await message.reply(song)
             let users = await fetchUsers();
