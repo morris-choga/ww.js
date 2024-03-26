@@ -8,8 +8,8 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route("/", methods=['GET', 'POST'])
-def hello_world():
+@app.route("/getsong", methods=['GET', 'POST'])
+def get_song():
     requested_song = request.get_json()
     song_metadata = get_song_metadata(f"{requested_song['key']}")
 
@@ -21,7 +21,22 @@ def hello_world():
         return song
 
 
+@app.route("/getsonginfo", methods=['GET', 'POST'])
+def get_song_info():
+    requested_song = request.get_json()
+    song_metadata = get_song_metadata(f"{requested_song['key']}")
 
+    if song_metadata is None:
+        return {}
+    else:
+
+        return {
+            "title":song_metadata["title"],
+            "artist":song_metadata["artist"],
+            "album":song_metadata["album_name"],
+            "year":song_metadata["year"],
+            "album_art":song_metadata["url"],
+                }
 
 
 

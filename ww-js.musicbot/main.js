@@ -1,5 +1,5 @@
 const qrcode = require('qrcode-terminal');
-const { sendSong , sendLyrics} = require("./messenger");
+const { sendSong , sendLyrics, sendSongInfo} = require("./messenger");
 const { Client,LocalAuth ,MessageMedia, LinkingMethod } = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js");
 
@@ -55,6 +55,9 @@ client.on('ready', () => {
 client.on('message', async (message) => {
 
 
+    // song group "120363223962652835"
+    // test group 120363243170575745
+
 
     let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
     let isGroup = (await message.getChat()).isGroup
@@ -71,6 +74,10 @@ client.on('message', async (message) => {
         await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
     }
 
+    else if (message.body.toLocaleLowerCase().startsWith("!song-info ") && message.body.length > 11 || (await message.getChat()).id.user === "120363223962652835" || (await message.getChat()).id.user === "120363243170575745") {
+        await sendSongInfo(message)
+
+    }
 
     else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
 

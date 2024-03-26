@@ -49,10 +49,38 @@ const sendLyrics =  async (message) => {
     else { await message.reply("oops! lyrics for this song are unavailable")}
 }
 
-const sendSong = async (message,registeredUsers,userID) => {
+const sendSongInfo =  async (message) => {
 
+    requestOptions.body = JSON.stringify({"key": message.body.substring(11)})
+    let songInfo = await fetch(`${apiUrl}/getsonginfo`, requestOptions)
+        .then((response) => {
+
+
+            if (response.ok) {
+                return response.json()
+            }
+            return "Error"
+        }).then((data) => {
+            return data
+        }).catch(error => console.log('an error has occurred while fetching https://api:5000/getsonginfo', error))
+
+
+    if (!Object.keys(songInfo).length == 0){
+        let picture = await MessageMedia.fromUrl(songInfo["album_art"], { unsafeMime: true })
+
+        setTimeout(async ()=>{
+            await message.reply(picture,{caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}\n`})
+        }, 3000);
+
+
+    }
+    else { await message.reply("oops! info for this song are unavailable")}
+}
+
+const sendSong = async (message,registeredUsers,userID) => {
+    getsong
     requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
-    let songPath = await fetch(apiUrl, requestOptions)
+    let songPath = await fetch(`${apiUrl}/getsong`, requestOptions)
         .then((response) => {
             if (response.ok) {
                 return response.text()
@@ -97,4 +125,4 @@ const sendSong = async (message,registeredUsers,userID) => {
     }
 }
 
-module.exports = { sendSong , sendLyrics};
+module.exports = { sendSong , sendLyrics, sendSongInfo};
