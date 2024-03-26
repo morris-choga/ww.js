@@ -7,7 +7,7 @@ from pytubefix.cli import on_progress
 from moviepy.editor import *
 import os
 
-from pytube.exceptions import PytubeError
+from pytubefix.exceptions import PytubeError
 
 
 
