@@ -72,7 +72,7 @@ const sendSongInfo =  async (message) => {
 
             (await message.getChat()).sendMessage(picture,{caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}`})
 
-            await message.reply("Man what?")
+            await message.reply(picture, {caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}`})
         }, 3000);
 
 
