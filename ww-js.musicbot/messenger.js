@@ -69,7 +69,8 @@ const sendSongInfo =  async (message) => {
         let picture = await MessageMedia.fromUrl(songInfo["album_art"], { unsafeMime: true })
 
         setTimeout(async ()=>{
-            await message.reply(picture,{caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}\n`})
+            await message.reply(picture)
+            // await message.reply(picture,{caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}\n`})
         }, 3000);
 
 
