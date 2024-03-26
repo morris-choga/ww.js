@@ -7,7 +7,7 @@ from pytubefix.cli import on_progress
 from moviepy.editor import *
 import os
 
-from pytubefix.exceptions import PytubeError
+# from pytubefix.exceptions import PytubeError
 
 
 
@@ -25,9 +25,9 @@ def download(title,video_id,location):
         base = os.path.splitext(vid_file)[0]
         audio_file = base + ".mp3"
 
-    except PytubeError as e:
-        print(f"An error occured with PytubeError: " + str(e))
-        return f"An error occured with PytubeError: " + str(e)
+    # except PytubeError as e:
+    #     print(f"An error occured with PytubeError: " + str(e))
+    #     return f"An error occured with PytubeError: " + str(e)
 
     except Exception as e:
         print(f"Error has occured with pytube: {str(e)}")
