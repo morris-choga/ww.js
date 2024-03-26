@@ -74,7 +74,7 @@ client.on('message', async (message) => {
         await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
     }
 
-    else if (message.body.toLocaleLowerCase().startsWith("!song-info ") && message.body.length > 11 || (await message.getChat()).id.user === "120363223962652835" || (await message.getChat()).id.user === "120363243170575745") {
+    else if (message.body.toLocaleLowerCase().startsWith("!song-info ") || message.body.toLocaleLowerCase().startsWith("!song_info ") && message.body.length > 11 && (await message.getChat()).id.user === "120363223962652835" || (await message.getChat()).id.user === "120363243170575745") {
         await sendSongInfo(message)
 
     }
