@@ -71,8 +71,8 @@ const sendSongInfo =  async (message) => {
         setTimeout(async ()=>{
 
             (await message.getChat()).sendMessage(picture,{caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}`})
-            // await message.reply(picture, {caption: "Hello"})
-            // await message.reply(picture,{caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}\n`})
+
+            await message.reply("Man what?")
         }, 3000);
 
 
