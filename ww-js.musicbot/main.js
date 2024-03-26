@@ -67,6 +67,9 @@ client.on('message', async (message) => {
     else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && (await message.getChat()).id.user === "120363244367417149"){
         await sendLyrics(message)
     }
+    else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 ){
+        await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
+    }
 
 
     else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
@@ -121,7 +124,7 @@ client.on('message', async (message) => {
             }, 5000);
         } else if (groupParticipantsNumber >= 11) {
 
-            await message.reply("Join the community to request for songs \n\nhttps://chat.whatsapp.com/LE6i5lCWXNd5OwWBJGyZEO")
+            await message.reply("Join the group to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
 
 
         }
