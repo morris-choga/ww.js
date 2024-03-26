@@ -2,5 +2,5 @@ flask
 ytmusicapi
 mutagen
 gunicorn
-pytubefix
+pytube
 moviepy
