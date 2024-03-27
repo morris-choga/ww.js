@@ -67,7 +67,7 @@ client.on('message', async (message) => {
         console.log((await message.getChat()).id.user)
     }
     else if((message.body.toLocaleLowerCase().startsWith("!menu") || message.body.toLocaleLowerCase().startsWith("!help")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
-        await message.reply("*Bot commands*\n\n🤖!song (eg !song rihanna diomonds)\n🤖!lyrics (eg !lyrics Maroon 5 sugar)\n🤖!song-info (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
+        await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diomonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
     }
 
 
