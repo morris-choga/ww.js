@@ -81,7 +81,6 @@ const sendSongInfo =  async (message) => {
 }
 
 const sendSong = async (message,registeredUsers,userID) => {
-    getsong
     requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
     let songPath = await fetch(`${apiUrl}/getsong`, requestOptions)
         .then((response) => {
