@@ -57,6 +57,7 @@ client.on('message', async (message) => {
 
     // song group "120363223962652835"
     // test group 120363243170575745
+    // lyrics 120363244367417149
 
 
     let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
@@ -64,6 +65,9 @@ client.on('message', async (message) => {
 
     if (message.body.toLocaleLowerCase().startsWith("!get_id ") && message.body.length > 6 && isGroup){
         console.log((await message.getChat()).id.user)
+    }
+    else if((message.body.toLocaleLowerCase().startsWith("!menu") || message.body.toLocaleLowerCase().startsWith("!help")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
+        await message.reply("*Bot commands*\n\n🤖!song (eg !song rihanna diomonds)\n🤖!lyrics (eg !lyrics Maroon 5 sugar)\n🤖!song-info (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
     }
 
 

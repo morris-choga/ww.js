@@ -46,7 +46,7 @@ const sendLyrics =  async (message) => {
 
 
     }
-    else { await message.reply("oops! lyrics for this song are unavailable")}
+    else { await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")}
 }
 
 const sendSongInfo =  async (message) => {
@@ -118,7 +118,7 @@ const sendSong = async (message,registeredUsers,userID) => {
 
 
         } catch (e) {
-            if (e.code === 'ENOENT'){await message.reply("oops! this song seems to be unavailable")}
+            if (e.code === 'ENOENT'){await message.reply("oops! this song seems to be unavailable\nuse !menu for help")}
             console.log(`An error has occurred while sending media: ${e}`)
         }
 
