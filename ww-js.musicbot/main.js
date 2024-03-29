@@ -126,8 +126,9 @@ client.on('message', async (message) => {
 
 
                 await addUser(userInfo)
+                await searchSong(message)
                 // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-                await sendSong(message,registeredUsers,userID)
+                // await sendSong(message,registeredUsers,userID)
             })()
 
 
