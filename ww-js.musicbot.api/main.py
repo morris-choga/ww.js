@@ -1,5 +1,5 @@
-from songmetadata import get_song_metadata, lyrics
-from download_song import tagger,download
+from songmetadata import get_song_metadata, get_songs_metadata, lyrics, tagger
+from download_song import download
 from downloadsong_api import download_song
 from flask import request, jsonify
 import os
@@ -8,17 +8,39 @@ from flask import Flask
 app = Flask(__name__)
 
 
+
+@app.route("/searchsong", methods=['GET', 'POST'])
+def search_song():
+    requested_song = request.get_json()
+    songs_metadata = get_songs_metadata(f"{requested_song['key']}")
+
+    return songs_metadata
+
 @app.route("/getsong", methods=['GET', 'POST'])
 def get_song():
     requested_song = request.get_json()
-    song_metadata = get_song_metadata(f"{requested_song['key']}")
+    video_id = requested_song['video_id']
 
-    if song_metadata is None:
-        return {}
-    else:
-        song = download(song_metadata["title"], song_metadata["video_id"], os.path.join("/usr/src/api", "songs"))
-        tagger(song_metadata["title"], song_metadata["artist"], song_metadata["album_name"], song_metadata["url"], song)
-        return song
+    song = download(video_id, os.path.join("/usr/src/api", "songs"))
+    if "album_id" in requested_song:
+        tagger(song,video_id,requested_song["album_id"])
+
+    else: tagger(song,video_id)
+    return song
+
+
+
+# @app.route("/getsong", methods=['GET', 'POST'])
+# def get_song():
+#     requested_song = request.get_json()
+#     song_metadata = get_song_metadata(f"{requested_song['key']}")
+#
+#     if song_metadata is None:
+#         return {}
+#     else:
+#         song = download(song_metadata["title"], song_metadata["video_id"], os.path.join("/usr/src/api", "songs"))
+#         tagger(song_metadata["title"], song_metadata["artist"], song_metadata["album_name"], song_metadata["url"], song)
+#         return song
 
 
 @app.route("/getsonginfo", methods=['GET', 'POST'])

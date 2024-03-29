@@ -2,8 +2,51 @@ from ytmusicapi import YTMusic
 import os
 oauth = f"{os.getcwd()}/oauth.json"
 yt = YTMusic(oauth)
+import urllib
+import os
+from mutagen.id3 import ID3, TIT2, TALB, TPE1, TPE2, COMM, TCOM, TCON, TDRC, TRCK, APIC
+from mutagen.easyid3 import EasyID3
+from pytube import YouTube
 
 
+
+def get_songs_metadata(song):
+    results = []
+
+    try:
+
+        count = 0
+        song_results = yt.search(song, filter="songs")
+        video_results = yt.search(song, filter="videos")
+        for song in song_results:
+            if count < 2:
+                results.append({"artist": song['artists'][0]['name'], "title": song['title'], "video_id": song['videoId'], "album_id": song["album"]["id"]})
+
+                count += 1
+            else:
+                break
+
+        if len(video_results)>0:
+            results.append({"artist": video_results[0]['artists'][0]['name'], "title": video_results[0]['title'], "video_id": video_results[0]['videoId']})
+
+        return results
+
+        # song['title']
+        # title = results[0]['title']
+        # album_name = results[0]['album']['name']
+        # artist = results[0]['artists'][0]['name']
+        #
+        # video_id = results[0]['videoId']
+        # album = yt.get_album(results[0]["album"]["id"])
+        # year = album["year"]
+        # url = album['thumbnails'][-1]['url']
+        #
+        # return {"title": title, "album_name": album_name, "artist": artist, "year": year, "video_id": video_id,
+        #         "url": url}
+
+    except Exception  as e:
+        print(f"An error occurred: {e}")
+        return None
 
 def get_song_metadata(song):
 
@@ -48,3 +91,87 @@ def lyrics(song):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+
+
+
+def tagger(location, video_id, album_id = None):
+
+    title = None
+    artist = None
+    album = None
+    thumbnail = None
+    year = "2024"
+
+    if album_id is not None:
+        title = yt.get_song(video_id)["videoDetails"]["title"]
+
+        album_details = yt.get_album(album_id)
+        album = album_details["title"]
+        artist = album_details['artists'][0]['name']
+        year = album_details["year"]
+        thumbnail = album_details['thumbnails'][-1]['url']
+
+    else:
+        title = yt.get_song(video_id)["videoDetails"]["title"]
+        album = "mchoga"
+        artist = "morris"
+        year = "2024"
+        thumbnail = yt.get_song(video_id)["videoDetails"]["thumbnail"]["thumbnails"][-1]["url"]
+
+    try:
+
+        mp3file = EasyID3(location)
+
+
+        mp3file["albumartist"] = album
+        mp3file["artist"] = artist
+        mp3file["album"] = album
+        mp3file["title"] = title
+        mp3file["website"] = 'https://morrischoga.vercel.app'
+        mp3file["tracknumber"] = str(1)
+        mp3file.save()
+
+        audio = ID3(location)
+        audio.save(v2_version=3)
+
+        audio = ID3(location)
+        with urllib.request.urlopen(thumbnail) as albumart:
+            audio["APIC"] = APIC(
+                encoding=3, mime="image/jpeg", type=3, desc="Cover", data=albumart.read()
+            )
+        audio.save(v2_version=3)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+
+
+
+
+
+# def tagger(title, artist, album, thumbnail, location):
+#
+#     try:
+#         thumbnail = thumbnail
+#         mp3file = EasyID3(location)
+#         mp3file["albumartist"] = album
+#         mp3file["artist"] = artist
+#         mp3file["album"] = album
+#         mp3file["title"] = title
+#         mp3file["website"] = 'https://morrischoga.vercel.app'
+#         mp3file["tracknumber"] = str(1)
+#         mp3file.save()
+#
+#         audio = ID3(location)
+#         audio.save(v2_version=3)
+#
+#         audio = ID3(location)
+#         with urllib.request.urlopen(thumbnail) as albumart:
+#             audio["APIC"] = APIC(
+#                 encoding=3, mime="image/jpeg", type=3, desc="Cover", data=albumart.read()
+#             )
+#         audio.save(v2_version=3)
+#
+#     except Exception as e:
+#         print(f"An error occurred: {e}")

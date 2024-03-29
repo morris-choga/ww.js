@@ -10,7 +10,37 @@ let requestOptions = {
     redirect: 'follow'
 };
 
+const searchSong =  async (message) => {
 
+    requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
+    let songs = await fetch(`${apiUrl}/searchsong`, requestOptions)
+        .then((response) => {
+
+            if (response.ok) {
+                return response.json()
+            }
+            return "Error"
+        }).then((data) => {
+            return data
+        }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
+
+
+    if (!Object.keys(songs).length == 0){
+        let content = ""
+
+        for (let i = 0; i< songs.length; i++){
+
+            content += `${i+1}: ${songs[i].artist} ${songs[i].title}\n[${songs[i].video_id} ${songs[i].album_id !== undefined ? songs[i].album_id :''}]\n\n`
+        }
+        content+="Reply this message with song number"
+        setTimeout(async ()=>{
+            await message.reply(content)
+        }, 3000);
+
+    }
+
+
+}
 const sendLyrics =  async (message) => {
     requestOptions.body = JSON.stringify({"key": message.body.substring(8)})
     let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
@@ -127,4 +157,4 @@ const sendSong = async (message,registeredUsers,userID) => {
     }
 }
 
-module.exports = { sendSong , sendLyrics, sendSongInfo};
+module.exports = { sendSong , sendLyrics, sendSongInfo, searchSong};

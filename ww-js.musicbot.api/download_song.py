@@ -1,7 +1,4 @@
-import urllib
 
-from mutagen.id3 import ID3, TIT2, TALB, TPE1, TPE2, COMM, TCOM, TCON, TDRC, TRCK, APIC
-from mutagen.easyid3 import EasyID3
 from pytube import YouTube
 from pytube.cli import on_progress
 from moviepy.editor import *
@@ -11,7 +8,7 @@ import os
 
 
 
-def download(title,video_id,location):
+def download(video_id,location):
     link = f'https://music.youtube.com/watch?v={video_id}'
 
 
@@ -57,28 +54,4 @@ def download(title,video_id,location):
 
 
 
-def tagger(title, artist, album, thumbnail, location):
 
-    try:
-        thumbnail = thumbnail
-        mp3file = EasyID3(location)
-        mp3file["albumartist"] = album
-        mp3file["artist"] = artist
-        mp3file["album"] = album
-        mp3file["title"] = title
-        mp3file["website"] = 't.me/mchoga'
-        mp3file["tracknumber"] = str(1)
-        mp3file.save()
-
-        audio = ID3(location)
-        audio.save(v2_version=3)
-
-        audio = ID3(location)
-        with urllib.request.urlopen(thumbnail) as albumart:
-            audio["APIC"] = APIC(
-                encoding=3, mime="image/jpeg", type=3, desc="Cover", data=albumart.read()
-            )
-        audio.save(v2_version=3)
-
-    except Exception as e:
-        print(f"An error occurred: {e}")

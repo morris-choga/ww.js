@@ -1,5 +1,5 @@
 const qrcode = require('qrcode-terminal');
-const { sendSong , sendLyrics, sendSongInfo} = require("./messenger");
+const { sendSong , sendLyrics, sendSongInfo, searchSong} = require("./messenger");
 const { Client,LocalAuth ,MessageMedia, LinkingMethod } = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js");
 
@@ -103,7 +103,8 @@ client.on('message', async (message) => {
             Object.keys(registeredUsers).includes(userID) ? await (async function () {
 
                 if (registeredUsers[userID][1] < 10) {
-                    await sendSong(message,registeredUsers,userID)
+                    await searchSong(message)
+                    // await sendSong(message,registeredUsers,userID)
                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
                 } else {
