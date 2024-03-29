@@ -25,6 +25,7 @@ const searchSong =  async (message) => {
         }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
 
 
+
     if (!Object.keys(songs).length == 0){
         let content = ""
 
