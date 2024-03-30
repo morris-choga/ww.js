@@ -147,7 +147,7 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
                 if (err) {
                     console.error(`Error deleting file: ${err.message}`);
                 } else {
-                    console.log(`${message.body.toLocaleLowerCase()} sent`);
+                    console.log(`${message._data.notifyName} received song`);
 
                 }
             });
