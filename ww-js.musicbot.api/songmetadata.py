@@ -49,10 +49,12 @@ def get_songs_metadata(song):
         return None
 
 def get_song_metadata(song):
+    # yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
 
     try:
         results = yt.search(song, filter="songs")
-        title = results[0]['title']
+        title = "".join([c for c in results[0]['title'] if c not in ['[',']']])
+
         album_name = results[0]['album']['name']
         artist = results[0]['artists'][0]['name']
 
