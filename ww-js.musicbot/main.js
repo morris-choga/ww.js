@@ -71,6 +71,89 @@ client.on('message', async (message) => {
     if (message.body.toLocaleLowerCase().startsWith("!get_id ") && message.body.length > 6 && isGroup){
         console.log((await message.getChat()).id.user)
     }
+
+    else if (message.body.toLocaleLowerCase().startsWith("!test ") && message.body.length > 6 && isGroup){
+
+        let decision = 3;
+        let options = [1,2,3]
+        let data = {}
+        let text = "1: Souljah Luv - Ndini Uya Uya\n" +
+            "[Qb4FnxNhZJg~MPREb_YmmveozhpiT]\n" +
+            "\n" +
+            "2: Soul jah luv - Kana Ndafa\n" +
+            "[mMHD2xq8BeI~MPREb_UlJatw8cqKg]\n" +
+            "\n" +
+            "3: Iga Justo Original Gaucho Loco - Soul Jah Love - ndini uya uya clip official 2014 R.I.P. Champion 🙏😔\n" +
+            "[TKcRGd98tUg~]\n" +
+            "\n" +
+            "Reply this message with song number";
+
+        let pos = text.split("]")
+
+
+        if (options.includes(decision)){
+
+
+            for (let i = 0; i < pos.length-1; i++){
+                if (i+1 === decision) {
+                    let str = pos[i].slice(pos[i].indexOf("[") + 1)
+                    data["video_id"] = str.slice(0,str.indexOf("~"))
+                    data["album_id"] = str.slice(str.indexOf("~")+1)
+                }
+            }
+
+        }
+
+
+
+
+        if ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "2348034690865-1596391813" || (await message.getChat()).id.user === "120363223962652835") {
+
+            let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
+            let userName = await message._data.notifyName
+            let userCountry = await fetchCountry(userID)
+            let registeredUsers = await fetchUsers()
+
+
+            Object.keys(registeredUsers).includes(userID) ? await (async function () {
+
+                if (registeredUsers[userID][1] < 10) {
+                    await sendSong(data, message,registeredUsers,userID)
+                    // await sendSong(message,registeredUsers,userID)
+                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+
+                } else {
+                    message.reply("You have exceeded your daily limit...")
+                }
+
+            })() : await (async function () {
+
+                let userInfo = {
+                    "records": [{
+                        "fields": {
+                            "userID": "", "userName": "", "userCountry": "", "#songs": 0
+                        }
+                    }]
+                }
+
+                userInfo.records[0].fields.userID = userID
+                userInfo.records[0].fields.userName = userName
+                userInfo.records[0].fields.userCountry = userCountry
+
+
+                await addUser(userInfo)
+                await sendSong(data, message,registeredUsers,userID)
+                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                // await sendSong(message,registeredUsers,userID)
+            })()
+
+
+        }
+
+    }
+
+
+
     else if((message.body.toLocaleLowerCase().startsWith("!menu") || message.body.toLocaleLowerCase().startsWith("!help")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
         await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diomonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
     }

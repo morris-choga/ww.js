@@ -111,8 +111,14 @@ const sendSongInfo =  async (message) => {
     else { await message.reply("oops! info for this song are unavailable")}
 }
 
-const sendSong = async (message,registeredUsers,userID) => {
-    requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
+const sendSong = async (metadata,message,registeredUsers,userID) => {
+
+    let data = {"video_id": metadata.video_id}
+
+    metadata.album_id === "" ? "" : data["album_id"] = metadata.album_id
+    console.log(data)
+
+    requestOptions.body = JSON.stringify(data)
     let songPath = await fetch(`${apiUrl}/getsong`, requestOptions)
         .then((response) => {
             if (response.ok) {
