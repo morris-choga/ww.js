@@ -27,7 +27,7 @@ const client = new Client({
     puppeteer: {
         headless: true,
         args: ['--no-sandbox']
-    }, webVersion: '2.2309.2',
+    }, webVersion: '2.2409.2',
     webVersionCache: {
         type: 'local',
         // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
