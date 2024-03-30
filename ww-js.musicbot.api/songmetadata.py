@@ -20,14 +20,19 @@ def get_songs_metadata(song):
         video_results = yt.search(song, filter="videos")
         for song in song_results:
             if count < 2:
-                results.append({"artist": song['artists'][0]['name'], "title": song['title'], "video_id": song['videoId'], "album_id": song["album"]["id"]})
+                artist = "".join([c for c in song['artists'][0]['name'] if c not in ['[', ']']])
+                title = "".join([c for c in song['title'] if c not in ['[', ']']])
+                results.append({"artist": artist, "title": title, "video_id": song['videoId'], "album_id": song["album"]["id"]})
 
                 count += 1
             else:
                 break
 
         if len(video_results)>0:
-            results.append({"artist": video_results[0]['artists'][0]['name'], "title": video_results[0]['title'], "video_id": video_results[0]['videoId']})
+            artist = "".join([c for c in video_results[0]['artists'][0]['name'] if c not in ['[', ']']])
+            title = "".join([c for c in video_results[0]['title'] if c not in ['[', ']']])
+
+            results.append({"artist": artist, "title": title, "video_id": video_results[0]['videoId']})
 
         return results
 
@@ -53,8 +58,7 @@ def get_song_metadata(song):
 
     try:
         results = yt.search(song, filter="songs")
-        title = "".join([c for c in results[0]['title'] if c not in ['[',']']])
-
+        title = results[0]['title']
         album_name = results[0]['album']['name']
         artist = results[0]['artists'][0]['name']
 
