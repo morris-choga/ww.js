@@ -171,7 +171,7 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
 
     }
-    else if (typeof songPath !== "object"){
+    else if (typeof songPath === "object"){
         await message.reply(songPath.Error)
     }
 }
