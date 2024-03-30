@@ -31,7 +31,7 @@ const searchSong =  async (message) => {
 
         for (let i = 0; i< songs.length; i++){
 
-            content += `*${i+1}: ${songs[i].artist} - ${songs[i].title}(converted from video)*\n[${songs[i].video_id}~${songs[i].album_id !== undefined ? songs[i].album_id :''}]\n\n`
+            content += `*${i+1}: ${songs[i].artist} - ${songs[i].title}${songs[i].album_id !== undefined ? "" : "(converted from video)"}*\n[${songs[i].video_id}~${songs[i].album_id !== undefined ? songs[i].album_id :''}]\n\n`
         }
         content+="Reply this message with song number"
         setTimeout(async ()=>{
