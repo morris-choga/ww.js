@@ -116,7 +116,7 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
     let data = {"video_id": metadata.video_id}
 
     metadata.album_id === "" ? "" : data["album_id"] = metadata.album_id
-    console.log(data)
+
 
     requestOptions.body = JSON.stringify(data)
     let songPath = await fetch(`${apiUrl}/getsong`, requestOptions)
