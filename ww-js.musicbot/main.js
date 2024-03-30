@@ -64,7 +64,7 @@ client.on('message', async (message) => {
     // test group 120363243170575745
     // lyrics 120363244367417149
 
-    let options = [1,2,3]
+    let options = ["1","2","3"]
     let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
     let isGroup = (await message.getChat()).isGroup
 
@@ -73,24 +73,19 @@ client.on('message', async (message) => {
         console.log((await message.getChat()).id.user)
     }
 
-    else if (options.includes(message.body) && message.body.length > 6 && isGroup){
 
-        let decision = 3;
+    else if (message.hasQuotedMsg && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363223962652835")){
+
+        if (message._data.quotedMsg.type === "chat" && message._data.quotedMsg.from === "13479602438@c.us" && options.includes(message.body))
 
         let data = {}
-        let text = "1: Souljah Luv - Ndini Uya Uya\n" +
-            "[Qb4FnxNhZJg~MPREb_YmmveozhpiT]\n" +
-            "\n" +
-            "2: Soul jah luv - Kana Ndafa\n" +
-            "[mMHD2xq8BeI~MPREb_UlJatw8cqKg]\n" +
-            "\n" +
-            "3: Iga Justo Original Gaucho Loco - Soul Jah Love - ndini uya uya clip official 2014 R.I.P. Champion 🙏😔\n" +
-            "[TKcRGd98tUg~]\n" +
-            "\n" +
-            "Reply this message with song number";
-
-        let pos = text.split("]")
-
+        let songs = message._data.quotedMsg.body
+        let pos = songs.split("]")
+        let decision = message.body;
+        let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
+        let userName = await message._data.notifyName
+        let userCountry = await fetchCountry(userID)
+        let registeredUsers = await fetchUsers()
 
         if (options.includes(decision)){
 
@@ -105,51 +100,47 @@ client.on('message', async (message) => {
 
         }
 
+        Object.keys(registeredUsers).includes(userID) ? await (async function () {
 
-
-
-        if ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "2348034690865-1596391813" || (await message.getChat()).id.user === "120363223962652835") {
-
-            let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
-            let userName = await message._data.notifyName
-            let userCountry = await fetchCountry(userID)
-            let registeredUsers = await fetchUsers()
-
-
-            Object.keys(registeredUsers).includes(userID) ? await (async function () {
-
-                if (registeredUsers[userID][1] < 10) {
-                    await sendSong(data, message,registeredUsers,userID)
-                    // await sendSong(message,registeredUsers,userID)
-                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-
-                } else {
-                    message.reply("You have exceeded your daily limit...")
-                }
-
-            })() : await (async function () {
-
-                let userInfo = {
-                    "records": [{
-                        "fields": {
-                            "userID": "", "userName": "", "userCountry": "", "#songs": 0
-                        }
-                    }]
-                }
-
-                userInfo.records[0].fields.userID = userID
-                userInfo.records[0].fields.userName = userName
-                userInfo.records[0].fields.userCountry = userCountry
-
-
-                await addUser(userInfo)
+            if (registeredUsers[userID][1] < 10) {
                 await sendSong(data, message,registeredUsers,userID)
-                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
                 // await sendSong(message,registeredUsers,userID)
-            })()
+                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+
+            } else {
+                message.reply("You have exceeded your daily limit...")
+            }
+
+        })() : await (async function () {
+
+            let userInfo = {
+                "records": [{
+                    "fields": {
+                        "userID": "", "userName": "", "userCountry": "", "#songs": 0
+                    }
+                }]
+            }
+
+            userInfo.records[0].fields.userID = userID
+            userInfo.records[0].fields.userName = userName
+            userInfo.records[0].fields.userCountry = userCountry
 
 
-        }
+            await addUser(userInfo)
+            await sendSong(data, message,registeredUsers,userID)
+            // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+            // await sendSong(message,registeredUsers,userID)
+        })()
+
+
+
+
+
+
+
+
+
+
 
     }
 
