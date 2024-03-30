@@ -78,7 +78,7 @@ client.on('message', async (message) => {
 
         if (message._data.quotedMsg.type === "chat" && message._data.quotedMsg.from === "13479602438@c.us" && options.includes(message.body))
 
-        let data = {}
+        let data = {};
         let songs = message._data.quotedMsg.body
         let pos = songs.split("]")
         let decision = message.body;
