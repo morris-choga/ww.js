@@ -31,7 +31,6 @@ const client = new Client({
     webVersionCache: {
         type: 'local',
         // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
-        authStrategy: new LocalAuth()
     }
 
 });
