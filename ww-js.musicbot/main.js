@@ -64,18 +64,19 @@ client.on('message', async (message) => {
     // test group 120363243170575745
     // lyrics 120363244367417149
 
-
+    let options = [1,2,3]
     let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
     let isGroup = (await message.getChat()).isGroup
 
     if (message.body.toLocaleLowerCase().startsWith("!get_id ") && message.body.length > 6 && isGroup){
+        console.log(message)
         console.log((await message.getChat()).id.user)
     }
 
-    else if (message.body.toLocaleLowerCase().startsWith("!test ") && message.body.length > 6 && isGroup){
+    else if (options.includes(message.body) && message.body.length > 6 && isGroup){
 
         let decision = 3;
-        let options = [1,2,3]
+
         let data = {}
         let text = "1: Souljah Luv - Ndini Uya Uya\n" +
             "[Qb4FnxNhZJg~MPREb_YmmveozhpiT]\n" +
