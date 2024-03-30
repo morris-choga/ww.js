@@ -76,70 +76,64 @@ client.on('message', async (message) => {
 
     else if (message.hasQuotedMsg && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363223962652835")){
 
-        if (message._data.quotedMsg.type === "chat" && message._data.quotedMsg.from === "13479602438@c.us" && options.includes(message.body))
+        if (message._data.quotedMsg.type === "chat" && message._data.quotedMsg.from === "13479602438@c.us" && options.includes(message.body)) {
 
-        let data = {};
-        let songs = message._data.quotedMsg.body
-        let pos = songs.split("]")
-        let decision = message.body;
-        let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
-        let userName = await message._data.notifyName
-        let userCountry = await fetchCountry(userID)
-        let registeredUsers = await fetchUsers()
+            let data = {};
+            let songs = message._data.quotedMsg.body
+            let pos = songs.split("]")
+            let decision = message.body;
+            let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
+            let userName = await message._data.notifyName
+            let userCountry = await fetchCountry(userID)
+            let registeredUsers = await fetchUsers()
 
-        if (options.includes(decision)){
+            if (options.includes(decision)) {
 
 
-            for (let i = 0; i < pos.length-1; i++){
-                if (i+1 === decision) {
-                    let str = pos[i].slice(pos[i].indexOf("[") + 1)
-                    data["video_id"] = str.slice(0,str.indexOf("~"))
-                    data["album_id"] = str.slice(str.indexOf("~")+1)
+                for (let i = 0; i < pos.length - 1; i++) {
+                    if (i + 1 === decision) {
+                        let str = pos[i].slice(pos[i].indexOf("[") + 1)
+                        data["video_id"] = str.slice(0, str.indexOf("~"))
+                        data["album_id"] = str.slice(str.indexOf("~") + 1)
+                    }
                 }
+
             }
+
+            Object.keys(registeredUsers).includes(userID) ? await (async function () {
+
+                if (registeredUsers[userID][1] < 10) {
+                    await sendSong(data, message, registeredUsers, userID)
+                    // await sendSong(message,registeredUsers,userID)
+                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+
+                } else {
+                    message.reply("You have exceeded your daily limit...")
+                }
+
+            })() : await (async function () {
+
+                let userInfo = {
+                    "records": [{
+                        "fields": {
+                            "userID": "", "userName": "", "userCountry": "", "#songs": 0
+                        }
+                    }]
+                }
+
+                userInfo.records[0].fields.userID = userID
+                userInfo.records[0].fields.userName = userName
+                userInfo.records[0].fields.userCountry = userCountry
+
+
+                await addUser(userInfo)
+                await sendSong(data, message, registeredUsers, userID)
+                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                // await sendSong(message,registeredUsers,userID)
+            })()
+
 
         }
-
-        Object.keys(registeredUsers).includes(userID) ? await (async function () {
-
-            if (registeredUsers[userID][1] < 10) {
-                await sendSong(data, message,registeredUsers,userID)
-                // await sendSong(message,registeredUsers,userID)
-                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-
-            } else {
-                message.reply("You have exceeded your daily limit...")
-            }
-
-        })() : await (async function () {
-
-            let userInfo = {
-                "records": [{
-                    "fields": {
-                        "userID": "", "userName": "", "userCountry": "", "#songs": 0
-                    }
-                }]
-            }
-
-            userInfo.records[0].fields.userID = userID
-            userInfo.records[0].fields.userName = userName
-            userInfo.records[0].fields.userCountry = userCountry
-
-
-            await addUser(userInfo)
-            await sendSong(data, message,registeredUsers,userID)
-            // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-            // await sendSong(message,registeredUsers,userID)
-        })()
-
-
-
-
-
-
-
-
-
 
 
     }
