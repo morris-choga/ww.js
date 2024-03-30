@@ -91,46 +91,54 @@ client.on('message', async (message) => {
 
 
                 for (let i = 0; i < pos.length - 1; i++) {
-                    if (i + 1 === decision) {
+                    if (i + 1 === parseInt(decision)) {
                         let str = pos[i].slice(pos[i].indexOf("[") + 1)
                         data["video_id"] = str.slice(0, str.indexOf("~"))
                         data["album_id"] = str.slice(str.indexOf("~") + 1)
                     }
                 }
 
+                Object.keys(registeredUsers).includes(userID) ? await (async function () {
+
+                    if (registeredUsers[userID][1] < 10) {
+                        await sendSong(data, message, registeredUsers, userID)
+                        // await sendSong(message,registeredUsers,userID)
+                        // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+
+                    } else {
+                        message.reply("You have exceeded your daily limit...")
+                    }
+
+                })() : await (async function () {
+
+                    let userInfo = {
+                        "records": [{
+                            "fields": {
+                                "userID": "", "userName": "", "userCountry": "", "#songs": 0
+                            }
+                        }]
+                    }
+
+                    userInfo.records[0].fields.userID = userID
+                    userInfo.records[0].fields.userName = userName
+                    userInfo.records[0].fields.userCountry = userCountry
+
+
+                    await addUser(userInfo)
+                    await sendSong(data, message, registeredUsers, userID)
+                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                    // await sendSong(message,registeredUsers,userID)
+                })()
+
+
+
+
+
+
+
             }
 
-            Object.keys(registeredUsers).includes(userID) ? await (async function () {
 
-                if (registeredUsers[userID][1] < 10) {
-                    await sendSong(data, message, registeredUsers, userID)
-                    // await sendSong(message,registeredUsers,userID)
-                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-
-                } else {
-                    message.reply("You have exceeded your daily limit...")
-                }
-
-            })() : await (async function () {
-
-                let userInfo = {
-                    "records": [{
-                        "fields": {
-                            "userID": "", "userName": "", "userCountry": "", "#songs": 0
-                        }
-                    }]
-                }
-
-                userInfo.records[0].fields.userID = userID
-                userInfo.records[0].fields.userName = userName
-                userInfo.records[0].fields.userCountry = userCountry
-
-
-                await addUser(userInfo)
-                await sendSong(data, message, registeredUsers, userID)
-                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-                // await sendSong(message,registeredUsers,userID)
-            })()
 
 
         }
