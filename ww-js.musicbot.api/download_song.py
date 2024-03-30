@@ -16,11 +16,15 @@ def download(video_id,location):
     try:
 
         yt = YouTube(link)
-        yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
-        video = yt.streams.filter(only_audio=True).first()
-        vid_file = video.download(output_path=location)
-        base = os.path.splitext(vid_file)[0]
-        audio_file = base + ".mp3"
+        if yt.length <= 900:
+            yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
+            video = yt.streams.filter(only_audio=True).first()
+            vid_file = video.download(output_path=location)
+            base = os.path.splitext(vid_file)[0]
+            audio_file = base + ".mp3"
+        else:
+            return {"Error": "oops! song is too long"},501
+
 
     # except PytubeError as e:
     #     print(f"An error occured with PytubeError: " + str(e))
@@ -29,9 +33,6 @@ def download(video_id,location):
     except Exception as e:
         print(f"Error has occured with pytube: {str(e)}")
         return f"Error has occured with pytube: {str(e)}"
-
-
-
 
 
     try:

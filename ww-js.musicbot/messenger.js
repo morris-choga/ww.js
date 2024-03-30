@@ -120,17 +120,27 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
     let songPath = await fetch(`${apiUrl}/getsong`, requestOptions)
         .then((response) => {
-            if (response.ok) {
-                return response.text()
+            if (response.status===501){
+                return {"Error": "oops... song too long"}
             }
-            return "Error"
+            else{
+                if (response.ok) {
+                    return response.text()
+                }
+            }
+
         }).then((data) => {
-            let response = data
-            let apiResponse = response.replace("api", "app")
-            return apiResponse
+            if (typeof data === "object"){
+                return data
+            }
+            else {
+                let response = data
+                let apiResponse = response.replace("api", "app")
+                return apiResponse
+            }
         }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
 
-    if (typeof songPath !== "undefined" && songPath !== "Error") {
+    if (typeof songPath !== "object") {
 
 
 
@@ -160,6 +170,9 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
 
 
+    }
+    else if (typeof songPath !== "object"){
+        await message.reply(songPath["Error"])
     }
 }
 

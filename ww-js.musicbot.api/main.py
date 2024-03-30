@@ -22,11 +22,14 @@ def get_song():
     video_id = requested_song['video_id']
 
     song = download(video_id, os.path.join("/usr/src/api", "songs"))
+
     if "album_id" in requested_song:
         tagger(song,video_id,requested_song["album_id"])
 
     else: tagger(song,video_id)
     return song
+
+
 
 
 
