@@ -28,11 +28,9 @@ def get_songs_metadata(song):
             else:
                 break
 
-        if len(video_results)>0:
-            artist = "".join([c for c in video_results[0]['artists'][0]['name'] if c not in ['[', ']']])
-            title = "".join([c for c in video_results[0]['title'] if c not in ['[', ']']])
+        if len(video_results) > 0:
 
-            results.append({"artist": artist, "title": title, "video_id": video_results[0]['videoId']})
+            results.append({"artist": video_results[0]['artists'][0]['name'], "title": video_results[0]['title'], "video_id": video_results[0]['videoId']})
 
         return results
 
