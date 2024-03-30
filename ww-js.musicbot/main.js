@@ -153,7 +153,7 @@ client.on('message', async (message) => {
     }
 
 
-    else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && (await message.getChat()).id.user === "120363244367417149"){
+    else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363243170575745"){
         await sendLyrics(message)
     }
     else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 ){
