@@ -148,10 +148,6 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
             let song = MessageMedia.fromFilePath(songPath)
 
             await message.reply(song)
-            let users = await fetchUsers();
-            let songsNum = parseInt(users[userID][1]) + 1;
-            await songIncrement(registeredUsers[userID][0], songsNum)
-
 
             fs.unlink(songPath, (err) => {
                 if (err) {
@@ -161,6 +157,11 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
                 }
             });
+
+
+            let users = await fetchUsers();
+            let songsNum = parseInt(users[userID][1]) + 1;
+            await songIncrement(registeredUsers[userID][0], songsNum)
 
 
         } catch (e) {
