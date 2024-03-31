@@ -76,7 +76,7 @@ client.on('message', async (message) => {
 
     else if (message.hasQuotedMsg && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363223962652835")){
 
-        if (message._data.quotedMsg.type === "chat" && message._data.quotedMsg.from === "13479602438@c.us" && options.includes(message.body)) {
+        if (message._data.quotedMsg.type === "chat" && (message._data.quotedMsg.from === "13479602438@c.us" || message._data.quotedMsg.from === "15165897129@c.us") && options.includes(message.body)) {
 
             let data = {};
             let songs = message._data.quotedMsg.body
