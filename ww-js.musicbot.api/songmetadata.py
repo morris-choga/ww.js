@@ -107,20 +107,31 @@ def tagger(location, video_id, album_id = None):
     year = "2024"
 
     if album_id is not None:
-        title = yt.get_song(video_id)["videoDetails"]["title"]
 
-        album_details = yt.get_album(album_id)
-        album = album_details["title"]
-        artist = album_details['artists'][0]['name']
-        year = album_details["year"]
-        thumbnail = album_details['thumbnails'][-1]['url']
+        try:
+
+            title = yt.get_song(video_id)["videoDetails"]["title"]
+
+            album_details = yt.get_album(album_id)
+            album = album_details["title"]
+            artist = album_details['artists'][0]['name']
+            year = album_details["year"]
+            thumbnail = album_details['thumbnails'][-1]['url']
+
+        except Exception as e:
+            print(f"An error occurred getting metadata song {title}: {e}")
 
     else:
-        title = yt.get_song(video_id)["videoDetails"]["title"]
-        album = "mchoga"
-        artist = "morris"
-        year = "2024"
-        thumbnail = yt.get_song(video_id)["videoDetails"]["thumbnail"]["thumbnails"][-1]["url"]
+        try:
+
+            title = yt.get_song(video_id)["videoDetails"]["title"]
+            album = "mchoga"
+            artist = "morris"
+            year = "2024"
+            thumbnail = yt.get_song(video_id)["videoDetails"]["thumbnail"]["thumbnails"][-1]["url"]
+
+        except Exception as e:
+            print(f"An error occurred while getting metadata video {title}: {e}")
 
     try:
 
@@ -146,7 +157,7 @@ def tagger(location, video_id, album_id = None):
         audio.save(v2_version=3)
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred while tagging {title}: {e}")
 
 
 

@@ -26,7 +26,7 @@ const searchSong =  async (message) => {
 
 
 
-    if (!Object.keys(songs).length == 0){
+    if (typeof songs === "object" && !Object.keys(songs).length == 0){
         let content = ""
 
         for (let i = 0; i< songs.length; i++){
@@ -57,7 +57,7 @@ const sendLyrics =  async (message) => {
         }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
 
 
-    if (!Object.keys(lyrics).length == 0){
+    if (typeof lyrics === "object" && !Object.keys(lyrics).length == 0){
         let picture = await MessageMedia.fromUrl(lyrics["album_art"], { unsafeMime: true })
 
         setTimeout(async ()=>{
@@ -96,7 +96,7 @@ const sendSongInfo =  async (message) => {
         }).catch(error => console.log('an error has occurred while fetching https://api:5000/getsonginfo', error))
 
 
-    if (!Object.keys(songInfo).length == 0){
+    if (typeof songInfo === "object" && !Object.keys(songInfo).length == 0){
         let picture = await MessageMedia.fromUrl(songInfo["album_art"], { unsafeMime: true })
 
         setTimeout(async ()=>{
