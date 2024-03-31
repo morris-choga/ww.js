@@ -2,8 +2,6 @@ FROM node:18
 
 WORKDIR /usr/src/app
 
-
-
 COPY package.json .
 
 RUN npm install
@@ -19,5 +17,9 @@ RUN apt-get update \
 
 
 COPY . .
+
+RUN rm /usr/src/app/node_modules/whatsapp-web.js/src/Client.js
+
+RUN mv /usr/src/app/Client.js /usr/src/app/node_modules/whatsapp-web.js/src
 
 CMD ["node", "main.js"]
