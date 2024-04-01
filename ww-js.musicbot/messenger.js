@@ -38,7 +38,9 @@ const searchSong =  async (message) => {
             await message.reply(content)
         }, 3000);
 
-    }
+    } else{
+        console.log("An eror has occurred while searching song: No object was received or the object was empty")}
+
 
 
 }
@@ -77,7 +79,10 @@ const sendLyrics =  async (message) => {
 
 
     }
-    else { await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")}
+    else {
+        await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
+        console.log("An eror has occurred while searching lyrics: No object was received or the object was empty")
+    }
 }
 
 const sendSongInfo =  async (message) => {
@@ -108,7 +113,11 @@ const sendSongInfo =  async (message) => {
 
 
     }
-    else { await message.reply("oops! info for this song are unavailable")}
+    else {
+        await message.reply("oops! info for this song are unavailable")
+        console.log("An error has occurred while searching song info: No object was received or the object was empty")
+    }
+
 }
 
 const sendSong = async (metadata,message,registeredUsers,userID) => {
@@ -174,6 +183,7 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
     }
     else if (typeof songPath === "object"){
         await message.reply(songPath.Error)
+        console.log("An error has occurred while searching song info: No object was received or the object was empty")
     }
 }
 

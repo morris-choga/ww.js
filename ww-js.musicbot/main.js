@@ -82,10 +82,10 @@ client.on('message', async (message) => {
             let songs = message._data.quotedMsg.body
             let pos = songs.split("]")
             let decision = message.body;
-            let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
-            let userName = await message._data.notifyName
-            let userCountry = await fetchCountry(userID)
-            let registeredUsers = await fetchUsers()
+            // let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
+            // let userName = await message._data.notifyName
+            // let userCountry = await fetchCountry(userID)
+            // let registeredUsers = await fetchUsers()
 
             if (options.includes(decision)) {
 
@@ -98,9 +98,11 @@ client.on('message', async (message) => {
                     }
                 }
 
-                Object.keys(registeredUsers).includes(userID) ? await (async function () {
+                // Object.keys(registeredUsers).includes(userID) ? await (async function () {
+                10 > 5 ? await (async function () {
 
-                    if (registeredUsers[userID][1] < 10) {
+                    // if (registeredUsers[userID][1] < 10) {
+                    if (true) {
                         await sendSong(data, message, registeredUsers, userID)
                         // await sendSong(message,registeredUsers,userID)
                         // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
@@ -119,12 +121,12 @@ client.on('message', async (message) => {
                         }]
                     }
 
-                    userInfo.records[0].fields.userID = userID
-                    userInfo.records[0].fields.userName = userName
-                    userInfo.records[0].fields.userCountry = userCountry
+                    // userInfo.records[0].fields.userID = userID
+                    // userInfo.records[0].fields.userName = userName
+                    // userInfo.records[0].fields.userCountry = userCountry
 
 
-                    await addUser(userInfo)
+                    // await addUser(userInfo)
                     await sendSong(data, message, registeredUsers, userID)
                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
                     // await sendSong(message,registeredUsers,userID)
@@ -136,7 +138,8 @@ client.on('message', async (message) => {
 
 
 
-            }
+            } else {
+                console.log("invalid request option entered")}
 
 
 
