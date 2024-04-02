@@ -35,7 +35,14 @@ const searchSong =  async (message) => {
         }
         content+="Reply this message with song number"
         setTimeout(async ()=>{
-            await message.reply(content)
+
+            try {
+                await message.reply(content)
+            } catch (error) {
+                console.log(`Error sending message ${error}`)
+
+            }
+
         }, 3000);
 
     } else{
@@ -75,24 +82,26 @@ const sendLyrics =  async (message,client) => {
 
         // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],})
 
-
-
-        await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized}).catch((error)=>{
+        try {
+            await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
+        } catch (error) {
             console.log(`Error sending message ${error}`)
-            }
-        )
+
+        }
+
+
         // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
-
-
-
-
 
 
     }
     else {
-        await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help").catch((error)=>{
+        try { await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
+
+        } catch (error) {
             console.log(`Error sending message ${error}`)
-        })
+
+        }
+
         console.log("An error has occurred while searching lyrics: No object was received or the object was empty")
     }
 }
@@ -172,9 +181,13 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
         try {
             let song = MessageMedia.fromFilePath(songPath)
 
-            await message.reply(song).catch((error)=>{
+
+            try {
+                await message.reply(song)
+            } catch (error) {
                 console.log(`Error sending message ${error}`)
-            })
+
+            }
 
             fs.unlink(songPath, (err) => {
                 if (err) {
@@ -193,9 +206,13 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
         } catch (e) {
             if (e.code === 'ENOENT'){
-                await message.reply("oops! this song seems to be unavailable\nuse !menu for help").catch((error)=>{
+                try {
+                    await message.reply("oops! this song seems to be unavailable\nuse !menu for help")
+                } catch (error) {
                     console.log(`Error sending message ${error}`)
-                })
+
+                }
+
             }
             console.log(`An error has occurred while sending media: ${e}`)
         }
@@ -204,9 +221,12 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
     }
     else if (typeof songPath === "object"){
-        await message.reply(songPath.Error).catch((error)=>{
+        try {
+            await message.reply(songPath.Error)
+        } catch (error) {
             console.log(`Error sending message ${error}`)
-        })
+
+        }
         console.log("An error has occurred while searching song info: No object was received or the object was empty")
     }
 }
