@@ -75,7 +75,9 @@ const sendLyrics =  async (message,client) => {
 
         // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],})
 
-        await client.sendMessage(message._data.from,{caption: lyrics["lyrics"],quotedMessageId:message._data.id.id})
+        console.log(message._data.id.id)
+        console.log(message.id.id)
+
         await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id.id})
 
 
@@ -86,7 +88,7 @@ const sendLyrics =  async (message,client) => {
     }
     else {
         await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
-        console.log("An eror has occurred while searching lyrics: No object was received or the object was empty")
+        console.log("An error has occurred while searching lyrics: No object was received or the object was empty")
     }
 }
 
