@@ -75,6 +75,8 @@ const sendLyrics =  async (message,client) => {
         let result =
         // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],})
         await client.sendMessage(message)
+        await client.sendMessage(message._data.from,{caption: lyrics["lyrics"],quotedMessageId:message.id})
+        await client.sendMessage(message._data.from,{caption: lyrics["lyrics"],quotedMessageId:message._data.id.id})
         await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id})
 
 
