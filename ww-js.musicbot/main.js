@@ -25,7 +25,7 @@ const client = new Client({
     // }),
     authStrategy: new LocalAuth({dataPath: "/usr/src/app/songs/session"}),
     puppeteer: {
-        headless: true,
+        headless: false,
         args: ['--no-sandbox']
     }, webVersion: '2.2410.1',
     webVersionCache: {
