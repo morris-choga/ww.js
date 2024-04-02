@@ -72,6 +72,7 @@ const sendLyrics =  async (message,client) => {
         //
         //
         // }, 6000);
+        let result =
         await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
 
 

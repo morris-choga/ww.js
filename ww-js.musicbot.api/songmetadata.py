@@ -9,7 +9,6 @@ from mutagen.easyid3 import EasyID3
 from pytube import YouTube
 
 
-
 def get_songs_metadata(song):
     results = []
 
@@ -78,9 +77,12 @@ def get_song_metadata(song):
 def lyrics(song):
     try:
         results = yt.search(song, filter="songs")
+        title = results[0]['title']
+        artist = results[0]['artists'][0]['name']
 
         album = yt.get_album(results[0]["album"]["id"])
         album_art = album['thumbnails'][-1]['url']
+
 
 
 
@@ -90,7 +92,8 @@ def lyrics(song):
         lyrics_id = data["lyrics"]
 
         lyrics = yt.get_lyrics(lyrics_id)
-        return {"album_art":album_art, "lyrics":lyrics["lyrics"]}
+        result = f"*{artist} - {title}*\n{lyrics["lyrics"]}"
+        return {"album_art": album_art, "lyrics": result}
 
     except Exception as e:
         print(f"An error occurred: {e}")
