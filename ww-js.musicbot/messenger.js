@@ -44,7 +44,7 @@ const searchSong =  async (message) => {
 
 
 }
-const sendLyrics =  async (message) => {
+const sendLyrics =  async (message,client) => {
     requestOptions.body = JSON.stringify({"key": message.body.substring(8)})
     let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
         .then((response) => {
@@ -72,7 +72,7 @@ const sendLyrics =  async (message) => {
         //
         //
         // }, 6000);
-        await message.reply(picture,{ caption: lyrics["lyrics"] })
+        await client.sendMessage(message._data.from,"Hello buddy")
 
 
 

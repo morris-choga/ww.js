@@ -157,7 +157,7 @@ client.on('message', async (message) => {
 
 
     else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && ((await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363243170575745")){
-        await sendLyrics(message)
+        await sendLyrics(message,client)
     }
     else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 ){
         await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
