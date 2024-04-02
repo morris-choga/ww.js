@@ -192,7 +192,11 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
 
         } catch (e) {
-            if (e.code === 'ENOENT'){await message.reply("oops! this song seems to be unavailable\nuse !menu for help")}
+            if (e.code === 'ENOENT'){
+                await message.reply("oops! this song seems to be unavailable\nuse !menu for help").catch((error)=>{
+                    console.log(`Error sending message ${error}`)
+                })
+            }
             console.log(`An error has occurred while sending media: ${e}`)
         }
 
