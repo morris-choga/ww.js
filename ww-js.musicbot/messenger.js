@@ -62,16 +62,17 @@ const sendLyrics =  async (message) => {
     if (typeof lyrics === "object" && !Object.keys(lyrics).length == 0){
         let picture = await MessageMedia.fromUrl(lyrics["album_art"], { unsafeMime: true })
 
-        setTimeout(async ()=>{
-            await message.reply(picture)
-        }, 3000);
-
-        setTimeout(async ()=>{
-
-            await message.reply(lyrics["lyrics"])
-
-
-        }, 6000);
+        // setTimeout(async ()=>{
+        //     await message.reply(picture)
+        // }, 3000);
+        //
+        // setTimeout(async ()=>{
+        //
+        //     await message.reply(lyrics["lyrics"])
+        //
+        //
+        // }, 6000);
+        await message.reply(picture,{ caption: lyrics["lyrics"] })
 
 
 
