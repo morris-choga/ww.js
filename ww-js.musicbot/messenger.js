@@ -2,6 +2,7 @@ const {MessageMedia} = require("whatsapp-web.js");
 const {fetchUsers, songIncrement} = require("./api");
 const fs = require("fs");
 
+// let apiUrl = "http://127.0.0.1:5000";
 let apiUrl = "http://api:5000";
 let requestOptions = {
     method: 'POST',

@@ -25,14 +25,19 @@ const client = new Client({
     // }),
     authStrategy: new LocalAuth({dataPath: "/usr/src/app/songs/session"}),
     puppeteer: {
-        headless: true,
-        args: ['--no-sandbox']
-    }, webVersion: '2.2410.1',
-    webVersionCache: {
-        type: 'remote',
-        // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
-        remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2410.1.html'
-    }
+        headless: false,
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--single-process',
+            '--disable-gpu'
+        ]
+    }, webVersion: '2.2409.2',
+    // webVersionCache: {
+    //     type: 'remote',
+    //     remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
+    // //     remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.50.html'
+    // }
 
 });
 process.on('SIGINT', async () => {
