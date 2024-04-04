@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:18
 
 WORKDIR /usr/src/app
 
@@ -16,7 +16,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-COPY . .
+COPY . .ls
+
 
 
 CMD ["node", "main.js"]
