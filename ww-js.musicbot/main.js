@@ -59,6 +59,10 @@ client.on('ready', () => {
     console.log('Client is ready!');
 });
 
+client.on("disconnected",()=>{
+    console.log('Client has been disconnected Morris!');
+});
+
 
 
 
