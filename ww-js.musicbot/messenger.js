@@ -127,7 +127,7 @@ const sendSongInfo =  async (message,client) => {
 
     if (typeof songInfo === "object" && !Object.keys(songInfo).length == 0){
         let picture = await MessageMedia.fromUrl(songInfo["album_art"], { unsafeMime: true })
-        console.log(message)
+
 
         setTimeout(async ()=>{
             try {

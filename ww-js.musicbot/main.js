@@ -82,7 +82,7 @@ client.on('message', async (message) => {
         console.log((await message.getChat()).id.user)
     }
 
-    else if((message.body.toLocaleLowerCase().includes("https://")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835") || (message._data.quotedMsg.from === "13479602438@c.us" || message._data.quotedMsg.from === "15165897129@c.us")){
+    else if((message.body.toLocaleLowerCase().includes("https://")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
 
         setTimeout(async ()=>{
             await message.delete(true)
