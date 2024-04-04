@@ -82,13 +82,16 @@ client.on('message', async (message) => {
         console.log((await message.getChat()).id.user)
     }
 
-    else if((message.body.toLocaleLowerCase().includes("https://")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
-        await message.delete(true)
+    else if((message.body.toLocaleLowerCase().includes("https://")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835") || (message._data.quotedMsg.from === "13479602438@c.us" || message._data.quotedMsg.from === "15165897129@c.us")){
+
+        setTimeout(async ()=>{
+            await message.delete(true)
+        }, 10000);
     }
 
     else if (message.hasQuotedMsg && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363223962652835")){
 
-        if (message._data.quotedMsg.type === "chat" && (message._data.quotedMsg.from === "13479602438@c.us" || message._data.quotedMsg.from === "15165897129@c.us") && options.includes(message.body)) {
+        if (message._data.quotedMsg.type === "chat" &&  options.includes(message.body)) {
 
             let data = {};
             let songs = message._data.quotedMsg.body
@@ -164,7 +167,7 @@ client.on('message', async (message) => {
 
 
     else if((message.body.toLocaleLowerCase().startsWith("!menu") || message.body.toLocaleLowerCase().startsWith("!help")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
-        await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diomonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
+        await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
     }
 
 
