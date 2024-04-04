@@ -35,7 +35,7 @@ const searchSong =  async (message) => {
 
             content += `*${options[i]}: ${songs[i].artist} - ${songs[i].title}${songs[i].album_id !== undefined ? "" : "(converted from video)"}*\n[${songs[i].video_id}~${songs[i].album_id !== undefined ? songs[i].album_id :''}]\n\n`
         }
-        content+="Reply this message with song number"
+        content+="________________________________________\nReply this message with song number"
         setTimeout(async ()=>{
 
             try {
@@ -48,7 +48,7 @@ const searchSong =  async (message) => {
         }, 3000);
 
     } else{
-        console.log("An eror has occurred while searching song: No object was received or the object was empty")}
+        console.log("An error has occurred while searching song: No object was received or the object was empty")}
 
 
 
