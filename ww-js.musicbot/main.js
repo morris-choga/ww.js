@@ -28,9 +28,9 @@ const client = new Client({
         headless: true,
         args: [
             '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--single-process',
-            '--disable-gpu'
+            // '--disable-setuid-sandbox',
+            // '--single-process',
+            // '--disable-gpu'
         ]
     }, webVersion: '2.2409.2',
     webVersionCache: {
