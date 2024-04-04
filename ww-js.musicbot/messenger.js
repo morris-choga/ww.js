@@ -108,7 +108,7 @@ const sendLyrics =  async (message,client) => {
     }
 }
 
-const sendSongInfo =  async (message) => {
+const sendSongInfo =  async (message,client) => {
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(11)})
     let songInfo = await fetch(`${apiUrl}/getsonginfo`, requestOptions)
@@ -129,9 +129,8 @@ const sendSongInfo =  async (message) => {
 
         setTimeout(async ()=>{
 
-            (await message.getChat()).sendMessage(picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`}).catch((error)=>{
-                console.log(`Error sending message ${error}`)
-            })
+            // (await message.getChat()).sendMessage(picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
+            await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`,quotedMessageId:message.id._serialized})
 
             // await message.reply(picture, {caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}`})
         }, 3000);
