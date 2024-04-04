@@ -29,10 +29,11 @@ const searchSong =  async (message) => {
 
     if (typeof songs === "object" && !Object.keys(songs).length == 0){
         let content = ""
+        let options = ['1️⃣','2️⃣','3️⃣'];
 
         for (let i = 0; i< songs.length; i++){
 
-            content += `*${i+1}: ${songs[i].artist} - ${songs[i].title}${songs[i].album_id !== undefined ? "" : "(converted from video)"}*\n[${songs[i].video_id}~${songs[i].album_id !== undefined ? songs[i].album_id :''}]\n\n`
+            content += `*${options[i]}: ${songs[i].artist} - ${songs[i].title}${songs[i].album_id !== undefined ? "" : "(converted from video)"}*\n[${songs[i].video_id}~${songs[i].album_id !== undefined ? songs[i].album_id :''}]\n\n`
         }
         content+="Reply this message with song number"
         setTimeout(async ()=>{
