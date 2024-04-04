@@ -69,9 +69,9 @@ client.on("disconnected",()=>{
 client.on('message', async (message) => {
 
 
-    // song group "120363223962652835"
-    // test group 120363243170575745
-    // lyrics 120363244367417149
+    let songGroup = "120363223962652835"
+    let test_Group = "120363243170575745"
+    let lyrics_Group =  "120363244367417149"
 
     let options = ["1","2","3"]
     let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
@@ -82,6 +82,9 @@ client.on('message', async (message) => {
         console.log((await message.getChat()).id.user)
     }
 
+    else if((message.body.toLocaleLowerCase().includes("https://")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
+        await message.delete(true)
+    }
 
     else if (message.hasQuotedMsg && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363223962652835")){
 
