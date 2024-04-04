@@ -32,11 +32,11 @@ const client = new Client({
             '--single-process',
             '--disable-gpu'
         ]
-    }, webVersion: '2.2409.2',
+    }, webVersion: '2.2412.50',
     webVersionCache: {
         type: 'remote',
-        remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
-    //     remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.50.html'
+        // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
+        remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.50.html'
     }
 
 });
