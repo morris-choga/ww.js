@@ -97,7 +97,8 @@ const sendLyrics =  async (message,client) => {
 
     }
     else {
-        try { await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
+        try {
+            await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
 
         } catch (error) {
             console.log(`Error sending message ${error}`)
@@ -128,9 +129,16 @@ const sendSongInfo =  async (message,client) => {
         let picture = await MessageMedia.fromUrl(songInfo["album_art"], { unsafeMime: true })
 
         setTimeout(async ()=>{
+            try {
+                await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`,quotedMessageId:message.id._serialized})
+
+            } catch (error) {
+                console.log(`Error sending message ${error}`)
+
+            }
 
             // (await message.getChat()).sendMessage(picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
-            await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`,quotedMessageId:message.id._serialized})
+
 
             // await message.reply(picture, {caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}`})
         }, 3000);
