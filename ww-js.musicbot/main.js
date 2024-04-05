@@ -119,7 +119,7 @@ client.on('message', async (message) => {
                     if (registeredUsers[userID][1] < 100010) {
                     // if (true) {
                     //     await sendSong(data, message, {}, "userID")
-                        await sendSong(message,registeredUsers,userID)
+                        await sendSong(data,message,registeredUsers,userID)
                         // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
                     } else {
