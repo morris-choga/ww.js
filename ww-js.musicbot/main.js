@@ -33,11 +33,12 @@ const client = new Client({
             // '--disable-gpu'
         ]
     },
-    webVersionCache: {
-        type: 'remote',
-        remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
-        // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
-    }
+    webVersion: '2.2413.51-beta',
+    // webVersionCache: {
+    //     type: 'remote',
+    //     remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
+    //     // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
+    // }
 
 });
 process.on('SIGINT', async () => {
