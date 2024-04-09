@@ -45,11 +45,14 @@ const searchSong =  async (message) => {
 
             }
 
-        }, 3000);
+        }, 10000);
 
     } else{
-        console.log("An error has occurred while searching song: No object was received or the object was empty")}
+        setTimeout(async ()=>{
+            console.log("An error has occurred while searching song: No object was received or the object was empty")
 
+        }, 10000);
+    }
 
 
 }
@@ -71,39 +74,36 @@ const sendLyrics =  async (message,client) => {
     if (typeof lyrics === "object" && !Object.keys(lyrics).length == 0){
         let picture = await MessageMedia.fromUrl(lyrics["album_art"], { unsafeMime: true })
 
-        // setTimeout(async ()=>{
-        //     await message.reply(picture)
-        // }, 3000);
-        //
-        // setTimeout(async ()=>{
-        //
-        //     await message.reply(lyrics["lyrics"])
-        //
-        //
-        // }, 6000);
 
-        // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],})
+        setTimeout(async ()=>{
 
-        try {
-            await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
-        } catch (error) {
-            console.log(`Error sending message ${error}`)
+            try {
+                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
+            } catch (error) {
+                console.log(`Error sending message ${error}`)
 
-        }
+            }
+
+        }, 10000);
 
 
-        // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
 
 
     }
     else {
-        try {
-            await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
+        setTimeout(async ()=>{
 
-        } catch (error) {
-            console.log(`Error sending message ${error}`)
+            try {
+                await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
 
-        }
+            } catch (error) {
+                console.log(`Error sending message ${error}`)
+
+            }
+
+        }, 10000);
+
+
 
         console.log("An error has occurred while searching lyrics: No object was received or the object was empty")
     }
@@ -135,22 +135,19 @@ const sendSongInfo =  async (message,client) => {
 
             } catch (error) {
                 console.log(`Error sending message ${error}`)
-
             }
 
-            // (await message.getChat()).sendMessage(picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
-
-
-            // await message.reply(picture, {caption: `Title: ${songInfo.title}\nArtist: ${songInfo.artist}\nAlbum: ${songInfo.album}\nYear: ${songInfo.year}`})
-        }, 3000);
+        }, 10000);
 
 
     }
     else {
-        await message.reply("oops! info for this song are unavailable").catch((error)=>{
-            console.log(`Error sending message ${error}`)
-        })
-        console.log("An error has occurred while searching song info: No object was received or the object was empty")
+        setTimeout(async ()=>{
+
+            await message.reply("oops! info for this song are unavailable")
+            console.log("An error has occurred while searching song info: No object was received or the object was empty")
+        }, 10000);
+
     }
 
 }
@@ -185,60 +182,77 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
         }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
 
     if (typeof songPath !== "object") {
-
-
-
-        try {
-            let song = MessageMedia.fromFilePath(songPath)
-
-
+        setTimeout(async ()=>{
             try {
-                await message.reply(song)
-            } catch (error) {
-                console.log(`Error sending message ${error}`)
+                let song = MessageMedia.fromFilePath(songPath)
 
-            }
-
-            fs.unlink(songPath, (err) => {
-                if (err) {
-                    console.error(`Error deleting file: ${err.message}`);
-                } else {
-                    console.log(`${message._data.notifyName} received song`);
-
-                }
-            });
+                setTimeout(async ()=>{
 
 
-            let users = await fetchUsers();
-            let songsNum = parseInt(users[userID][1]) + 1;
-            await songIncrement(registeredUsers[userID][0], songsNum)
 
+                }, 10000);
 
-        } catch (e) {
-            if (e.code === 'ENOENT'){
                 try {
-                    await message.reply("oops! this song seems to be unavailable\nuse !menu for help")
+                    await message.reply(song)
                 } catch (error) {
                     console.log(`Error sending message ${error}`)
 
                 }
 
+                fs.unlink(songPath, (err) => {
+                    if (err) {
+                        console.error(`Error deleting file: ${err.message}`);
+                    } else {
+                        console.log(`${message._data.notifyName} received song`);
+
+                    }
+                });
+
+
+                let users = await fetchUsers();
+                let songsNum = parseInt(users[userID][1]) + 1;
+                await songIncrement(registeredUsers[userID][0], songsNum)
+
+
+            } catch (e) {
+                if (e.code === 'ENOENT'){
+                    try {
+                        await message.reply("oops! this song seems to be unavailable\nuse !menu for help")
+                    } catch (error) {
+                        console.log(`Error sending message ${error}`)
+
+                    }
+
+                }
+
+                console.log(`An error has occurred while sending media: ${e}`)
             }
-            console.log(`An error has occurred while sending media: ${e}`)
-        }
+
+
+        }, 10000);
+
+
+
 
 
 
     }
     else if (typeof songPath === "object"){
-        try {
-            await message.reply(songPath.Error)
-        } catch (error) {
-            console.log(`Error sending message ${error}`)
 
-        }
+        setTimeout(async ()=>{
+            try {
+                await message.reply(songPath.Error)
+            } catch (error) {
+                console.log(`Error sending message ${error}`)
+
+            }
+
+
+        }, 10000);
         console.log("An error has occurred while searching song info: No object was received or the object was empty")
     }
 }
+
+
 
 module.exports = { sendSong , sendLyrics, sendSongInfo, searchSong};
