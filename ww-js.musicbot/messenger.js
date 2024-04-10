@@ -1,5 +1,5 @@
 const {MessageMedia} = require("whatsapp-web.js");
-const {fetchUsers, songIncrement} = require("./api");
+const {fetchUsers, songIncrement, botMessageIncrement, fetchBotMessages} = require("./api");
 const fs = require("fs");
 
 // let apiUrl = "http://127.0.0.1:5000";
@@ -209,9 +209,14 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
                 });
 
 
+
                 let users = await fetchUsers();
+                // let botMessagesNum = await fetchBotMessages();
                 let songsNum = parseInt(users[userID][1]) + 1;
+                // let botMessageNum = parseInt(botMessagesNum[userID][1]) + 1;
+
                 await songIncrement(registeredUsers[userID][0], songsNum)
+                // await botMessageIncrement(registeredUsers[userID][0], botMessageNum)
 
 
             } catch (e) {

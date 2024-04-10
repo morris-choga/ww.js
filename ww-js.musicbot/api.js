@@ -68,6 +68,35 @@ const fetchUsers = async () => {
     return result
 
 }
+// const fetchBotMessages = async () => {
+//
+//     let result = await fetch(airtableUrl,{
+//         headers: airtableHeaders,
+//     }).then((response)=>{
+//         let body = response.json()
+//
+//         return body
+//     }).then((response)=>{
+//
+//         let botMessageInfo = {}
+//         let users = response.records
+//
+//
+//         Object.keys(users).forEach((key) => {
+//             botMessageInfo[users[key].fields.userID] = [users[key].id,users[key].fields["botMessagesReceived"]]
+//
+//         })
+//
+//
+//         return botMessageInfo
+//
+//     }).catch(error=>{
+//         console.log(`An error occurred while fetching https://api.airtable.com: ${error}`)
+//     });
+//
+//     return result
+//
+// }
 
 const songIncrement = async (id , songsNum) => {
 
@@ -83,6 +112,19 @@ const songIncrement = async (id , songsNum) => {
     })
 
 }
+
+// const botMessageIncrement = async (id,botMessagesNum) => {
+//     let botMessagesObject = {
+//         "fields": {"#botMessagesReceived":botMessagesNum}
+//     }
+//
+//     let result = await fetch(`${airtableUrl}/${id}`, {
+//         method: 'PATCH',
+//         headers: airtableHeaders,
+//         body: JSON.stringify(botMessagesObject)
+//     })
+//
+// }
 
 
 
