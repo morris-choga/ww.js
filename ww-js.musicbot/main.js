@@ -59,8 +59,10 @@ class Bot{
         });
 
         this.client.on('message', async (message) => {
+            let useiId = (await message.id.participant);
 
-            if((parseInt((await message.id.participant).substring(0, (await message.id.participant).indexOf('@')).charAt((await message.id.participant).substring(0, (await message.id.participant).indexOf('@')).length - 1)) % 2 === 0) === isEven){
+
+            if(useiId === undefined ? false : (parseInt(useiId.substring(0, useiId.indexOf('@')).charAt(useiId.substring(0, useiId.indexOf('@')).length - 1)) % 2 === 0) === isEven){
 
                 let songGroup = "120363223962652835"
                 let test_Group = "120363243170575745"
