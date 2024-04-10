@@ -110,8 +110,6 @@ class Bot{
                                 // 10 > 5 ? await (async function () {
 
                                 if (registeredUsers[userID][1] < 10) {
-                                    console.log(registeredUsers[userID])
-                                    console.log(registeredUsers[userID][1])
                                     await sendSong(data,message,registeredUsers,userID)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
