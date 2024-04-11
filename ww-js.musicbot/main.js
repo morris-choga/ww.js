@@ -11,6 +11,7 @@ class Bot{
 
     constructor(sessionName,range) {
         this.range = range;
+        let reInitializeCount = 0
         this.client = new Client({
 
             // linkingMethod:  new LinkingMethod({
@@ -57,6 +58,7 @@ class Bot{
         this.client.on('ready', () => {
             console.log('Client is ready!');
         });
+
 
         this.client.on('message', async (message) => {
             let userId = (await message.id.participant);
@@ -227,8 +229,14 @@ class Bot{
 
         })
 
-        this.client.on("disconnected",()=>{
-            console.log('Client has been disconnected Morris!');
+        this.client.on("disconnected",(reason)=>{
+            console.log(`Client has been disconnected Morris because of ${reason} `);
+
+            if(reInitializeCount < 15 && reason === 'NAVIGATION') {
+                reInitializeCount++;
+                this.client.initialize();
+                return;
+            }
         });
     }
 
