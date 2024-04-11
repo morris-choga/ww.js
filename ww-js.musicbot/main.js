@@ -73,8 +73,19 @@ class Bot{
             if((message_body.includes("https://")) && !message_body.includes("request") && (chat_id === test_group || chat_id === lyrics_group || chat_id === song_group)){
 
                 setTimeout(async ()=>{
-                    await message.delete(true)
+
+                    try {
+                        await message.delete(true)
+
+                    } catch (error) {
+                        console.log(`Error deleting message ${error}`)
+
+                    }
+
+
                 }, 10000);
+
+
             }
 
             if(userId === undefined ? false : range.includes(parseInt(userId.substring(0, userId.indexOf('@')).charAt(userId.substring(0, userId.indexOf('@')).length - 1)))){
