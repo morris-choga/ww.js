@@ -66,10 +66,11 @@ class Bot{
             let test_group = "120363243170575745"
             let lyrics_group =  "120363244367417149"
             let chat_id = (await message.getChat()).id.user
+            let message_body = message.body.toLocaleLowerCase()
 
 
 
-            if((message.body.toLocaleLowerCase().includes("https://")) && (chat_id === test_group || chat_id === lyrics_group || chat_id === song_group)){
+            if((message_body.includes("https://")) && !message_body.includes("request") && (chat_id === test_group || chat_id === lyrics_group || chat_id === song_group)){
 
                 setTimeout(async ()=>{
                     await message.delete(true)
@@ -84,7 +85,7 @@ class Bot{
                 let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
                 let isGroup = (await message.getChat()).isGroup
 
-                if (message.body.toLocaleLowerCase().startsWith("!get_id ") && message.body.length > 6 && isGroup){
+                if (message_body.startsWith("!get_id ") && message.body.length > 6 && isGroup){
                     console.log(message)
                     console.log(chat_id)
                 }
@@ -166,24 +167,24 @@ class Bot{
 
 
 
-                else if((message.body.toLocaleLowerCase().startsWith("!menu") || message.body.toLocaleLowerCase().startsWith("!help")) && (chat_id === song_group || chat_id === lyrics_group || chat_id === test_group)){
+                else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && (chat_id === song_group || chat_id === lyrics_group || chat_id === test_group)){
                     await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
                 }
 
 
-                else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && (chat_id === lyrics_group || chat_id === test_group)){
+                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (chat_id === lyrics_group || chat_id === test_group)){
                     await sendLyrics(message,this.client)
                 }
-                else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 ){
+                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 ){
                     await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                 }
 
-                else if ((message.body.toLocaleLowerCase().startsWith("!song-info ") || message.body.toLocaleLowerCase().startsWith("!song_info ")) && (message.body.length > 11) && (chat_id === lyrics_group || chat_id === song_group)) {
+                else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && (chat_id === lyrics_group || chat_id === song_group)) {
                     await sendSongInfo(message,this.client)
 
                 }
 
-                else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
+                else if (message_body.startsWith("!song ") && message.body.length > 6 && isGroup) {
 
 
                     if (chat_id === "120363243170575745" || chat_id === "2348034690865-1596391813" || chat_id === "120363223962652835") {
@@ -209,14 +210,14 @@ class Bot{
 
                 }
 
-                else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && !isGroup){
+                else if (message_body.startsWith("!song ") && message.body.length > 6 && !isGroup){
 
                     await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
 
 
                 }
 
-                else if (message.body.toLocaleLowerCase().startsWith("!album ") && message.body.length > 7 && isGroup) {
+                else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
 
 
 
