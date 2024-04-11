@@ -9,8 +9,8 @@ const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js")
 class Bot{
 
 
-    constructor(sessionName,isEven) {
-        this.isEven = isEven;
+    constructor(sessionName,range) {
+        this.range = range;
         this.client = new Client({
 
             // linkingMethod:  new LinkingMethod({
@@ -23,7 +23,7 @@ class Bot{
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: true,
+                headless: false,
                 args: [
                     '--no-sandbox',
                     // '--disable-setuid-sandbox',
@@ -31,12 +31,12 @@ class Bot{
                     // '--disable-gpu'
                 ]
             },
-            webVersion: '2.2409.2',
-            webVersionCache: {
-                type: 'remote',
-                // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
-                remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
-            }
+            // webVersion: '2.2409.2',
+            // webVersionCache: {
+            //     type: 'remote',
+            //     // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
+            //     remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
+            // }
 
         });
         process.on('SIGINT', async () => {
@@ -59,10 +59,12 @@ class Bot{
         });
 
         this.client.on('message', async (message) => {
-            let useiId = (await message.id.participant);
+            let userId = (await message.id.participant);
 
 
-            if(useiId === undefined ? false : (parseInt(useiId.substring(0, useiId.indexOf('@')).charAt(useiId.substring(0, useiId.indexOf('@')).length - 1)) % 2 === 0) === isEven){
+
+            // if(useiId === undefined ? false : (parseInt(useiId.substring(0, useiId.indexOf('@')).charAt(useiId.substring(0, useiId.indexOf('@')).length - 1)) % 2 === 0) === isEven){
+            if(userId === undefined ? false : range.includes(parseInt(userId.substring(0, userId.indexOf('@')).charAt(userId.substring(0, userId.indexOf('@')).length - 1)))){
 
                 let songGroup = "120363223962652835"
                 let test_Group = "120363243170575745"
@@ -241,10 +243,12 @@ class Bot{
 
 }
 
-const bot = new Bot("client1",true);
-const bot2 = new Bot("client2",false);
+const bot = new Bot("0683",[1,2,3]);
+const bot2 = new Bot("3202",[4,5,6]);
+// const bot3 = new Bot("client3",7,8,9);
 bot.initialize();
 bot2.initialize();
+// bot3.initialize();
 
 
 // const client = new Client({
