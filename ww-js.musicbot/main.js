@@ -268,10 +268,10 @@ class Bot{
 
 const bot = new Bot("0683",[1,2,3]);
 const bot2 = new Bot("3202",[4,5,6]);
-// const bot3 = new Bot("client3",7,8,9);
+const bot3 = new Bot("9554",7,8,9);
 bot.initialize();
 bot2.initialize();
-// bot3.initialize();
+bot3.initialize();
 
 
 // const client = new Client({
