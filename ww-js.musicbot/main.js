@@ -62,15 +62,23 @@ class Bot{
 
         this.client.on('message', async (message) => {
             let userId = (await message.id.participant);
+            let song_group = "120363223962652835"
+            let test_group = "120363243170575745"
+            let lyrics_group =  "120363244367417149"
+            let chat_id = (await message.getChat()).id.user
 
 
 
-            // if(useiId === undefined ? false : (parseInt(useiId.substring(0, useiId.indexOf('@')).charAt(useiId.substring(0, useiId.indexOf('@')).length - 1)) % 2 === 0) === isEven){
+            if((message.body.toLocaleLowerCase().includes("https://")) && (chat_id === test_group || chat_id === lyrics_group || chat_id === song_group)){
+
+                setTimeout(async ()=>{
+                    await message.delete(true)
+                }, 10000);
+            }
+
             if(userId === undefined ? false : range.includes(parseInt(userId.substring(0, userId.indexOf('@')).charAt(userId.substring(0, userId.indexOf('@')).length - 1)))){
 
-                let songGroup = "120363223962652835"
-                let test_Group = "120363243170575745"
-                let lyrics_Group =  "120363244367417149"
+
 
                 let options = ["1","2","3"]
                 let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
@@ -78,17 +86,12 @@ class Bot{
 
                 if (message.body.toLocaleLowerCase().startsWith("!get_id ") && message.body.length > 6 && isGroup){
                     console.log(message)
-                    console.log((await message.getChat()).id.user)
+                    console.log(chat_id)
                 }
 
-                else if((message.body.toLocaleLowerCase().includes("https://")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
 
-                    setTimeout(async ()=>{
-                        await message.delete(true)
-                    }, 10000);
-                }
 
-                else if (message.hasQuotedMsg && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363223962652835")){
+                else if (message.hasQuotedMsg && (chat_id === test_group || chat_id === song_group)){
 
                     if (message._data.quotedMsg.type === "chat" &&  options.includes(message.body)) {
 
@@ -163,19 +166,19 @@ class Bot{
 
 
 
-                else if((message.body.toLocaleLowerCase().startsWith("!menu") || message.body.toLocaleLowerCase().startsWith("!help")) && ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363223962652835")){
+                else if((message.body.toLocaleLowerCase().startsWith("!menu") || message.body.toLocaleLowerCase().startsWith("!help")) && (chat_id === song_group || chat_id === lyrics_group || chat_id === test_group)){
                     await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
                 }
 
 
-                else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && ((await message.getChat()).id.user === "120363244367417149" || (await message.getChat()).id.user === "120363243170575745")){
+                else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 && (chat_id === lyrics_group || chat_id === test_group)){
                     await sendLyrics(message,this.client)
                 }
                 else if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8 ){
                     await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                 }
 
-                else if ((message.body.toLocaleLowerCase().startsWith("!song-info ") || message.body.toLocaleLowerCase().startsWith("!song_info ")) && (message.body.length > 11) && ((await message.getChat()).id.user === "120363223962652835" || (await message.getChat()).id.user === "120363243170575745")) {
+                else if ((message.body.toLocaleLowerCase().startsWith("!song-info ") || message.body.toLocaleLowerCase().startsWith("!song_info ")) && (message.body.length > 11) && (chat_id === lyrics_group || chat_id === song_group)) {
                     await sendSongInfo(message,this.client)
 
                 }
@@ -183,7 +186,7 @@ class Bot{
                 else if (message.body.toLocaleLowerCase().startsWith("!song ") && message.body.length > 6 && isGroup) {
 
 
-                    if ((await message.getChat()).id.user === "120363243170575745" || (await message.getChat()).id.user === "2348034690865-1596391813" || (await message.getChat()).id.user === "120363223962652835") {
+                    if (chat_id === "120363243170575745" || chat_id === "2348034690865-1596391813" || chat_id === "120363223962652835") {
 
 
 
