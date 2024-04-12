@@ -70,7 +70,7 @@ class Bot{
             let message_body = message.body.toLocaleLowerCase()
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
 
-            if (message_body.startsWith("message_count")&& isGroup){
+            if (message_body.startsWith("message_count")){
                 console.log(`Bot ${sessionName} has ${this.getMessageCount()} messages`)
 
             }
