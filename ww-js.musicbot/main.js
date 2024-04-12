@@ -55,7 +55,7 @@ class Bot{
 
 
         this.client.on('ready', () => {
-            console.log('Client is ready!');
+            console.log(`bot ${sessionName} ready!`);
         });
 
 
@@ -265,12 +265,14 @@ class Bot{
 
 }
 
-const bot = new Bot("0683",[1,2,3]);
-const bot2 = new Bot("3202",[4,5,6]);
-const bot3 = new Bot("9554",[7,8,9]);
-bot.initialize();
+const bot1 = new Bot("0683",[0,1,2]);
+const bot2 = new Bot("3202",[3,4,5]);
+const bot3 = new Bot("9554",[6,7]);
+const bot4 = new Bot("4221",[8,9]);
+bot1.initialize();
 bot2.initialize();
 bot3.initialize();
+bot4.initialize();
 
 
 // const client = new Client({
