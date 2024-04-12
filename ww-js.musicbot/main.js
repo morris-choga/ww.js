@@ -66,6 +66,7 @@ class Bot{
             let lyrics_group =  "120363244367417149"
             let chat_id = (await message.getChat()).id.user
             let message_body = message.body.toLocaleLowerCase()
+            let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
 
 
 
@@ -93,7 +94,7 @@ class Bot{
 
             }
 
-            if((await message.getChat()).isGroup && (chat_id !== song_group && chat_id !== lyrics_group && chat_id !== test_group )){
+            if((await message.getChat()).isGroup && (chat_id !== song_group && chat_id !== lyrics_group && chat_id !== test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
 
                 if (groupParticipantsNumber < 11) {
                     setTimeout(async () => {
@@ -101,7 +102,7 @@ class Bot{
                     }, 5000);
                 }
 
-                if (groupParticipantsNumber >= 11 ) {
+                else {
 
                     await message.reply("Join the group to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
 
@@ -118,7 +119,6 @@ class Bot{
 
 
                 let options = ["1","2","3"]
-                let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
                 let isGroup = (await message.getChat()).isGroup
 
                 if (message_body.startsWith("!get_id ") && message.body.length > 6 && isGroup){
