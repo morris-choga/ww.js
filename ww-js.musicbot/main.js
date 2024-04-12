@@ -7,6 +7,8 @@ const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js")
 
 
 class Bot{
+    messageCount = 0;
+
 
     constructor(sessionName,range) {
 
@@ -68,7 +70,10 @@ class Bot{
             let message_body = message.body.toLocaleLowerCase()
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
 
+            if (message_body.startsWith("message_count")&& isGroup){
+                console.log(`Bot ${sessionName} has ${this.getMessageCount()} messages`)
 
+            }
 
             if((message_body.includes("https://")) && !message_body.includes("request") && (chat_id === test_group || chat_id === lyrics_group || chat_id === song_group)){
 
@@ -88,9 +93,10 @@ class Bot{
 
             }
 
-            if (message_body.startsWith("!song ") && message.body.length > 6 && !(await message.getChat()).isGroup){
+            if ((message_body.startsWith("!song") || message_body.startsWith("!lyrics")) && message.body.length > 6 && !(await message.getChat()).isGroup){
 
                 await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
+                this.messageCount++;
 
             }
 
@@ -99,12 +105,14 @@ class Bot{
                 if (groupParticipantsNumber < 11) {
                     setTimeout(async () => {
                         await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
+                        this.messageCount++;
                     }, 5000);
                 }
 
                 else {
 
                     await message.reply("Join the group to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
+                    this.messageCount++;
 
 
                 }
@@ -121,7 +129,7 @@ class Bot{
                 let options = ["1","2","3"]
                 let isGroup = (await message.getChat()).isGroup
 
-                if (message_body.startsWith("!get_id ") && message.body.length > 6 && isGroup){
+                if (message_body.startsWith("id")&& isGroup){
                     console.log(message)
                     console.log(chat_id)
                 }
@@ -159,8 +167,10 @@ class Bot{
                                     await sendSong(data,message,registeredUsers,userID)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
+
                                 } else {
-                                    message.reply("You have exceeded your daily limit...")
+                                    await message.reply("You have exceeded your daily limit...")
+
                                 }
 
                             })() : await (async function () {
@@ -182,6 +192,7 @@ class Bot{
                                 await sendSong(data, message, registeredUsers, userID)
                                 // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
                                 await sendSong(message,registeredUsers,userID)
+
                             })()
 
 
@@ -197,6 +208,7 @@ class Bot{
 
 
                     }
+                    this.messageCount++;
 
 
                 }
@@ -205,29 +217,31 @@ class Bot{
 
                 else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && (chat_id === song_group || chat_id === lyrics_group || chat_id === test_group)){
                     await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
+                    this.messageCount++;
                 }
 
 
                 else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (chat_id === lyrics_group || chat_id === test_group)){
                     await sendLyrics(message,this.client)
+                    this.messageCount++;
                 }
                 else if (message_body.startsWith("!lyrics ") && message.body.length > 8 ){
                     await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
+                    this.messageCount++;
                 }
 
                 else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && (chat_id === lyrics_group || chat_id === song_group)) {
                     await sendSongInfo(message,this.client)
+                    this.messageCount++;
 
                 }
 
                 else if (message_body.startsWith("!song ") && message.body.length > 6 && isGroup) {
 
-
                     if (chat_id === "120363243170575745" || chat_id === "2348034690865-1596391813" || chat_id === "120363223962652835") {
 
-
-
                         await searchSong(message)
+                        this.messageCount++;
                         // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
                     }
@@ -244,6 +258,7 @@ class Bot{
 
 
                     await message.reply("Album request is still in development...")
+                    this.messageCount++;
 
 
                 }
@@ -266,11 +281,15 @@ class Bot{
         });
     }
 
-
+    getMessageCount(){
+        return this.messageCount
+    }
     initialize() {
         // Initialize your client here if necessary
         this.client.initialize();
     }
+
+
 
 
 
@@ -281,10 +300,11 @@ const bot1 = new Bot("0683",[0,1,2]);
 const bot2 = new Bot("3202",[3,4,5]);
 const bot3 = new Bot("9554",[6,7]);
 const bot4 = new Bot("4221",[8,9]);
-bot1.initialize();
-bot2.initialize();
-bot3.initialize();
-bot4.initialize();
+// bot1.initialize();
+// bot2.initialize();
+// bot3.initialize();
+// bot4.initialize();
+
 
 
 // const client = new Client({
