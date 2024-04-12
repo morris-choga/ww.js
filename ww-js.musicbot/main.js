@@ -87,6 +87,32 @@ class Bot{
 
             }
 
+            if (message_body.startsWith("!song ") && message.body.length > 6 && !(await message.getChat()).isGroup){
+
+                await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
+
+            }
+
+            if((await message.getChat()).isGroup && (chat_id !== song_group && chat_id !== lyrics_group && chat_id !== test_group )){
+
+                if (groupParticipantsNumber < 11) {
+                    setTimeout(async () => {
+                        await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
+                    }, 5000);
+                }
+
+                if (groupParticipantsNumber >= 11 ) {
+
+                    await message.reply("Join the group to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
+
+
+                }
+
+            }
+
+
+
+
             if(userId === undefined ? false : range.includes(parseInt(userId.substring(0, userId.indexOf('@')).charAt(userId.substring(0, userId.indexOf('@')).length - 1)))){
 
 
@@ -207,25 +233,11 @@ class Bot{
                     }
 
 
-                    else if (groupParticipantsNumber < 11) {
-                        setTimeout(async () => {
-                            await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
-                        }, 5000);
-                    } else if (groupParticipantsNumber >= 11) {
-
-                        await message.reply("Join the group to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
-
-
-                    }
-
-                }
-
-                else if (message_body.startsWith("!song ") && message.body.length > 6 && !isGroup){
-
-                    await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
 
 
                 }
+
+
 
                 else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
 
