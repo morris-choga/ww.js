@@ -8,9 +8,8 @@ const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js")
 
 class Bot{
 
-
     constructor(sessionName,range) {
-        this.range = range;
+
         let reInitializeCount = 0
         this.client = new Client({
 

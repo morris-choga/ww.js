@@ -39,33 +39,58 @@ const addUser = async (userInfo) => {
 
 }
 
-const fetchUsers = async () => {
-
-    let result = await fetch(airtableUrl,{
+const fetchUserRecords = async (offset)=>{
+    let result = await fetch(`${airtableUrl}?offset=${offset}`,{
         headers: airtableHeaders,
     }).then((response)=>{
-        let body = response.json()
-
+        let body =  response.json()
         return body
-    }).then((response)=>{
+    }).then((records)=>{
 
-        let userInfo = {}
-        let users = response.records
-
-
-        Object.keys(users).forEach((key) => {
-            userInfo[users[key].fields.userID] = [users[key].id,users[key].fields["#songs"]]
-
-        })
-
-
-        return userInfo
-
+        return records
     }).catch(error=>{
-        console.log(`An error occurred while fetching https://api.airtable.com: ${error}`)
-    });
+            console.log(`An error occurred while fetching https://api.airtable.com: ${error}`)
+        });
 
-    return result
+    return result;
+}
+
+const fetchUsers = async () => {
+
+
+    let allUserRecords = [];
+    let userInfo = {}
+    let records = await fetchUserRecords(0);
+
+
+    while(records.offset){
+        allUserRecords = allUserRecords.concat(records.records)
+        records = await fetchUserRecords(records.offset);
+
+    }
+    allUserRecords = allUserRecords.concat(records.records)
+
+
+    Object.keys(allUserRecords).forEach((key) => {
+            userInfo[allUserRecords[key].fields.userID] = [allUserRecords[key].id,allUserRecords[key].fields["#songs"]]
+
+
+    })
+
+
+    // let keys = Object.keys(userInfo)
+    // let tempRegisteredUsers =[]
+    //
+    // for (let a = 0; a < keys.length; a++){
+    //
+    //         tempRegisteredUsers.push(keys[a])
+    //
+    //     }
+    // console.log(tempRegisteredUsers)
+    return userInfo
+
+
+
 
 }
 // const fetchBotMessages = async () => {
