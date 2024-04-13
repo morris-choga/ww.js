@@ -71,22 +71,15 @@ const fetchUsers = async () => {
     allUserRecords = allUserRecords.concat(records.records)
 
 
+
     Object.keys(allUserRecords).forEach((key) => {
+
             userInfo[allUserRecords[key].fields.userID] = [allUserRecords[key].id,allUserRecords[key].fields["#songs"]]
 
 
     })
 
 
-    // let keys = Object.keys(userInfo)
-    // let tempRegisteredUsers =[]
-    //
-    // for (let a = 0; a < keys.length; a++){
-    //
-    //         tempRegisteredUsers.push(keys[a])
-    //
-    //     }
-    // console.log(tempRegisteredUsers)
     return userInfo
 
 

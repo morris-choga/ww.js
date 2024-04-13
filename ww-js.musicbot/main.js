@@ -238,7 +238,7 @@ class Bot{
 
                 else if (message_body.startsWith("!song ") && message.body.length > 6 && isGroup) {
 
-                    if (chat_id === "120363243170575745" || chat_id === "2348034690865-1596391813" || chat_id === "120363223962652835") {
+                    if (chat_id === test_group  || chat_id === song_group) {
 
                         await searchSong(message)
                         this.messageCount++;
@@ -300,10 +300,17 @@ const bot1 = new Bot("0683",[0,1]);
 const bot2 = new Bot("3202",[2,3]);
 const bot3 = new Bot("9554",[4,5,6]);
 const bot4 = new Bot("4221",[7,8,9]);
+
+const bot5 = new Bot("4789",[0,1,2,3,4]);
+const bot6 = new Bot("9552",[5,6,7,8,9]);
+
 bot1.initialize();
 bot2.initialize();
 bot3.initialize();
 bot4.initialize();
+
+bot5.initialize();
+bot6.initialize();
 
 
 

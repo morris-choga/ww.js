@@ -33,19 +33,6 @@ def get_song():
 
 
 
-# @app.route("/getsong", methods=['GET', 'POST'])
-# def get_song():
-#     requested_song = request.get_json()
-#     song_metadata = get_song_metadata(f"{requested_song['key']}")
-#
-#     if song_metadata is None:
-#         return {}
-#     else:
-#         song = download(song_metadata["title"], song_metadata["video_id"], os.path.join("/usr/src/api", "songs"))
-#         tagger(song_metadata["title"], song_metadata["artist"], song_metadata["album_name"], song_metadata["url"], song)
-#         return song
-
-
 @app.route("/getsonginfo", methods=['GET', 'POST'])
 def get_song_info():
     requested_song = request.get_json()
