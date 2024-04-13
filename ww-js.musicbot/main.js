@@ -70,7 +70,7 @@ class Bot{
             let message_body = message.body.toLocaleLowerCase()
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
 
-            if (message_body.startsWith("message_count")){
+            if (message_body.startsWith("!message_count")){
                 console.log(`Bot ${sessionName} has ${this.getMessageCount()} messages`)
 
             }
@@ -304,9 +304,9 @@ const bot4 = new Bot("4221",[7,8,9]);
 // const bot5 = new Bot("4789",[0,1,2,3,4]);
 // const bot6 = new Bot("9552",[5,6,7,8,9]);
 
-bot1.initialize();
-bot2.initialize();
-bot3.initialize();
+// bot1.initialize();
+// bot2.initialize();
+// bot3.initialize();
 bot4.initialize();
 
 // bot5.initialize(); banned
