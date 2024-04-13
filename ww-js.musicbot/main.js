@@ -305,12 +305,12 @@ const bot5 = new Bot("4789",[0,1,2,3,4]);
 const bot6 = new Bot("9552",[5,6,7,8,9]);
 
 bot1.initialize();
-bot2.initialize();
-bot3.initialize();
-bot4.initialize();
+// bot2.initialize();
+// bot3.initialize();
+// bot4.initialize();
 
-bot5.initialize();
-bot6.initialize();
+// bot5.initialize();
+// bot6.initialize();
 
 
 
