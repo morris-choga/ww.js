@@ -124,9 +124,6 @@ class Bot{
 
             if(userId === undefined ? false : range.includes(parseInt(userId.substring(0, userId.indexOf('@')).charAt(userId.substring(0, userId.indexOf('@')).length - 1)))){
 
-                if(chat_id === test_group){
-                    console.log(message)
-                }
 
                 let options = ["1","2","3"]
                 let isGroup = (await message.getChat()).isGroup
