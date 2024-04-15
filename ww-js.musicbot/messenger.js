@@ -1,5 +1,5 @@
 const {MessageMedia} = require("whatsapp-web.js");
-const {fetchUsers, songIncrement, botMessageIncrement, fetchBotMessages} = require("./api");
+const {fetchUsers, userSongIncrement, botMessageIncrement, fetchBotMessages} = require("./api");
 const fs = require("fs");
 
 // let apiUrl = "http://127.0.0.1:5000";
@@ -11,6 +11,51 @@ let requestOptions = {
     redirect: 'follow'
 };
 
+// const searchSong =  async (message) => {
+//
+//     requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
+//     let songs = await fetch(`${apiUrl}/searchsong`, requestOptions)
+//         .then((response) => {
+//
+//             if (response.ok) {
+//                 return response.json()
+//             }
+//             return "Error"
+//         }).then((data) => {
+//             return data
+//         }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
+//
+//
+//
+//     if (typeof songs === "object" && !Object.keys(songs).length == 0){
+//         let content = ""
+//         let options = ['1️⃣','2️⃣','3️⃣'];
+//
+//         for (let i = 0; i< songs.length; i++){
+//
+//             content += `*${options[i]}: ${songs[i].artist} - ${songs[i].title}${songs[i].album_id !== undefined ? "" : "(converted from video)"}*\n[${songs[i].video_id}~${songs[i].album_id !== undefined ? songs[i].album_id :''}]\n\n`
+//         }
+//         content+="________________________________________\nReply this message with song number"
+//         setTimeout(async ()=>{
+//
+//             try {
+//                 await message.reply(content)
+//             } catch (error) {
+//                 console.log(`Error sending message ${error}`)
+//
+//             }
+//
+//         }, 10000);
+//
+//     } else{
+//         setTimeout(async ()=>{
+//             console.log("An error has occurred while searching song: No object was received or the object was empty")
+//
+//         }, 10000);
+//     }
+//
+//
+// }
 const searchSong =  async (message) => {
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
@@ -108,7 +153,6 @@ const sendLyrics =  async (message,client) => {
         console.log("An error has occurred while searching lyrics: No object was received or the object was empty")
     }
 }
-
 const sendSongInfo =  async (message,client) => {
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(11)})
@@ -144,14 +188,13 @@ const sendSongInfo =  async (message,client) => {
     else {
         setTimeout(async ()=>{
 
-            await message.reply("oops! info for this song are unavailable")
+            await message.reply("oops! info for this song are unavailable.\nUse !menu for help")
             console.log("An error has occurred while searching song info: No object was received or the object was empty")
         }, 10000);
 
     }
 
 }
-
 const sendSong = async (metadata,message,registeredUsers,userID) => {
 
     let data = {"video_id": metadata.video_id}
@@ -186,9 +229,6 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
             try {
                 let song = MessageMedia.fromFilePath(songPath)
 
-
-                console.log(song)
-
                 setTimeout(async ()=>{
 
 
@@ -218,7 +258,7 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
                 let songsNum = parseInt(users[userID][1]) + 1;
                 // let botMessageNum = parseInt(botMessagesNum[userID][1]) + 1;
 
-                await songIncrement(registeredUsers[userID][0], songsNum)
+                await userSongIncrement(registeredUsers[userID][0], songsNum)
                 // await botMessageIncrement(registeredUsers[userID][0], botMessageNum)
 
 

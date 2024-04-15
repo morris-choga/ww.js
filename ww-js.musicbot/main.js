@@ -1,7 +1,7 @@
 const qrcode = require('qrcode-terminal');
 const { sendSong , sendLyrics, sendSongInfo, searchSong} = require("./messenger");
 const { Client,LocalAuth ,MessageMedia, LinkingMethod } = require('whatsapp-web.js');
-const { fetchCountry, fetchUsers, addUser, songIncrement } = require("./api.js");
+const { fetchCountry, fetchUsers, addUser } = require("./api.js");
 
 
 
@@ -98,6 +98,7 @@ class Bot{
                 await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
                 this.messageCount++;
 
+
             }
 
             if((await message.getChat()).isGroup && (chat_id !== song_group && chat_id !== lyrics_group && chat_id !== test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
@@ -129,7 +130,7 @@ class Bot{
                 let isGroup = (await message.getChat()).isGroup
 
                 if (message_body.startsWith("id")&& isGroup){
-                    console.log(message)
+
                     console.log(chat_id)
                 }
 
