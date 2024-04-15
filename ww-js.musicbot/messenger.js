@@ -253,13 +253,10 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
 
 
 
-                let users = await fetchUsers();
-                // let botMessagesNum = await fetchBotMessages();
-                let songsNum = parseInt(users[userID][1]) + 1;
-                // let botMessageNum = parseInt(botMessagesNum[userID][1]) + 1;
+                // let users = await fetchUsers();
+                // let songsNum = parseInt(users[userID][1]) + 1;
+                await userSongIncrement(registeredUsers[userID][0],userID)
 
-                await userSongIncrement(registeredUsers[userID][0], songsNum)
-                // await botMessageIncrement(registeredUsers[userID][0], botMessageNum)
 
 
             } catch (e) {

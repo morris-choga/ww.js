@@ -122,7 +122,9 @@ const fetchUsers = async () => {
 //
 // }
 
-const userSongIncrement = async (id , songsNum) => {
+const userSongIncrement = async (id,userID) => {
+    let users = await fetchUsers();
+    let songsNum = parseInt(users[userID][1]) + 1;
 
     let addSong = {
         "fields": {"#songs":songsNum}
