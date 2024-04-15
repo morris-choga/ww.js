@@ -185,6 +185,7 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
         setTimeout(async ()=>{
             try {
                 let song = MessageMedia.fromFilePath(songPath)
+                song.filename = "song from morris"
 
                 setTimeout(async ()=>{
 
