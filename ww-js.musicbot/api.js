@@ -194,7 +194,7 @@ const fetchBots = async () => {
         }
 
     })
-    console.log(botsInfo)
+
     return botsInfo
 
 

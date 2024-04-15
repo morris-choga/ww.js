@@ -74,7 +74,9 @@ class Bot{
 
             if (message_body.startsWith("!message_count")){
                 console.log(`Bot ${sessionName} has ${this.getMessageCount()} messages`)
-                await botMessageIncrement(registeredBots[sessionName][0])
+                // await botMessageIncrement(registeredBots[sessionName][0])
+                console.log(sessionName)
+                await botMessageIncrement(registeredBots["0683"][0])
 
 
             }
