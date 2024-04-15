@@ -1,7 +1,8 @@
 const qrcode = require('qrcode-terminal');
 const { sendSong , sendLyrics, sendSongInfo, searchSong} = require("./messenger");
 const { Client,LocalAuth ,MessageMedia, LinkingMethod } = require('whatsapp-web.js');
-const { fetchCountry, fetchUsers, addUser } = require("./api.js");
+const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
+const {fetchBots} = require("./api");
 
 
 
@@ -69,9 +70,12 @@ class Bot{
             let chat_id = (await message.getChat()).id.user
             let message_body = message.body.toLocaleLowerCase()
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
+            let registeredBots = await fetchBots()
 
             if (message_body.startsWith("!message_count")){
                 console.log(`Bot ${sessionName} has ${this.getMessageCount()} messages`)
+                await botMessageIncrement(registeredBots[sessionName][0])
+
 
             }
 

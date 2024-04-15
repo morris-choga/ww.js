@@ -251,10 +251,6 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
                     }
                 });
 
-
-
-                // let users = await fetchUsers();
-                // let songsNum = parseInt(users[userID][1]) + 1;
                 await userSongIncrement(registeredUsers[userID][0],userID)
 
 

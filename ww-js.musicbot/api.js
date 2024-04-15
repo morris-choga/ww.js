@@ -139,7 +139,10 @@ const userSongIncrement = async (id,userID) => {
 
 }
 
-const botSongIncrement = async (id , songsNum, messagesNum) =>{
+const botSongIncrement = async (id , botID) =>{
+    let bots = await fetchBots();
+    let songsNum = parseInt(bots[botID][2]) + 1;
+    let messagesNum = parseInt(bots[botID][1]) + 1;
 
     let addSong = {
         "fields": {"#songs":songsNum, "messages":messagesNum}
@@ -152,7 +155,9 @@ const botSongIncrement = async (id , songsNum, messagesNum) =>{
         body: JSON.stringify(addSong)
     })
 }
-const botMessageIncrement = async (id , messagesNum) =>{
+const botMessageIncrement = async (id,botID) =>{
+    let bots = await fetchBots();
+    let messagesNum = parseInt(bots[botID][1]) + 1;
 
     let addMessage = {
         "fields": {"messages":messagesNum}
@@ -185,11 +190,11 @@ const fetchBots = async () => {
 
     Object.keys(allBotsRecords).forEach((key) => {
         if (allBotsRecords[key]!==undefined) {
-            botsInfo[allBotsRecords[key].fields.botID] = [allBotsRecords[key].id, allBotsRecords[key].fields["#songs"]]
+            botsInfo[allBotsRecords[key].fields.botID] = [allBotsRecords[key].id, allBotsRecords[key].fields["messages"], allBotsRecords[key].fields["#songs"]]
         }
 
     })
-
+    console.log(botsInfo)
     return botsInfo
 
 
