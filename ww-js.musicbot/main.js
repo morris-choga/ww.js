@@ -319,7 +319,7 @@ const bot4 = new Bot("9552",[7,8,9]);
 // const bot5 = new Bot("4789",[0,1,2,3,4]);
 // const bot6 = new Bot("4221",[5,6,7,8,9]);
 
-bot1.initialize();
+// bot1.initialize(); banned
 // bot2.initialize();
 bot3.initialize();
 bot4.initialize();
