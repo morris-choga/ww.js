@@ -56,7 +56,7 @@ let requestOptions = {
 //
 //
 // }
-const searchSong =  async (message) => {
+const searchSong =  async (message,client) => {
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(6)})
     let songs = await fetch(`${apiUrl}/searchsong`, requestOptions)
@@ -201,7 +201,7 @@ const sendSongInfo =  async (message,client) => {
     }
 
 }
-const sendSong = async (metadata,message,registeredUsers,userID) => {
+const sendSong = async (metadata,message,registeredUsers,userID,client) => {
 
     let data = {"video_id": metadata.video_id}
     metadata.album_id === "" ? "" : data["album_id"] = metadata.album_id
@@ -242,7 +242,7 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
                 }, 10000);
 
                 try {
-                    await client.sendMessage(message._data.from,song)
+                    await client.client.sendMessage(message._data.from,song)
                     // await message.reply(song)
                 } catch (error) {
                     console.log(`Error sending message ${error}`)

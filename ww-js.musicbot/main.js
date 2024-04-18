@@ -199,9 +199,9 @@ class Bot{
                                 await addUser(userInfo)
                                 await sendSong(data, message, registeredUsers, userID)
                                 // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-                                await sendSong(message,registeredUsers,userID)
+                                await sendSong(message,registeredUsers,userID,this)
 
-                            })()
+                            }).call(this)
 
 
 
@@ -253,7 +253,7 @@ class Bot{
 
                     if (chat_id === test_group  || chat_id === song_group) {
 
-                        await searchSong(message)
+                        await searchSong(message,this.client)
                         await botMessageIncrement(registeredBots[sessionName][0],sessionName)
                         // this.messageCount++;
                         // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
