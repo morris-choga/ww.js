@@ -311,9 +311,9 @@ class Bot{
 
 }
 // ~CHIECHIE🍃❤‍🔥's number
-const bot1 = new Bot("8573",[0,1,2,3,7,8,9]);
+const bot1 = new Bot("8573",[0,1,2,7,8,9]);
 
-const bot3 = new Bot("9554",[4,5,6]);
+const bot3 = new Bot("9554",[4,5,6,3]);
 
 
 
