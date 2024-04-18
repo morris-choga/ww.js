@@ -84,7 +84,10 @@ const searchSong =  async (message) => {
         setTimeout(async ()=>{
 
             try {
-                await message.reply(content)
+                // await message.reply(content)
+                await client.sendMessage(message._data.from,content)
+
+
             } catch (error) {
                 console.log(`Error sending message ${error}`)
 
@@ -123,7 +126,8 @@ const sendLyrics =  async (message,client) => {
         setTimeout(async ()=>{
 
             try {
-                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
+                // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
+                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
             } catch (error) {
                 console.log(`Error sending message ${error}`)
 
@@ -139,7 +143,9 @@ const sendLyrics =  async (message,client) => {
         setTimeout(async ()=>{
 
             try {
+                // await client.sendMessage(message._data.from,"unavailable")
                 await message.reply("oops! lyrics for this song are unavailable\nuse !menu for help")
+
 
             } catch (error) {
                 console.log(`Error sending message ${error}`)
@@ -175,7 +181,7 @@ const sendSongInfo =  async (message,client) => {
 
         setTimeout(async ()=>{
             try {
-                await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`,quotedMessageId:message.id._serialized})
+                await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
 
             } catch (error) {
                 console.log(`Error sending message ${error}`)
@@ -236,7 +242,8 @@ const sendSong = async (metadata,message,registeredUsers,userID) => {
                 }, 10000);
 
                 try {
-                    await message.reply(song)
+                    await client.sendMessage(message._data.from,song)
+                    // await message.reply(song)
                 } catch (error) {
                     console.log(`Error sending message ${error}`)
 
