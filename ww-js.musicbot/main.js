@@ -320,7 +320,7 @@ const bot3 = new Bot("9554",[4,5,6,3]);
 
 
 bot1.initialize();
-// bot2.initialize();
+bot2.initialize();
 
 
 
