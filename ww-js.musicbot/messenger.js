@@ -237,17 +237,17 @@ const sendSong = async (metadata,message,registeredUsers,userID,client) => {
 
                 setTimeout(async ()=>{
 
+                    try {
+                        await client.client.sendMessage(message._data.from,song)
+                        // await message.reply(song)
+                    } catch (error) {
+                        console.log(`Error sending message ${error}`)
 
+                    }
 
                 }, 10000);
 
-                try {
-                    await client.client.sendMessage(message._data.from,song)
-                    // await message.reply(song)
-                } catch (error) {
-                    console.log(`Error sending message ${error}`)
 
-                }
 
                 fs.unlink(songPath, (err) => {
                     if (err) {
