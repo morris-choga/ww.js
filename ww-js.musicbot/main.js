@@ -34,12 +34,12 @@ class Bot{
                     // '--disable-gpu'
                 ]
             },
-            webVersion: '2.3000.1012750699',
-            webVersionCache: {
-                type: 'remote',
-                // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
-                remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.3000.1012750699-alpha.html'
-            }
+            // webVersion: '2.3000.1012750699',
+            // webVersionCache: {
+            //     type: 'remote',
+            //     // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
+            //     remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.3000.1012750699-alpha.html'
+            // }
 
         });
         process.on('SIGINT', async () => {
