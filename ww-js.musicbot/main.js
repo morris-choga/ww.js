@@ -59,7 +59,7 @@ class Bot{
             // paiuting code example
             const pairingCodeEnabled = true;
             if (pairingCodeEnabled && !pairingCodeRequested) {
-                const pairingCode = await this.client.requestPairingCode('263717489554'); // enter the target phone number
+                const pairingCode = await this.client.requestPairingCode('13156288660'); // enter the target phone number
                 console.log('Pairing code enabled, code: '+ pairingCode);
                 pairingCodeRequested = true;
             }
@@ -324,14 +324,15 @@ class Bot{
 
 }
 // ~CHIECHIE🍃❤‍🔥's number
-const bot1 = new Bot("8573",[0,1,2,7,8,9]);
-
-const bot2 = new Bot("9554",[4,5,6,3]);
+const bot1 = new Bot("8573",[0,1,2,4]);
+const bot2 = new Bot("9554",[3,5,6,7]);
+const bot3 = new Bot("8660",[8,9]);
 
 
 
 bot1.initialize();
 bot2.initialize();
+bot3.initialize();
 
 
 
