@@ -234,11 +234,12 @@ const sendSong = async (metadata,message,registeredUsers,userID,client) => {
         setTimeout(async ()=>{
             try {
                 let song = MessageMedia.fromFilePath(songPath)
+                // song.mimetype = ""
 
                 setTimeout(async ()=>{
 
                     try {
-                        await client.client.sendMessage(message._data.from,song)
+                        await client.client.sendMessage(message._data.from, song,{ caption: 'This is a testing caption' })
                         console.log(`${message._data.notifyName} received song`);
                         // await message.reply(song)
                     } catch (error) {
