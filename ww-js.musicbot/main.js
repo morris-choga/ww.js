@@ -46,24 +46,24 @@ class Bot{
             await this.client.destroy();
             process.exit(0);
         });
-
-        this.client.on('qr', (qr) => {
-            qrcode.generate(qr, { small: true });
-        });
+        //
+        // this.client.on('qr', (qr) => {
+        //     qrcode.generate(qr, { small: true });
+        // });
 
         let pairingCodeRequested = false;
-        // this.client.on('qr', async (qr) => {
-        //     // NOTE: This event will not be fired if a session is specified.
-        //     qrcode.generate(qr, { small: true });
-        //
-        //     // paiuting code example
-        //     const pairingCodeEnabled = true;
-        //     if (pairingCodeEnabled && !pairingCodeRequested) {
-        //         const pairingCode = await this.client.requestPairingCode('263713718573'); // enter the target phone number
-        //         console.log('Pairing code enabled, code: '+ pairingCode);
-        //         pairingCodeRequested = true;
-        //     }
-        // });
+        this.client.on('qr', async (qr) => {
+            // NOTE: This event will not be fired if a session is specified.
+            qrcode.generate(qr, { small: true });
+
+            // paiuting code example
+            const pairingCodeEnabled = true;
+            if (pairingCodeEnabled && !pairingCodeRequested) {
+                const pairingCode = await this.client.requestPairingCode('263717489554'); // enter the target phone number
+                console.log('Pairing code enabled, code: '+ pairingCode);
+                pairingCodeRequested = true;
+            }
+        });
 
         this.client.on('loading_screen', (percent, message) => {
             console.log('LOADING SCREEN', percent, message);
