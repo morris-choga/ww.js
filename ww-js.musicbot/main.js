@@ -47,23 +47,23 @@ class Bot{
             process.exit(0);
         });
 
-        // this.client.on('qr', (qr) => {
-        //     qrcode.generate(qr, { small: true });
-        // });
+        this.client.on('qr', (qr) => {
+            qrcode.generate(qr, { small: true });
+        });
 
         let pairingCodeRequested = false;
-        this.client.on('qr', async (qr) => {
-            // NOTE: This event will not be fired if a session is specified.
-            console.log('QR RECEIVED', qr);
-
-            // paiuting code example
-            const pairingCodeEnabled = true;
-            if (pairingCodeEnabled && !pairingCodeRequested) {
-                const pairingCode = await this.client.requestPairingCode('263713718573'); // enter the target phone number
-                console.log('Pairing code enabled, code: '+ pairingCode);
-                pairingCodeRequested = true;
-            }
-        });
+        // this.client.on('qr', async (qr) => {
+        //     // NOTE: This event will not be fired if a session is specified.
+        //     qrcode.generate(qr, { small: true });
+        //
+        //     // paiuting code example
+        //     const pairingCodeEnabled = true;
+        //     if (pairingCodeEnabled && !pairingCodeRequested) {
+        //         const pairingCode = await this.client.requestPairingCode('263713718573'); // enter the target phone number
+        //         console.log('Pairing code enabled, code: '+ pairingCode);
+        //         pairingCodeRequested = true;
+        //     }
+        // });
 
         this.client.on('loading_screen', (percent, message) => {
             console.log('LOADING SCREEN', percent, message);
@@ -326,12 +326,12 @@ class Bot{
 // ~CHIECHIE🍃❤‍🔥's number
 const bot1 = new Bot("8573",[0,1,2,7,8,9]);
 
-// const bot2 = new Bot("9554",[4,5,6,3]);
+const bot2 = new Bot("9554",[4,5,6,3]);
 
 
 
 bot1.initialize();
-// bot2.initialize();
+bot2.initialize();
 
 
 
