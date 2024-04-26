@@ -239,6 +239,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client) => {
 
                     try {
                         await client.client.sendMessage(message._data.from,song)
+                        console.log(`${message._data.notifyName} received song`);
                         // await message.reply(song)
                     } catch (error) {
                         console.log(`Error sending message ${error}`)
@@ -252,9 +253,6 @@ const sendSong = async (metadata,message,registeredUsers,userID,client) => {
                 fs.unlink(songPath, (err) => {
                     if (err) {
                         console.error(`Error deleting file: ${err.message}`);
-                    } else {
-                        console.log(`${message._data.notifyName} received song`);
-
                     }
                 });
 
