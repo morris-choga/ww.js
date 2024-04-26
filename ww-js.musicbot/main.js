@@ -313,13 +313,13 @@ class Bot{
 
 }
 // ~CHIECHIE🍃❤‍🔥's number
-// const bot1 = new Bot("8573",[0,1,2,7,8,9]);
+const bot1 = new Bot("8573",[0,1,2,7,8,9]);
 
 const bot2 = new Bot("9554",[4,5,6,3]);
 
 
 
-// bot1.initialize();
+bot1.initialize();
 bot2.initialize();
 
 
