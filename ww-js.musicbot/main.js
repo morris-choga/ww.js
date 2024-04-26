@@ -34,12 +34,12 @@ class Bot{
                     // '--disable-gpu'
                 ]
             },
-            // webVersion: '2.2409.2',
-            // webVersionCache: {
-            //     type: 'remote',
-            //     // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
-            //     remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2409.2.html'
-            // }
+            webVersion: '2.3000.1012750699',
+            webVersionCache: {
+                type: 'remote',
+                // remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'
+                remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.3000.1012750699-alpha.html'
+            }
 
         });
         process.on('SIGINT', async () => {
@@ -85,8 +85,8 @@ class Bot{
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
             let registeredBots = await fetchBots()
 
-            if (message_body.startsWith("!message_count")){
-                console.log(`Bot ${sessionName} has ${this.getMessageCount()} messages`)
+            if (message_body.startsWith("!ping")){
+                console.log(`pong from ${sessionName}`)
 
 
 
