@@ -93,7 +93,7 @@ const searchSong =  async (message,client) => {
 
             }
 
-        }, 10000);
+        }, 1000);
 
     } else{
         setTimeout(async ()=>{
@@ -247,7 +247,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client) => {
 
                     }
 
-                }, 10000);
+                }, 1000);
 
 
 

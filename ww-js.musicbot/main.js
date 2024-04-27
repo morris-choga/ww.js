@@ -1,6 +1,6 @@
 const qrcode = require('qrcode-terminal');
 const { sendSong , sendLyrics, sendSongInfo, searchSong} = require("./messenger");
-const { Client,LocalAuth ,MessageMedia, LinkingMethod } = require('whatsapp-web.js');
+const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots, botSongIncrement} = require("./api");
 
