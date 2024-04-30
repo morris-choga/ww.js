@@ -66,7 +66,21 @@ class Bot{
         });
 
         this.client.on('loading_screen', (percent, message) => {
-            console.log('LOADING SCREEN', percent, message);
+            // console.log('LOADING SCREEN', percent, message);
+            switch (percent){
+                case "25":
+                    console.log(`bot ${sessionName} 25%`);
+                    break;
+                case "50":
+                    console.log(`bot ${sessionName} 50%`);
+                    break;
+                case "75":
+                    console.log(`bot ${sessionName} 75%`);
+                    break;
+                case "100":
+                    console.log(`bot ${sessionName} 100%`);
+                    break;
+            }
         });
 
 
@@ -324,15 +338,15 @@ class Bot{
 
 }
 // ~CHIECHIE🍃❤‍🔥's number
-const bot1 = new Bot("8573",[0,1,2,4]);
+// const bot1 = new Bot("8573",[0,1,2,4]);
 // const bot2 = new Bot("9554",[3,5,6,7]);
 // const bot3 = new Bot("8660",[8,9]);
 
 
 
-bot1.initialize();
+// bot1.initialize();
 // bot2.initialize();
-// bot3.initialize();
+bot3.initialize();
 
 
 
