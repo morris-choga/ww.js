@@ -29,9 +29,44 @@ class Bot{
                 headless: true,
                 args: [
                     '--no-sandbox',
-                    // '--disable-setuid-sandbox',
-                    // '--single-process',
-                    // '--disable-gpu'
+                    '--autoplay-policy=user-gesture-required',
+                    '--disable-background-networking',
+                    '--disable-background-timer-throttling',
+                    '--disable-backgrounding-occluded-windows',
+                    '--disable-breakpad',
+                    '--disable-client-side-phishing-detection',
+                    '--disable-component-update',
+                    '--disable-default-apps',
+                    '--disable-dev-shm-usage',
+                    '--disable-domain-reliability',
+                    '--disable-features=AudioServiceOutOfProcess',
+                    '--disable-hang-monitor',
+                    '--disable-ipc-flooding-protection',
+                    '--disable-notifications',
+                    '--disable-offer-store-unmasked-wallet-cards',
+                    '--disable-popup-blocking',
+                    '--disable-print-preview',
+                    '--disable-prompt-on-repost',
+                    '--disable-renderer-backgrounding',
+                    '--disable-setuid-sandbox',
+                    '--disable-speech-api',
+                    '--disable-sync',
+                    '--hide-scrollbars',
+                    '--ignore-gpu-blacklist',
+                    '--metrics-recording-only',
+                    '--mute-audio',
+                    '--no-default-browser-check',
+                    '--no-first-run',
+                    '--no-pings',
+                    '--no-sandbox',
+                    '--no-zygote',
+                    '--password-store=basic',
+                    '--use-gl=swiftshader',
+                    '--use-mock-keychain',
+                    '--allow-insecure-localhost',
+                    '--disable-setuid-sandbox',
+                    '--single-process',
+                    '--disable-gpu'
                 ]
             },
             // webVersion: '2.3000.1012750699',
@@ -67,7 +102,6 @@ class Bot{
 
         this.client.on('loading_screen', (percent, message) => {
             // console.log('LOADING SCREEN', percent, message);
-            console.log(percent)
             switch (percent){
                 case "25":
                     console.log(`bot ${sessionName} 25%`);
@@ -102,6 +136,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+
 
 
 
@@ -340,13 +375,11 @@ class Bot{
 }
 // ~CHIECHIE🍃❤‍🔥's number
 
-// const bot1 = new Bot("8573",[0,1,2,4]);
-// const bot2 = new Bot("9554",[3,5,6,7]);
-// const bot3 = new Bot("8660",[8,9]);
+const bot1 = new Bot("8573",[0,1,2,4]);
+const bot2 = new Bot("9554",[3,5,6]);
+const bot3 = new Bot("8660",[7,8,9]);
 
-const bot1 = new Bot("8573",[0,1,2,4,3,5,6,7,8,9]);
-const bot2 = new Bot("9554",[0,1,2,4,3,5,6,7,8,9]);
-const bot3 = new Bot("8660",[0,1,2,4,3,5,6,7,8,9]);
+
 
 
 
