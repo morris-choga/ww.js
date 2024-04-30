@@ -67,6 +67,7 @@ class Bot{
 
         this.client.on('loading_screen', (percent, message) => {
             // console.log('LOADING SCREEN', percent, message);
+            console.log(percent)
             switch (percent){
                 case "25":
                     console.log(`bot ${sessionName} 25%`);
@@ -338,15 +339,16 @@ class Bot{
 
 }
 // ~CHIECHIE🍃❤‍🔥's number
+const bot1 = new Bot("8573",[0,1,2,4,3,5,6,7,8,9]);
 // const bot1 = new Bot("8573",[0,1,2,4]);
 // const bot2 = new Bot("9554",[3,5,6,7]);
-const bot3 = new Bot("8660",[8,9]);
+// const bot3 = new Bot("8660",[8,9]);
 
 
 
-// bot1.initialize();
+bot1.initialize();
 // bot2.initialize();
-bot3.initialize();
+// bot3.initialize();
 
 
 
