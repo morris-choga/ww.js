@@ -1,12 +1,14 @@
 version: '3.8'
 services:
   chatbot:
+    container_name: chatbot
     build:
       context: ./ww-js.musicbot
     volumes:
       - shared-data:/usr/src/app/songs
 
   api:
+    container_name: api
     build:
       context: ./ww-js.musicbot.api
     ports:
