@@ -340,7 +340,7 @@ class Bot{
 // ~CHIECHIE🍃❤‍🔥's number
 // const bot1 = new Bot("8573",[0,1,2,4]);
 // const bot2 = new Bot("9554",[3,5,6,7]);
-// const bot3 = new Bot("8660",[8,9]);
+const bot3 = new Bot("8660",[8,9]);
 
 
 
