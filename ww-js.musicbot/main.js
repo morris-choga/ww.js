@@ -134,6 +134,7 @@ class Bot{
 
 
         this.client.on('message', async (message) => {
+            console.log("message received")
             Bot.registeredBots === undefined ? Bot.registeredBots = await fetchBots() : "";   //TEST THIS
             Bot.registeredUsers === undefined ?  Bot.registeredUsers = await fetchUsers() : ""; //TEST THIS
 
