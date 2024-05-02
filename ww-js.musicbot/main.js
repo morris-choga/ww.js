@@ -143,8 +143,8 @@ class Bot{
             let message_body = message.body.toLocaleLowerCase()
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
 
-            console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
-            console.log(Bot.registeredUsers === undefined ? "registeredUsers undefined" : "registeredUsers defined")
+            // console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
+            // console.log(Bot.registeredUsers === undefined ? "registeredUsers undefined" : "registeredUsers defined")
 
             Bot.registeredBots === undefined ? Bot.registeredBots = await fetchBots() : "";   //TEST THIS
             Bot.registeredUsers === undefined ?  Bot.registeredUsers = await fetchUsers() : ""; //TEST THIS
