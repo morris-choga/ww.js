@@ -176,7 +176,7 @@ class Bot{
 
                 await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
                 // this.messageCount++;
-                await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
             }
@@ -187,7 +187,7 @@ class Bot{
                     setTimeout(async () => {
                         await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
                         // this.messageCount++;
-                        await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                        await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                     }, 5000);
                 }
 
@@ -195,7 +195,7 @@ class Bot{
 
                     await message.reply("Join the group to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
                     // this.messageCount++;
-                    await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
                 }
@@ -241,12 +241,12 @@ class Bot{
                                 }
                             }
 
-                            Object.keys(registeredUsers).includes(userID) ? await (async function () {
+                            Object.keys(Bot.registeredUsers).includes(userID) ? await (async function () {
                                 // 10 > 5 ? await (async function () {
 
-                                if (registeredUsers[userID][1] < 10) {
+                                if (Bot.registeredUsers[userID][1] < 10) {
 
-                                    await sendSong(data,message,registeredUsers,userID,this,Bot)
+                                    await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
 
@@ -274,7 +274,7 @@ class Bot{
 
                                 // await sendSong(data, message, registeredUsers, userID)
                                 // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-                                await sendSong(data, message, registeredUsers, userID,this,Bot)
+                                await sendSong(data, message, Bot.registeredUsers, userID,this,Bot)
 
                             }).call(this)
 
@@ -329,7 +329,7 @@ class Bot{
                     if (chat_id === test_group  || chat_id === song_group) {
 
                         await searchSong(message,this.client)
-                        await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                        await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                         // this.messageCount++;
                         // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
