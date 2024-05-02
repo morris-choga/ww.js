@@ -10,7 +10,7 @@ const {fetchBots, botSongIncrement} = require("./api");
 
 class Bot{
     messageCount = 0;
-    sessionName = ""
+    // sessionName = ""
     static registeredBots;
     static registeredUsers;
 
@@ -85,6 +85,7 @@ class Bot{
 
 
 
+
         process.on('SIGINT', async () => {
             await this.client.destroy();
             process.exit(0);
@@ -154,6 +155,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+
 
 
             }
