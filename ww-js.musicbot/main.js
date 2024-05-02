@@ -145,7 +145,7 @@ class Bot{
                 await sendLyrics(message, this.client)
             }
 
-            else if (message.hasQuotedMsg && (chat_id === test_group || chat_id === song_group)){
+            else if (message.hasQuotedMsg ){
                 let options = ["1","2","3"]
 
                             if (message._data.quotedMsg.type === "chat" &&  options.includes(message.body)) {
