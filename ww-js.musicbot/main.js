@@ -127,7 +127,6 @@ class Bot{
             }
         });
 
-
         this.client.on('ready', () => {
             console.log(`bot ${sessionName} ready!`);
         });
