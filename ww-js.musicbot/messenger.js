@@ -1,5 +1,5 @@
 const {MessageMedia} = require("whatsapp-web.js");
-const {fetchUsers, userSongIncrement, botMessageIncrement, fetchBotMessages} = require("./api");
+const {fetchUsers, userSongIncrement, botMessageIncrement, fetchBotMessages, botSongIncrement} = require("./api");
 const fs = require("fs");
 
 // let apiUrl = "http://127.0.0.1:5000";
@@ -201,7 +201,7 @@ const sendSongInfo =  async (message,client) => {
     }
 
 }
-const sendSong = async (metadata,message,registeredUsers,userID,client) => {
+const sendSong = async (metadata,message,registeredUsers,userID,client,botClass) => {
 
     let data = {"video_id": metadata.video_id}
     metadata.album_id === "" ? "" : data["album_id"] = metadata.album_id
@@ -240,6 +240,8 @@ const sendSong = async (metadata,message,registeredUsers,userID,client) => {
 
                     try {
                         await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true })
+                        await userSongIncrement(registeredUsers[userID][0],userID);
+                        await botSongIncrement(botClass.registeredBots[sessionName][0],client.sessionName)
                         console.log(`${message._data.notifyName} received song`);
                         // await message.reply(song)
                     } catch (error) {
@@ -257,7 +259,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client) => {
                     }
                 });
 
-                await userSongIncrement(registeredUsers[userID][0],userID)
+
 
 
 

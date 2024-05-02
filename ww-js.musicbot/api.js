@@ -179,11 +179,11 @@ const fetchBots = async () => {
     let records = await fetchUserRecords(airtableBots,0);
 
 
-    while(records.offset){
-        allBotsRecords = allBotsRecords.concat(records.records)
-        records = await fetchUserRecords(airtableBots,records.offset);
-
-    }
+    // while(records.offset){
+    //     allBotsRecords = allBotsRecords.concat(records.records)
+    //     records = await fetchUserRecords(airtableBots,records.offset);
+    //
+    // }
     allBotsRecords = allBotsRecords.concat(records.records)
 
 

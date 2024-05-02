@@ -9,10 +9,13 @@ const {fetchBots, botSongIncrement} = require("./api");
 
 class Bot{
     messageCount = 0;
+    sessionName = ""
+    static registeredBots;
+    static registeredUsers;
 
 
     constructor(sessionName,range) {
-
+        this.sessionName = sessionName;
         let reInitializeCount = 0
         this.client = new Client({
 
@@ -77,6 +80,10 @@ class Bot{
             // }
 
         });
+
+
+
+
         process.on('SIGINT', async () => {
             await this.client.destroy();
             process.exit(0);
@@ -132,13 +139,13 @@ class Bot{
             let chat_id = (await message.getChat()).id.user
             let message_body = message.body.toLocaleLowerCase()
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
-            let registeredBots = await fetchBots()
+            Bot.registeredBots === undefined ? await fetchBots() : "";   //TEST THIS
+            Bot.registeredUsers === undefined ? await fetchUsers() : ""; //TEST THIS
+            //If a new user is added, the program is likely to break when he/she requests for a song because their records dont exist on the online database
+
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-
-
-
 
 
             }
@@ -218,7 +225,6 @@ class Bot{
                         let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
                         let userName = await message._data.notifyName
                         let userCountry = await fetchCountry(userID)
-                        let registeredUsers = await fetchUsers()
 
                         if (options.includes(decision)) {
 
@@ -236,7 +242,7 @@ class Bot{
 
                                 if (registeredUsers[userID][1] < 10) {
 
-                                    await sendSong(data,message,registeredUsers,userID,this)
+                                    await sendSong(data,message,registeredUsers,userID,this,Bot)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
 
@@ -264,7 +270,7 @@ class Bot{
 
                                 // await sendSong(data, message, registeredUsers, userID)
                                 // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-                                await sendSong(data, message, registeredUsers, userID,this)
+                                await sendSong(data, message, registeredUsers, userID,this,Bot)
 
                             }).call(this)
 
