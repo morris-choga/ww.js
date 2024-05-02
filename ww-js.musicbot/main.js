@@ -299,7 +299,7 @@ class Bot{
 
                     }
                     // this.messageCount++;
-                    await botSongIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                    // await botSongIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
                 }
