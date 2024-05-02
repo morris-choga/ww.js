@@ -241,7 +241,8 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
                     try {
                         await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true })
                         await userSongIncrement(registeredUsers[userID][0],userID);
-                        await botSongIncrement(botClass.registeredBots[sessionName][0],client.sessionName)
+                        await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
+
                         console.log(`${message._data.notifyName} received song`);
                         // await message.reply(song)
                     } catch (error) {
