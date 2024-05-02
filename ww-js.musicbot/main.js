@@ -139,6 +139,10 @@ class Bot{
                 await message.reply("Bot is undergoing maintenance. Please try again later")
             }
 
+            if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8) {
+                await sendLyrics(message, this.client)
+            }
+
         })
 
 
