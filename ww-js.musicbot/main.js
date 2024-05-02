@@ -296,7 +296,7 @@ class Bot{
 
                     }
                     // this.messageCount++;
-                    await botSongIncrement(registeredBots[sessionName][0],sessionName)
+                    await botSongIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
                 }
@@ -306,25 +306,25 @@ class Bot{
                 else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && (chat_id === song_group || chat_id === lyrics_group || chat_id === test_group)){
                     await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
                     // this.messageCount++;
-                    await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
 
 
                 else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (chat_id === lyrics_group || chat_id === test_group)){
                     await sendLyrics(message,this.client)
                     // this.messageCount++;
-                    await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
                 else if (message_body.startsWith("!lyrics ") && message.body.length > 8 ){
                     await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                     // this.messageCount++;
-                    await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
 
                 else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && (chat_id === lyrics_group || chat_id === song_group)) {
                     await sendSongInfo(message,this.client)
                     // this.messageCount++;
-                    await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
                 }
 
@@ -352,7 +352,7 @@ class Bot{
 
                     await message.reply("Album request is still in development...")
                     // this.messageCount++;
-                    await botMessageIncrement(registeredBots[sessionName][0],sessionName)
+                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
                 }
