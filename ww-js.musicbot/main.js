@@ -134,6 +134,8 @@ class Bot{
 
 
         this.client.on('message', async (message) => {
+            Bot.registeredBots === undefined ? Bot.registeredBots = await fetchBots() : "";   //TEST THIS
+            Bot.registeredUsers === undefined ?  Bot.registeredUsers = await fetchUsers() : ""; //TEST THIS
 
             if (message.body.toLocaleLowerCase().startsWith("!song ")) {
                 await message.reply("Bot is undergoing maintenance. Please try again later")
@@ -141,6 +143,35 @@ class Bot{
 
             if (message.body.toLocaleLowerCase().startsWith("!lyrics ") && message.body.length > 8) {
                 await sendLyrics(message, this.client)
+            }
+
+            else if (message.hasQuotedMsg && (chat_id === test_group || chat_id === song_group)){
+                let options = ["1","2","3"]
+
+                            if (message._data.quotedMsg.type === "chat" &&  options.includes(message.body)) {
+
+                                let data = {};
+
+                                let songs = message._data.quotedMsg.body
+                                let pos = songs.split("]")
+                                let decision = message.body;
+                                let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
+
+
+                                if (options.includes(decision)) {
+
+                                    for (let i = 0; i < pos.length - 1; i++) {
+                                        if (i + 1 === parseInt(decision)) {
+                                            let str = pos[i].slice(pos[i].indexOf("[") + 1)
+                                            data["video_id"] = str.slice(0, str.indexOf("~"))
+                                            data["album_id"] = str.slice(str.indexOf("~") + 1)
+                                        }}
+                                }
+
+                                await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
+
+
+                            }
             }
 
         })
