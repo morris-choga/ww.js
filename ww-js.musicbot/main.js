@@ -135,7 +135,7 @@ class Bot{
 
         this.client.on('message', async (message) => {
 
-            if (message_body.startsWith("!song ")) {
+            if (message.body.toLocaleLowerCase().startsWith("!song ")) {
                 await message.reply("Bot is undergoing maintenance. Please try again later")
             }
 
