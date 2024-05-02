@@ -267,7 +267,7 @@ class Bot{
                                 let userInfo = {
                                     "records": [{
                                         "fields": {
-                                            "userID": "", "userName": "", "userCountry": "", "#songs": 1,"botMessagesReceived": 0
+                                            "userID": "", "userName": "", "userCountry": "", "#songs": 0,"botMessagesReceived": 0
                                         }
                                     }]
                                 }
