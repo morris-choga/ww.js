@@ -3,6 +3,7 @@ const { sendSong , sendLyrics, sendSongInfo, searchSong} = require("./messenger"
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots, botSongIncrement} = require("./api");
+const {login} = require("npm/lib/utils/auth");
 
 
 
@@ -139,12 +140,13 @@ class Bot{
             let chat_id = (await message.getChat()).id.user
             let message_body = message.body.toLocaleLowerCase()
             let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
-            console.log(Bot.registeredBots)
-            console.log(Bot.registeredUsers)
+
+            console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
+            console.log(Bot.registeredUsers === undefined ? "registeredUsers undefined" : "registeredUsers defined")
+
             Bot.registeredBots === undefined ? Bot.registeredBots = await fetchBots() : "";   //TEST THIS
             Bot.registeredUsers === undefined ?  Bot.registeredUsers = await fetchUsers() : ""; //TEST THIS
-            console.log(Bot.registeredBots)
-            console.log(Bot.registeredUsers)
+
             //If a new user is added, the program is likely to break when he/she requests for a song because their records dont exist on the online database
 
 
