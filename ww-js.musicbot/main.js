@@ -278,6 +278,7 @@ class Bot{
 
 
                                 await addUser(userInfo)
+                                console.log(`User added to ${userInfo.records[0].fields.userName = userName} database`)
 
                                 // await sendSong(data, message, registeredUsers, userID)
                                 // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
