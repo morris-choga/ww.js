@@ -149,7 +149,7 @@ class Bot{
             Bot.registeredBots === undefined ? Bot.registeredBots = await fetchBots() : "";   //TEST THIS
             Bot.registeredUsers === undefined ?  Bot.registeredUsers = await fetchUsers() : ""; //TEST THIS
 
-            console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
+
 
             //If a new user is added, the program is likely to break when he/she requests for a song because their records dont exist on the online database
 
