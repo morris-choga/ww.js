@@ -237,7 +237,7 @@ class Bot{
                         let decision = message.body;
                         let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
                         let userName = await message._data.notifyName
-                        let userCountry = await fetchCountry(userID)
+                        // let await fetchCountry(userID) = await fetchCountry(userID)
 
                         if (options.includes(decision)) {
 
@@ -276,7 +276,7 @@ class Bot{
 
                                 userInfo.records[0].fields.userID = userID
                                 userInfo.records[0].fields.userName = userName
-                                userInfo.records[0].fields.userCountry = userCountry
+                                userInfo.records[0].fields.userCountry = await fetchCountry(userID)
 
 
                                 await addUser(userInfo)
