@@ -251,7 +251,7 @@ class Bot{
                             }
 
                             Object.keys(Bot.registeredUsers).includes(userID) ? await (async function () {
-                                // 10 > 5 ? await (async function () {
+
 
                                 if (Bot.registeredUsers[userID][1] < 10) {
 
