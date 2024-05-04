@@ -110,10 +110,10 @@ class Bot{
         });
 
         this.client.on('loading_screen', (percent, message) => {
-            console.log('LOADING SCREEN', percent, sessionName);
+            // console.log('LOADING SCREEN', percent, sessionName);
             switch (percent){
-                case "25":
-                    console.log(`bot ${sessionName} 25%`);
+                case "0":
+                    console.log(`bot ${sessionName} 0%`);
                     break;
                 case "50":
                     console.log(`bot ${sessionName} 50%`);
