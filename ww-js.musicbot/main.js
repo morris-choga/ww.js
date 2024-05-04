@@ -211,7 +211,11 @@ class Bot{
 
             }
 
-
+            if (message_body.startsWith("!lyrics ") && message.body.length > 8 && ((await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
+                await sendLyrics(message,this.client)
+                // this.messageCount++;
+                await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+            }
 
 
             if((await message.id.participant) === undefined ? false : range.includes(parseInt((await message.id.participant).substring(0, (await message.id.participant).indexOf('@')).charAt((await message.id.participant).substring(0, (await message.id.participant).indexOf('@')).length - 1)))){
@@ -317,11 +321,7 @@ class Bot{
                 }
 
 
-                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && ((await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
-                    await sendLyrics(message,this.client)
-                    // this.messageCount++;
-                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
-                }
+
                 else if (message_body.startsWith("!lyrics ") && message.body.length > 8 ){
                     await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                     // this.messageCount++;
