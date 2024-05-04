@@ -10,9 +10,11 @@ const {fetchBots, botSongIncrement} = require("./api");
 
 class Bot{
     messageCount = 0;
-    // sessionName = ""
     static registeredBots;
     static registeredUsers;
+    song_group = "120363223962652835"
+    test_group = "120363243170575745"
+    lyrics_group =  "120363244367417149"
 
 
     constructor(sessionName,range) {
@@ -138,13 +140,10 @@ class Bot{
 
         this.client.on('message', async (message) => {
 
-            let userId = (await message.id.participant);
-            let song_group = "120363223962652835"
-            let test_group = "120363243170575745"
-            let lyrics_group =  "120363244367417149"
-            let chat_id = (await message.getChat()).id.user
+            // let (await message.id.participant) = (await message.id.participant);
+            // let (await message.getChat()).id.user = (await message.getChat()).id.user
             let message_body = message.body.toLocaleLowerCase()
-            let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
+            // let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
 
             // console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
             // console.log(Bot.registeredUsers === undefined ? "registeredUsers undefined" : "registeredUsers defined")
@@ -164,7 +163,7 @@ class Bot{
 
             }
 
-            if((message_body.includes("https://")) && !message_body.includes("request") && (chat_id === test_group || chat_id === lyrics_group || chat_id === song_group)){
+            if((message_body.includes("https://")) && !message_body.includes("request") && ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.song_group)){
 
                 setTimeout(async ()=>{
 
@@ -191,9 +190,9 @@ class Bot{
 
             }
 
-            if((await message.getChat()).isGroup && (chat_id !== song_group && chat_id !== lyrics_group && chat_id !== test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
+            if((await message.getChat()).isGroup && ((await message.getChat()).id.user !== this.song_group && (await message.getChat()).id.user !== this.lyrics_group && (await message.getChat()).id.user !== this.test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
 
-                if (groupParticipantsNumber < 11) {
+                if ((await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0 < 11) {
                     setTimeout(async () => {
                         await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
                         // this.messageCount++;
@@ -215,7 +214,7 @@ class Bot{
 
 
 
-            if(userId === undefined ? false : range.includes(parseInt(userId.substring(0, userId.indexOf('@')).charAt(userId.substring(0, userId.indexOf('@')).length - 1)))){
+            if((await message.id.participant) === undefined ? false : range.includes(parseInt((await message.id.participant).substring(0, (await message.id.participant).indexOf('@')).charAt((await message.id.participant).substring(0, (await message.id.participant).indexOf('@')).length - 1)))){
 
 
                 let options = ["1","2","3"]
@@ -223,12 +222,12 @@ class Bot{
 
                 if (message_body.startsWith("id")&& isGroup){
 
-                    console.log(chat_id)
+                    console.log((await message.getChat()).id.user)
                 }
 
 
 
-                else if (message.hasQuotedMsg && (chat_id === test_group || chat_id === song_group)){
+                else if (message.hasQuotedMsg && ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group)){
 
                     if (message._data.quotedMsg.type === "chat" &&  options.includes(message.body)) {
 
@@ -311,14 +310,14 @@ class Bot{
 
 
 
-                else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && (chat_id === song_group || chat_id === lyrics_group || chat_id === test_group)){
+                else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && ((await message.getChat()).id.user === this.song_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
                     await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
 
 
-                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (chat_id === lyrics_group || chat_id === test_group)){
+                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && ((await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
                     await sendLyrics(message,this.client)
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
@@ -329,7 +328,7 @@ class Bot{
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
 
-                else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && (chat_id === lyrics_group || chat_id === song_group)) {
+                else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && ((await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.song_group)) {
                     await sendSongInfo(message,this.client)
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
@@ -338,7 +337,7 @@ class Bot{
 
                 else if (message_body.startsWith("!song ") && message.body.length > 6 && isGroup) {
 
-                    if (chat_id === test_group  || chat_id === song_group) {
+                    if ((await message.getChat()).id.user === this.test_group  || (await message.getChat()).id.user === this.song_group) {
 
                         await searchSong(message,this.client)
                         await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
