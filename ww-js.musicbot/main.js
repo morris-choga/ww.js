@@ -322,7 +322,7 @@ class Bot{
 
 
 
-                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 ){
+                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (await message.getChat()).id.user !== this.lyrics_group){
                     await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
