@@ -259,8 +259,8 @@ class Bot{
 
                                 if (Bot.registeredUsers[userID][1] < 10) {
 
-                                    await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
-                                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                                    // await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
 
                                 } else {
@@ -288,8 +288,8 @@ class Bot{
                                 Bot.registeredUsers = await fetchUsers();
 
                                 // await sendSong(data, message, registeredUsers, userID)
-                                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-                                await sendSong(data, message, Bot.registeredUsers, userID,this,Bot)
+                                await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                                // await sendSong(data, message, Bot.registeredUsers, userID,this,Bot)
 
                             }).call(this)
 
@@ -339,10 +339,10 @@ class Bot{
 
                     if ((await message.getChat()).id.user === this.test_group  || (await message.getChat()).id.user === this.song_group) {
 
-                        await searchSong(message,this.client)
+                        // await searchSong(message,this.client)
                         await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
-                        // this.messageCount++;
-                        // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+
+                        await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
                     }
 
@@ -396,9 +396,10 @@ class Bot{
 }
 
 
-// const bot1 = new Bot("8573",[]);
+// const bot1 = new Bot("9554",[]);
 const bot2 = new Bot("8660",[0,1,2,4,5,3,6,7,8,9]);
-// const bot3 = new Bot("9554",[3,6,7,8,9]);
+// const bot3 = new Bot("8573",[3,6,7,8,9]);
+
 
 
 
