@@ -259,8 +259,8 @@ class Bot{
 
                                 if (Bot.registeredUsers[userID][1] < 10) {
 
-                                    // await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
-                                    await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                                    await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
 
                                 } else {
@@ -287,9 +287,9 @@ class Bot{
                                 console.log(`User ${userInfo.records[0].fields.userName = await message._data.notifyName} added to database`)
                                 Bot.registeredUsers = await fetchUsers();
 
-                                // await sendSong(data, message, registeredUsers, userID)
-                                await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
-                                // await sendSong(data, message, Bot.registeredUsers, userID,this,Bot)
+
+                                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                                await sendSong(data, message, Bot.registeredUsers, userID,this,Bot)
 
                             }).call(this)
 
@@ -339,10 +339,10 @@ class Bot{
 
                     if ((await message.getChat()).id.user === this.test_group  || (await message.getChat()).id.user === this.song_group) {
 
-                        // await searchSong(message,this.client)
+                        await searchSong(message,this.client)
                         await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
-                        await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                        // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
                     }
 
