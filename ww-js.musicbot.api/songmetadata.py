@@ -1,5 +1,4 @@
 import sys
-import yt_dlp
 
 from ytmusicapi import YTMusic
 import os
