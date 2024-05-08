@@ -1,3 +1,6 @@
+import sys
+import yt_dlp
+
 from ytmusicapi import YTMusic
 import os
 oauth = f"{os.getcwd()}/oauth.json"
@@ -33,19 +36,6 @@ def get_songs_metadata(song):
 
         return results
 
-        # song['title']
-        # title = results[0]['title']
-        # album_name = results[0]['album']['name']
-        # artist = results[0]['artists'][0]['name']
-        #
-        # video_id = results[0]['videoId']
-        # album = yt.get_album(results[0]["album"]["id"])
-        # year = album["year"]
-        # url = album['thumbnails'][-1]['url']
-        #
-        # return {"title": title, "album_name": album_name, "artist": artist, "year": year, "video_id": video_id,
-        #         "url": url}
-
     except Exception  as e:
         print(f"An error occurred: {e}")
         return None
@@ -72,6 +62,9 @@ def get_song_metadata(song):
         return None
 
 
+def get_videos_metadata():
+    # https://pypi.org/project/ytsearch/0.2.3.dev0/
+    pass
 
 
 def lyrics(song):
@@ -98,7 +91,6 @@ def lyrics(song):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
-
 
 
 def tagger(location, video_id, album_id = None):
@@ -167,29 +159,3 @@ def tagger(location, video_id, album_id = None):
 
 
 
-
-# def tagger(title, artist, album, thumbnail, location):
-#
-#     try:
-#         thumbnail = thumbnail
-#         mp3file = EasyID3(location)
-#         mp3file["albumartist"] = album
-#         mp3file["artist"] = artist
-#         mp3file["album"] = album
-#         mp3file["title"] = title
-#         mp3file["website"] = 'https://morrischoga.vercel.app'
-#         mp3file["tracknumber"] = str(1)
-#         mp3file.save()
-#
-#         audio = ID3(location)
-#         audio.save(v2_version=3)
-#
-#         audio = ID3(location)
-#         with urllib.request.urlopen(thumbnail) as albumart:
-#             audio["APIC"] = APIC(
-#                 encoding=3, mime="image/jpeg", type=3, desc="Cover", data=albumart.read()
-#             )
-#         audio.save(v2_version=3)
-#
-#     except Exception as e:
-#         print(f"An error occurred: {e}")

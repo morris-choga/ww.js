@@ -1,6 +1,5 @@
 from songmetadata import get_song_metadata, get_songs_metadata, lyrics, tagger
-from download_song import download
-from downloadsong_api import download_song
+from download import download_song
 from flask import request, jsonify
 import os
 from flask import Flask
@@ -21,7 +20,7 @@ def get_song():
     requested_song = request.get_json()
     video_id = requested_song['video_id']
 
-    song = download(video_id, os.path.join("/usr/src/api", "songs"))
+    song = download_song(video_id, os.path.join("/usr/src/api", "songs"))
 
     if "album_id" in requested_song:
         tagger(song,video_id,requested_song["album_id"])

@@ -8,7 +8,7 @@ import os
 
 
 
-def download(video_id,location):
+def download_song(video_id, location):
     link = f'https://music.youtube.com/watch?v={video_id}'
 
 
@@ -53,7 +53,7 @@ def download(video_id,location):
         print(f"Error has occured: {str(e)}")
         return f"Error has occured: {str(e)}"
 
-
-
+def download_video(video_id, location):
+    pass
 
 

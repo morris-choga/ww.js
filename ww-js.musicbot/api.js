@@ -50,7 +50,7 @@ const fetchUserRecords = async (url,offset)=>{
 
         return records
     }).catch(error=>{
-            console.log(`An error occurred while fetching https://api.airtable.com: ${error}`)
+            console.log(`An error occurred while fetching airtable user records: ${error}`)
         });
 
     return result;
@@ -184,7 +184,16 @@ const fetchBots = async () => {
     //     records = await fetchUserRecords(airtableBots,records.offset);
     //
     // }
-    allBotsRecords = allBotsRecords.concat(records.records)
+    let count = 5;
+    while (count < 6 && typeof records === "undefined"){
+        records = await fetchUserRecords(airtableBots,0)
+        console.log("fetchUserRecords returned undefined... retrying")
+        count++
+
+    }
+
+    allBotsRecords = allBotsRecords.concat(records.records);
+
 
 
 
