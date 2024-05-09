@@ -32,4 +32,4 @@ COPY . .
 
 
 #CMD ["google-chrome-stable" , "&&" , "node", "main.js"]
-CMD google-chrome-stable --no-sandbox && node main.js
+CMD node main.js
