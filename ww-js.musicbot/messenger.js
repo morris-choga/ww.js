@@ -226,6 +226,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
             else {
                 let response = data
                 let apiResponse = response.replace("api", "app")
+
                 return apiResponse
             }
         }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
