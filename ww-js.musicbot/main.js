@@ -34,7 +34,7 @@ class Bot{
             puppeteer: {
                 headless: true,
                 args: [
-                    '--no-sandbox',
+                    // '--no-sandbox',
                     '--autoplay-policy=user-gesture-required',
                     '--disable-background-networking',
                     '--disable-background-timer-throttling',
@@ -54,7 +54,7 @@ class Bot{
                     '--disable-print-preview',
                     '--disable-prompt-on-repost',
                     '--disable-renderer-backgrounding',
-                    '--disable-setuid-sandbox',
+                    // '--disable-setuid-sandbox',
                     '--disable-speech-api',
                     '--disable-sync',
                     '--hide-scrollbars',
@@ -64,13 +64,13 @@ class Bot{
                     '--no-default-browser-check',
                     '--no-first-run',
                     '--no-pings',
-                    '--no-sandbox',
+                    // '--no-sandbox',
                     '--no-zygote',
                     '--password-store=basic',
                     '--use-gl=swiftshader',
                     '--use-mock-keychain',
                     '--allow-insecure-localhost',
-                    '--disable-setuid-sandbox',
+                    // '--disable-setuid-sandbox',
                     '--single-process',
                     '--disable-gpu'
                 ]
