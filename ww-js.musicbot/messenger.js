@@ -93,13 +93,13 @@ const searchSong =  async (message,client) => {
 
             }
 
-        }, 1000);
+        }, 1);
 
     } else{
         setTimeout(async ()=>{
             console.log("An error has occurred while searching song: No object was received or the object was empty")
 
-        }, 10000);
+        }, 1);
     }
 
 
@@ -181,8 +181,8 @@ const sendSongInfo =  async (message,client) => {
 
         setTimeout(async ()=>{
             try {
-                await message.reply(picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
-                // await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
+
+                await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`,quotedMessageId:message.id._serialized})
 
             } catch (error) {
                 console.log(`Error sending message ${error}`)
@@ -241,8 +241,8 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
                 setTimeout(async ()=>{
 
                     try {
-                        await message.reply(song,{ sendMediaAsDocument: true })
-                        // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true })
+
+                        await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
                         await userSongIncrement(registeredUsers[userID][0],userID);
                         await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
 
