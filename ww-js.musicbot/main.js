@@ -28,7 +28,8 @@ class Bot{
             //     }
             // }),
             authStrategy: new LocalAuth({
-                dataPath: "/usr/src/app/songs/sessions",
+                // dataPath: "/usr/src/app/songs/sessions",
+                dataPath: "/var/lib/docker/volumes/wwjs_shared-data/_data/sessions",
                 clientId: `${sessionName}`
             }),
             puppeteer: {
