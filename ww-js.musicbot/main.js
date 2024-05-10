@@ -69,7 +69,6 @@ class Bot{
                     '--use-gl=swiftshader',
                     '--use-mock-keychain',
                     '--allow-insecure-localhost',
-                    '--single-process',
                     '--disable-gpu'
                 ]
             },
