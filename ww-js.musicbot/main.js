@@ -385,7 +385,11 @@ class Bot{
     }
     initialize() {
         // Initialize your client here if necessary
-        this.client.initialize();
+        // this.client.initialize();
+        this.client.initialize().catch(reason => {
+            console.log("Ohhhhhh fuck, target has been closed!!! Reasong being: "+reason)
+            }
+        )
     }
 
 
@@ -405,6 +409,8 @@ const bot2 = new Bot("8660",[0,1,2,4,5,3,6,7,8,9]);
 
 // bot1.initialize();
 bot2.initialize();
+
+
 // bot3.initialize();
 
 
