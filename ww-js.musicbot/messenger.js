@@ -84,8 +84,8 @@ const searchSong =  async (message,client) => {
         setTimeout(async ()=>{
 
             try {
-                await message.reply(content)
-                // await client.sendMessage(message._data.from,content)
+                // await message.reply(content)
+                await client.sendMessage(message._data.from,content)
 
 
             } catch (error) {
@@ -182,7 +182,7 @@ const sendSongInfo =  async (message,client) => {
         setTimeout(async ()=>{
             try {
 
-                await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`,quotedMessageId:message.id._serialized})
+                await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
 
             } catch (error) {
                 console.log(`Error sending message ${error}`)
