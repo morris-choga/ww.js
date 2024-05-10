@@ -84,8 +84,8 @@ const searchSong =  async (message,client) => {
         setTimeout(async ()=>{
 
             try {
-                // await message.reply(content)
-                await client.sendMessage(message._data.from,content)
+                await message.reply(content)
+                // await client.sendMessage(message._data.from,content)
 
 
             } catch (error) {
@@ -126,14 +126,14 @@ const sendLyrics =  async (message,client) => {
         setTimeout(async ()=>{
 
             try {
-                // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
-                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
+                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
+                // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
             } catch (error) {
                 console.log(`Error sending message ${error}`)
 
             }
 
-        }, 10000);
+        }, 1);
 
 
 
@@ -152,7 +152,7 @@ const sendLyrics =  async (message,client) => {
 
             }
 
-        }, 10000);
+        }, 1);
 
 
 
@@ -181,13 +181,14 @@ const sendSongInfo =  async (message,client) => {
 
         setTimeout(async ()=>{
             try {
-                await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
+                await message.reply(picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
+                // await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
 
             } catch (error) {
                 console.log(`Error sending message ${error}`)
             }
 
-        }, 10000);
+        }, 1);
 
 
     }
@@ -196,7 +197,7 @@ const sendSongInfo =  async (message,client) => {
 
             await message.reply("oops! info for this song are unavailable.\nUse !menu for help")
             console.log("An error has occurred while searching song info: No object was received or the object was empty")
-        }, 10000);
+        }, 1);
 
     }
 
@@ -240,7 +241,8 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
                 setTimeout(async ()=>{
 
                     try {
-                        await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true })
+                        await message.reply(song,{ sendMediaAsDocument: true })
+                        // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true })
                         await userSongIncrement(registeredUsers[userID][0],userID);
                         await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
 
@@ -251,7 +253,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
 
                     }
 
-                }, 1000);
+                }, 1);
 
 
 
@@ -280,7 +282,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
             }
 
 
-        }, 10000);
+        }, 1);
 
 
 
