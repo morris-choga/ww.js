@@ -22,7 +22,8 @@ def get_song():
     print("Called")
 
 
-    song = download_song(video_id, os.path.join("/usr/src/api", "songs"))
+    # song = download_song(video_id, os.path.join("/usr/src/api", "songs"))
+    song = download_song(video_id, os.path.join("/remotefiles/ww.js", "songs"))
 
     if "album_id" in requested_song:
         tagger(song,video_id,requested_song["album_id"])
