@@ -242,7 +242,8 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
 
                     try {
 
-                        await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
+                        // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
+                        await client.client.sendMessage(message._data.from, song,{ quotedMessageId:message.id._serialized})
                         await userSongIncrement(registeredUsers[userID][0],userID);
                         await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
 
@@ -254,6 +255,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
                     }
 
                 }, 1);
+
 
 
 
