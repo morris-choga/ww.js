@@ -64,6 +64,13 @@ const fetchUsers = async () => {
     let records = await fetchUserRecords(airtableUsers,0);
 
 
+    let count = 0;
+    while (count < 6 && typeof records === "undefined"){
+        records = await fetchUserRecords(airtableUsers,0);
+        console.log("fetchUserRecords returned undefined... retrying")
+        count++
+
+    }
 
     while(records.offset){
         allUserRecords = allUserRecords.concat(records.records)
@@ -92,35 +99,7 @@ const fetchUsers = async () => {
 
 
 }
-// const fetchBotMessages = async () => {
-//
-//     let result = await fetch(airtableUsers,{
-//         headers: airtableHeaders,
-//     }).then((response)=>{
-//         let body = response.json()
-//
-//         return body
-//     }).then((response)=>{
-//
-//         let botMessageInfo = {}
-//         let users = response.records
-//
-//
-//         Object.keys(users).forEach((key) => {
-//             botMessageInfo[users[key].fields.userID] = [users[key].id,users[key].fields["botMessagesReceived"]]
-//
-//         })
-//
-//
-//         return botMessageInfo
-//
-//     }).catch(error=>{
-//         console.log(`An error occurred while fetching https://api.airtable.com: ${error}`)
-//     });
-//
-//     return result
-//
-// }
+
 
 const userSongIncrement = async (id,userID) => {
     let users = await fetchUsers();
@@ -184,7 +163,7 @@ const fetchBots = async () => {
     //     records = await fetchUserRecords(airtableBots,records.offset);
     //
     // }
-    let count = 5;
+    let count = 0;
     while (count < 6 && typeof records === "undefined"){
         records = await fetchUserRecords(airtableBots,0)
         console.log("fetchUserRecords returned undefined... retrying")

@@ -68,7 +68,7 @@ const searchSong =  async (message,client) => {
             return "Error"
         }).then((data) => {
             return data
-        }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
+        }).catch(error => console.log('an error has occurred searching for song with fetching https://api:5000/lyrics ', error))
 
 
 
@@ -116,7 +116,7 @@ const sendLyrics =  async (message,client) => {
             return "Error"
         }).then((data) => {
             return data
-        }).catch(error => console.log('an error has occurred while fetching https://api:5000/lyrics ', error))
+        }).catch(error => console.log('an error has occurred while searching for lyrics with fetching https://api:5000/lyrics ', error))
 
 
     if (typeof lyrics === "object" && !Object.keys(lyrics).length == 0){
@@ -230,7 +230,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
 
                 return apiResponse
             }
-        }).catch(error => console.log('an error has occurred while fetching https://api:5000 ', error))
+        }).catch(error => console.log('an error has occurred while fetching to send song with  https://api:5000 ', error))
 
     if (typeof songPath !== "object") {
         setTimeout(async ()=>{
@@ -303,7 +303,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
             }
 
 
-        }, 10000);
+        }, 1);
         console.log("An error has occurred while searching song info: No object was received or the object was empty")
     }
 }
