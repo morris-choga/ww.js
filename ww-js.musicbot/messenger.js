@@ -90,6 +90,10 @@ const searchSong =  async (message,client) => {
 
             } catch (error) {
                 console.log(`Error sending message ${error}`)
+                if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                    console.log("This is when the page need to be restarted")
+                }
+
 
             }
 
@@ -129,7 +133,10 @@ const sendLyrics =  async (message,client) => {
                 await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
                 // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
             } catch (error) {
-                console.log(`Error sending message ${error}`)
+                console.log(`Error sending lyrics message ${error}`)
+                if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                    console.log("This is when the page need to be restarted")
+                }
 
             }
 
@@ -148,7 +155,10 @@ const sendLyrics =  async (message,client) => {
 
 
             } catch (error) {
-                console.log(`Error sending message ${error}`)
+                console.log(`Error sending lyrics error message ${error}`)
+                if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                    console.log("This is when the page need to be restarted")
+                }
 
             }
 
@@ -185,7 +195,10 @@ const sendSongInfo =  async (message,client) => {
                 await client.sendMessage(message._data.from,picture,{caption: `*Title: ${songInfo.title}*\n*Artist: ${songInfo.artist}*\n*Album: ${songInfo.album}*\n*Year: ${songInfo.year}*`})
 
             } catch (error) {
-                console.log(`Error sending message ${error}`)
+                console.log(`Error sending song info message ${error}`)
+                if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                    console.log("This is when the page need to be restarted")
+                }
             }
 
         }, 1);
@@ -197,6 +210,9 @@ const sendSongInfo =  async (message,client) => {
 
             await message.reply("oops! info for this song are unavailable.\nUse !menu for help")
             console.log("An error has occurred while searching song info: No object was received or the object was empty")
+            if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                console.log("This is when the page need to be restarted")
+            }
         }, 1);
 
     }
@@ -250,7 +266,10 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
                         console.log(`${message._data.notifyName} received song`);
                         // await message.reply(song)
                     } catch (error) {
-                        console.log(`Error sending message ${error}`)
+                        console.log(`Error sending song message ${error}`)
+                        if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                            console.log("This is when the page need to be restarted")
+                        }
 
                     }
 
@@ -298,6 +317,9 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
             try {
                 await message.reply(songPath.Error)
             } catch (error) {
+                if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                    console.log("This is when the page need to be restarted")
+                }
                 console.log(`Error sending message ${error}`)
 
             }

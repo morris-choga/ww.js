@@ -87,6 +87,7 @@ class Bot{
 
 
         process.on('SIGINT', async () => {
+            console.log("SIGNINT called... now exiting!\nBye Morris")
             await this.client.destroy();
             process.exit(0);
         });
