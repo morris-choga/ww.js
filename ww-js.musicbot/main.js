@@ -89,7 +89,8 @@ class Bot{
             console.log(`Process exited with code ${code} Morris`);
 
             const docker = new Docker({socketPath: '/var/run/docker.sock'});
-            await docker.getContainer('chatbot').restart(function (err, data) {
+            await docker.getContainer('chatbot').restart({},function (err, data) {
+
                 console.log('Container restarted');
             });
 
