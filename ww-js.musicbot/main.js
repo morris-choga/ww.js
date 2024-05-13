@@ -33,7 +33,7 @@ class Bot{
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: true,
+                headless: false,
                 args: [
                     '--no-sandbox',
                     '--autoplay-policy=user-gesture-required',
@@ -84,7 +84,14 @@ class Bot{
 
 
 
+        process.on('exit', (code) => {
+            console.log(`Process exited with code ${code}`);
 
+            require('child_process').spawn(process.argv[0], process.argv.slice(1), {
+                detached: true,
+                stdio: 'inherit',
+            });
+        });
 
         process.on('SIGINT', async () => {
             console.log("SIGNINT called... now exiting!\nBye Morris")
@@ -137,6 +144,11 @@ class Bot{
 
 
 
+
+
+
+
+
         this.client.on('message', async (message) => {
 
             // let (await message.id.participant) = (await message.id.participant);
@@ -157,6 +169,9 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+                await this.client.pupPage.close();
+
+
 
 
 
@@ -192,6 +207,8 @@ class Bot{
             if((await message.getChat()).isGroup && ((await message.getChat()).id.user !== this.song_group && (await message.getChat()).id.user !== this.lyrics_group && (await message.getChat()).id.user !== this.test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
 
                 if ((await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0 < 11) {
+
+
                     setTimeout(async () => {
                         await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
                         // this.messageCount++;
