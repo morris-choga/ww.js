@@ -125,7 +125,7 @@ const searchAlbum = async (message,client)=>{
         }).catch(error => console.log('an error has occurred searching for album with fetching https://api:5000/searchalbums ', error))
 
 
-    if (typeof albums === "object" && !Object.keys(songs).length == 0){
+    if (typeof albums === "object" && !Object.keys(albums).length == 0){
         let content = ""
         let options = ['1️⃣','2️⃣','3️⃣'];
 
