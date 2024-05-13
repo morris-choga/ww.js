@@ -87,10 +87,22 @@ class Bot{
         process.on('exit', (code) => {
             console.log(`Process exited with code ${code} Morris`);
 
-            require('child_process').spawn(process.argv[0], process.argv.slice(1), {
-                detached: true,
-                stdio: 'inherit',
+            // require('child_process').spawn(process.argv[0], process.argv.slice(1), {
+            //     detached: true,
+            //     stdio: 'inherit',
+            // });
+
+            const Docker = require('dockerode');
+            const docker = new Docker({socketPath: '/var/run/docker.sock'});
+
+            docker.getContainer('your_container_id').restart(function (err, data) {
+                console.log('Container restarted');
             });
+
+
+
+
+
         });
 
         process.on('SIGINT', async () => {

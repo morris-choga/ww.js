@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "i": "^0.3.7",
+    "npm": "^10.5.1",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus",
+    "dockerode" : "^4.0.2"
+
+  }
+}
