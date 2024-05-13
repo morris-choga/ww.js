@@ -96,7 +96,13 @@ class Bot{
             const docker = new Docker({socketPath: '/var/run/docker.sock'});
 
 
-            console.log(docker.listImages())
+            (async function (){
+
+                console.log(await docker.listImages())
+
+            })()
+
+
 
             // docker.getContainer('chatbot').restart(function (err, data) {
             //     console.log('Container restarted');
