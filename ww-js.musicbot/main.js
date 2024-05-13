@@ -85,7 +85,7 @@ class Bot{
 
 
         process.on('exit', (code) => {
-            console.log(`Process exited with code ${code}`);
+            console.log(`Process exited with code ${code} Morris`);
 
             require('child_process').spawn(process.argv[0], process.argv.slice(1), {
                 detached: true,
