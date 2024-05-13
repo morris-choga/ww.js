@@ -131,7 +131,7 @@ const searchAlbum = async (message,client)=>{
 
         for (let i = 0; i< albums.length; i++){
 
-            content += `*${options[i]}: ${albums[i].artist} - ${albums[i].title}\n[${albums[i].year}~${albums[i].album_id}]\n\n`
+            content += `*${options[i]}: ${albums[i].artist} - ${albums[i].title}*\n[${albums[i].year}~${albums[i].album_id}]\n\n`
         }
         content+="________________________________________\nReply this message with album number"
         setTimeout(async ()=>{
