@@ -2,6 +2,7 @@ const qrcode = require('qrcode-terminal');
 const { sendSong , sendLyrics, sendSongInfo, searchSong} = require("./messenger");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
+const Docker = require('dockerode');
 const {fetchBots, botSongIncrement} = require("./api");
 
 
@@ -92,21 +93,8 @@ class Bot{
             //     stdio: 'inherit',
             // });
 
-            const Docker = require('dockerode');
-            const docker = new Docker({socketPath: '/var/run/docker.sock'});
 
 
-            (async function (){
-
-                console.log(await docker.listImages())
-
-            })()
-
-
-
-            // docker.getContainer('chatbot').restart(function (err, data) {
-            //     console.log('Container restarted');
-            // });
 
 
 
@@ -165,11 +153,6 @@ class Bot{
 
 
 
-
-
-
-
-
         this.client.on('message', async (message) => {
 
             // let (await message.id.participant) = (await message.id.participant);
@@ -190,6 +173,14 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+                const docker = new Docker({socketPath: '/var/run/docker.sock'});
+
+                // docker.getContainer('chatbot').restart(function (err, data) {
+                //     console.log('Container restarted');
+                // });
+
+                console.log(await docker.getContainer("chatbot"))
+
                 await this.client.pupPage.close();
 
 
@@ -427,7 +418,7 @@ class Bot{
         // Initialize your client here if necessary
         // this.client.initialize();
         this.client.initialize().catch(reason => {
-            console.log("Ohhhhhh fuck, target has been closed!!! Reasong being: "+reason)
+            console.log("Ohhhhhh fuck, target has been closed!!! Reason being: "+reason)
             }
         )
     }
