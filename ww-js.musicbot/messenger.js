@@ -90,7 +90,7 @@ const searchSong =  async (message,client) => {
 
 
             } catch (error) {
-                console.log(`Error sending message ${error}`)
+                console.log(`Error sending song search message ${error}`)
                 if (error.message.includes(targetClossed)) {
                     console.log("This is when the page need to be restarted")
                 }
@@ -109,6 +109,59 @@ const searchSong =  async (message,client) => {
 
 
 }
+
+const searchAlbum = async (message,client)=>{
+
+    requestOptions.body = JSON.stringify({"key": message.body.substring(7)})
+    let albums = await fetch(`${apiUrl}/searchalbums`, requestOptions)
+        .then((response) => {
+
+            if (response.ok) {
+                return response.json()
+            }
+            return "Error"
+        }).then((data) => {
+            return data
+        }).catch(error => console.log('an error has occurred searching for album with fetching https://api:5000/searchalbums ', error))
+
+
+    if (typeof albums === "object" && !Object.keys(songs).length == 0){
+        let content = ""
+        let options = ['1️⃣','2️⃣','3️⃣'];
+
+        for (let i = 0; i< albums.length; i++){
+
+            content += `*${options[i]}: ${albums[i].artist} - ${albums[i].title}\n[${albums[i].year}~${albums[i].album_id}]\n\n`
+        }
+        content+="________________________________________\nReply this message with album number"
+        setTimeout(async ()=>{
+
+            try {
+                // await message.reply(content)
+                await client.sendMessage(message._data.from,content)
+
+
+            } catch (error) {
+                console.log(`Error sending album search message ${error}`)
+                if (error.message.includes(targetClossed)) {
+                    console.log("This is when the page need to be restarted")
+                }
+
+
+            }
+
+        }, 1);
+
+    } else{
+        setTimeout(async ()=>{
+            console.log("An error has occurred while searching album: No object was received or the object was empty")
+
+        }, 1);
+    }
+
+}
+
+
 const sendLyrics =  async (message,client) => {
     requestOptions.body = JSON.stringify({"key": message.body.substring(8)})
     let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
@@ -333,4 +386,4 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
 
 
 
-module.exports = { sendSong , sendLyrics, sendSongInfo, searchSong};
+module.exports = { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum};

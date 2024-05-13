@@ -1,4 +1,4 @@
-from songmetadata import get_song_metadata, get_songs_metadata, lyrics, tagger
+from songmetadata import get_song_metadata, get_songs_metadata, get_albums_metadata,lyrics, tagger
 from download import download_song
 from flask import request, jsonify
 import os
@@ -14,6 +14,13 @@ def search_song():
     songs_metadata = get_songs_metadata(f"{requested_song['key']}")
 
     return songs_metadata
+
+@app.route("/searchalbums", methods=['GET', 'POST'])
+def search_album():
+    requested_album = request.get_json()
+    albums_metadata = get_albums_metadata(f"{requested_album['key']}")
+    return  albums_metadata
+
 
 @app.route("/getsong", methods=['GET', 'POST'])
 def get_song():

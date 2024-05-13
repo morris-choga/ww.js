@@ -60,6 +60,17 @@ def get_song_metadata(song):
         print(f"An error occurred: {e}")
         return None
 
+def get_albums_metadata(album):
+    albums = []
+
+
+    results = yt.search(album, filter="albums")
+    for x in results[0:3]:
+        albums.append({"artist":x['artists'][1]['name'], "title":x['title'],"album_id":x['browseId'],"year":x['year'],"thumbnail":x['thumbnails'][-1]['url']})
+
+
+    return albums
+
 
 def get_videos_metadata():
     # https://pypi.org/project/ytsearch/0.2.3.dev0/

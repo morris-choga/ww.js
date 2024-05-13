@@ -1,5 +1,5 @@
 const qrcode = require('qrcode-terminal');
-const { sendSong , sendLyrics, sendSongInfo, searchSong} = require("./messenger");
+const { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum} = require("./messenger");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots, botSongIncrement} = require("./api");
@@ -351,18 +351,21 @@ class Bot{
 
                 }
 
-
-
                 else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
+                    if ((await message.getChat()).id.user === this.test_group ) {
+                        await searchAlbum(message,this.client)
+
+                        //dont forget to increment bot message
+
+                    }
 
 
-
-                    await message.reply("Album request is still in development...")
-                    // this.messageCount++;
-                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
                 }
+
+
+
 
             }
 
