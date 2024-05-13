@@ -175,13 +175,13 @@ class Bot{
                 console.log(`pong from ${sessionName}`)
                 const docker = new Docker({socketPath: '/var/run/docker.sock'});
 
-                // docker.getContainer('chatbot').restart(function (err, data) {
-                //     console.log('Container restarted');
-                // });
 
-                console.log(await docker.getContainer("chatbot"))
 
-                await this.client.pupPage.close();
+                // await this.client.pupPage.close();
+
+                await docker.getContainer('chatbot').restart(function (err, data) {
+                    console.log('Container restarted');
+                });
 
 
 
