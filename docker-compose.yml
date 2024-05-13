@@ -2,6 +2,7 @@ version: '3.8'
 services:
   chatbot:
     container_name: chatbot
+    restart: always
     build:
       context: ./ww-js.musicbot
     volumes:
