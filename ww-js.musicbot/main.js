@@ -85,8 +85,13 @@ class Bot{
 
 
 
-        process.on('exit', (code) => {
+        process.on('exit', async (code) => {
             console.log(`Process exited with code ${code} Morris`);
+
+            const docker = new Docker({socketPath: '/var/run/docker.sock'});
+            await docker.getContainer('chatbot').restart(function (err, data) {
+                console.log('Container restarted');
+            });
 
             // require('child_process').spawn(process.argv[0], process.argv.slice(1), {
             //     detached: true,
@@ -173,15 +178,13 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                const docker = new Docker({socketPath: '/var/run/docker.sock'});
+
 
 
 
                 await this.client.pupPage.close();
 
-                await docker.getContainer('chatbot').restart(function (err, data) {
-                    console.log('Container restarted');
-                });
+
 
 
 
