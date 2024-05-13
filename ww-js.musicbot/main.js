@@ -95,7 +95,7 @@ class Bot{
             const Docker = require('dockerode');
             const docker = new Docker({socketPath: '/var/run/docker.sock'});
 
-            docker.getContainer('your_container_id').restart(function (err, data) {
+            docker.getContainer('chatbot').restart(function (err, data) {
                 console.log('Container restarted');
             });
 
