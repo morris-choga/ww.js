@@ -177,7 +177,7 @@ class Bot{
 
 
 
-                // await this.client.pupPage.close();
+                await this.client.pupPage.close();
 
                 await docker.getContainer('chatbot').restart(function (err, data) {
                     console.log('Container restarted');
