@@ -189,7 +189,7 @@ class Bot{
 
             if((await message.getChat()).isGroup && ((await message.getChat()).id.user !== this.song_group && (await message.getChat()).id.user !== this.lyrics_group && (await message.getChat()).id.user !== this.test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
 
-                if ((await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0 < 11) {
+                if ((await message.getChat()).participants.length < 11) {
 
 
                     setTimeout(async () => {

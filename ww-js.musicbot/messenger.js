@@ -155,6 +155,7 @@ const searchAlbum = async (message,client)=>{
     } else{
         setTimeout(async ()=>{
             console.log("An error has occurred while searching album: No object was received or the object was empty")
+            //remember to send reply user with album and songs not found
 
         }, 1);
     }
