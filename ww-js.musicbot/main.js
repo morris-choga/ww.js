@@ -157,7 +157,6 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-
             }
 
             if((message_body.includes("https://")) && !message_body.includes("request") && ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.song_group)){
@@ -187,7 +186,13 @@ class Bot{
 
             }
 
+
+
+
+
             if((await message.getChat()).isGroup && ((await message.getChat()).id.user !== this.song_group && (await message.getChat()).id.user !== this.lyrics_group && (await message.getChat()).id.user !== this.test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
+
+
 
                 if ((await message.getChat()).participants.length < 11) {
 
@@ -390,7 +395,16 @@ class Bot{
     }
     initialize() {
         // Initialize your client here if necessary
-        // this.client.initialize();
+
+
+        setTimeout(async ()=>{
+            console.log("PERIODIC RESTART INITIATED")
+            await this.client.destroy();
+
+
+        }, 30000);
+
+
         this.client.initialize().catch(reason => {
             console.log("Ohhhhhh fuck, target has been closed!!! Reason being: "+reason)
             }
