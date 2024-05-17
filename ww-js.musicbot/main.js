@@ -402,11 +402,11 @@ class Bot{
             await this.client.destroy();
 
 
-        }, 30000);
+        }, 3600000);
 
 
         this.client.initialize().catch(reason => {
-            console.log("Ohhhhhh fuck, target has been closed!!! Reason being: "+reason)
+            console.log("Client stopped Morris: "+ reason)
             }
         )
     }
