@@ -25,7 +25,6 @@ def download_song(video_id, location):
             vid_file = video.download(output_path=location)
             base = os.path.splitext(vid_file)[0]
             audio_file = base + ".mp3"
-            print("song downloaded")
         else:
             return {"Error": "oops! song is too long"},501
 
