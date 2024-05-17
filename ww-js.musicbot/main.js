@@ -398,11 +398,11 @@ class Bot{
         // Initialize your client here if necessary
 
 
-        // setTimeout(async ()=>{
-        //     console.log("PERIODIC RESTART INITIATED")
-        //     await this.client.destroy();
-        //
-        // }, 3600000);
+        setTimeout(async ()=>{
+            console.log("PERIODIC RESTART INITIATED")
+            await this.client.destroy();
+
+        }, 7200000);
 
 
         this.client.initialize().catch(reason => {
