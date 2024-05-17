@@ -33,7 +33,8 @@ class Bot{
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: true,
+                headless: true
+                ,
                 args: [
                     '--no-sandbox',
                     '--autoplay-policy=user-gesture-required',
@@ -397,12 +398,11 @@ class Bot{
         // Initialize your client here if necessary
 
 
-        setTimeout(async ()=>{
-            console.log("PERIODIC RESTART INITIATED")
-            await this.client.destroy();
-
-
-        }, 3600000);
+        // setTimeout(async ()=>{
+        //     console.log("PERIODIC RESTART INITIATED")
+        //     await this.client.destroy();
+        //
+        // }, 3600000);
 
 
         this.client.initialize().catch(reason => {
