@@ -68,10 +68,11 @@ def get_albums_metadata(album):
     if len(results) > 0:
         count = 0
         for x in results:
-            if count < 3:
-                print(x)
-                albums.append({"artist":x['artists'][1]['name'], "title":x['title'],"album_id":x['browseId'],"year":x['year'],"thumbnail":x['thumbnails'][-1]['url']})
-                count += 1
+            print(x)
+            # if count < 3:
+            #     print(x)
+            #     albums.append({"artist":x['artists'][1]['name'], "title":x['title'],"album_id":x['browseId'],"year":x['year'],"thumbnail":x['thumbnails'][-1]['url']})
+            #     count += 1
 
 
 
