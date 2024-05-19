@@ -102,6 +102,7 @@ const searchSong =  async (message,client) => {
 
     } else{
         setTimeout(async ()=>{
+            await message.reply("oops! This song seems to be unavailable\nuse !menu for help")
             console.log("An error has occurred while searching song: No object was received or the object was empty")
 
         }, 1);
@@ -154,7 +155,7 @@ const searchAlbum = async (message,client)=>{
     } else{
         setTimeout(async ()=>{
             console.log("An error has occurred while searching album: No object was received or the object was empty")
-            //remember to send reply user with album and songs not found
+            await message.reply("oops! This album seems to be unavailable\nuse !menu for help")
 
         }, 1);
     }

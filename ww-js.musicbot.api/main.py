@@ -1,5 +1,5 @@
 from songmetadata import get_song_metadata, get_songs_metadata, get_albums_metadata,lyrics, tagger
-from download import download_song
+from download import download_song,download_album
 from flask import request, jsonify
 import os
 from flask import Flask
@@ -22,6 +22,7 @@ def search_album():
     return  albums_metadata
 
 
+
 @app.route("/getsong", methods=['GET', 'POST'])
 def get_song():
     requested_song = request.get_json()
@@ -38,8 +39,14 @@ def get_song():
     else: tagger(song,video_id)
     return song
 
+@app.route("/getalbum", methods=['GET', 'POST'])
+def get_album():
+    requested_album = request.get_json()
+    album_id = requested_album['album_id']
 
+    album = download_album(album_id)
 
+    return album
 
 
 @app.route("/getsonginfo", methods=['GET', 'POST'])
