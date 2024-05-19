@@ -74,6 +74,7 @@ def download_album(album_id,location):
     album_metadata = yt.get_album(album_id)
     album_name = album_metadata["title"]
     album_songs = Playlist(album_link+album_metadata["audioPlaylistId"])
+    print(len(album_songs))
 
     try:
         os.makedirs(location+album_name)

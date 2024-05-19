@@ -111,7 +111,7 @@ const searchSong =  async (message,client) => {
 
 }
 const searchAlbum = async (message,client)=>{
-    console.log(message.body.substring(7))
+
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(7)})
     let albums = await fetch(`${apiUrl}/searchalbums`, requestOptions)
@@ -156,7 +156,7 @@ const searchAlbum = async (message,client)=>{
     } else{
         setTimeout(async ()=>{
             console.log("An error has occurred while searching album: No object was received or the object was empty")
-            // await message.reply("oops! This album seems to be unavailable\nuse !menu for help")
+            await message.reply("oops! This album seems to be unavailable\nuse !menu for help")
             // await client.sendMessage(message._data.from,"oops! This album seems to be unavailable\nuse !menu for help",{ quotedMessageId:message.id._serialized})
 
         }, 1);
@@ -461,6 +461,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
                     try {
                         await message.reply("oops! this album seems to be unavailable\nuse !menu for help")
                     } catch (error) {
+                        await message.reply("oops! this song seems to be unavailable\nuse !menu for help")
                         console.log(`Error sending message ${error}`)
 
                     }
