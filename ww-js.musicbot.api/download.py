@@ -77,21 +77,21 @@ def download_album(album_id,location):
     print(len(album_songs))
 
     try:
-        os.makedirs(location+album_name)
+        os.makedirs(location+"/"+album_name)
 
     except FileExistsError as e:
         print("Album folder already exists, deleting...")
-        shutil.rmtree(location+album_name)
-        os.makedirs(location + album_name)
+        shutil.rmtree(location+"/"+ album_name)
+        os.makedirs(location + "/"+ album_name)
 
 
     for song in album_songs.videos:
-        song_path = download_song(song.video_id,location+album_name)
+        song_path = download_song(song.video_id,location+"/"+ album_name)
         tagger(song_path, song.video_id, album_id)
 
 
-    archived = shutil.make_archive(location+album_name, 'zip', location+album_name)
-    shutil.rmtree(location+album_name)
+    archived = shutil.make_archive(location+ "/" +album_name, 'zip', location+"/"+ album_name)
+    shutil.rmtree(location + "/" + album_name)
 
     return archived
 
