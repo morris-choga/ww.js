@@ -111,6 +111,7 @@ const searchSong =  async (message,client) => {
 
 }
 const searchAlbum = async (message,client)=>{
+    console.log(message.body.substring(7))
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(7)})
     let albums = await fetch(`${apiUrl}/searchalbums`, requestOptions)
