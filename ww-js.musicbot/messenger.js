@@ -2,8 +2,8 @@ const {MessageMedia} = require("whatsapp-web.js");
 const {fetchUsers, userSongIncrement, botMessageIncrement, fetchBotMessages, botSongIncrement} = require("./api");
 const fs = require("fs");
 
-// let apiUrl = "http://127.0.0.1:5000";
-let apiUrl = "http://api:5000";
+let apiUrl = "http://127.0.0.1:5000";
+// let apiUrl = "http://api:5000";
 let requestOptions = {
     method: 'POST',
     headers: {"Content-Type": "application/json"},
@@ -385,6 +385,121 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
     }
 }
 
+const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass)=>{
+
+    let data = {"album_id": metadata.album_id}
+
+
+    requestOptions.body = JSON.stringify(data)
+
+    let albumPath = await fetch(`${apiUrl}/getalbum`, requestOptions)
+        .then((response) => {
+            if (response.status===501){
+                return {"Error": "oops... song too long"}
+            }
+            else{
+                if (response.ok) {
+                    return response.text()
+                }
+            }
+
+        }).then((data) => {
+            if (typeof data === "object"){
+                return data
+            }
+            else {
+                let response = data
+                let apiResponse = response.replace("api", "app")
+
+
+                return apiResponse
+            }
+        }).catch(error => console.log('an error has occurred while fetching to send album with  https://api:5000 ', error))
+
+    if (typeof albumPath !== "object") {
+        setTimeout(async ()=>{
+            try {
+                let album = MessageMedia.fromFilePath(albumPath)
+                // song.mimetype = ""
+
+                setTimeout(async ()=>{
+
+                    try {
+
+                        // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
+                        await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
+                        await userSongIncrement(registeredUsers[userID][0],userID);
+                        await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
+
+                        console.log(`${message._data.notifyName} received album`);
+                        // await message.reply(song)
+                    } catch (error) {
+                        console.log(`Error sending album message ${error}`)
+                        if (error.message.includes(targetClossed)) {
+                            console.log("This is when the page need to be restarted")
+                        }
+
+                    }
+
+                }, 1);
+
+
+
+
+                fs.unlink(albumPath, (err) => {
+                    if (err) {
+                        console.error(`Error deleting file: ${err.message}`);
+                    }
+                });
+
+
+
+
+
+            } catch (e) {
+                if (e.code === 'ENOENT'){
+                    try {
+                        await message.reply("oops! this album seems to be unavailable\nuse !menu for help")
+                    } catch (error) {
+                        console.log(`Error sending message ${error}`)
+
+                    }
+
+                }
+
+                console.log(`An error has occurred while sending media: ${e}`)
+            }
+
+
+        }, 1);
+
+
+
+
+
+
+    }
+    else if (typeof albumPath === "object"){
+
+        setTimeout(async ()=>{
+            try {
+                await message.reply(albumPath.Error)
+            } catch (error) {
+                if (error.message.include(targetClossed)) {
+                    console.log("This is when the page need to be restarted")
+                }
+                console.log(`Error sending message ${error}`)
+
+            }
+
+
+        }, 1);
+        console.log("An error has occurred while searching album info: No object was received or the object was empty")
+    }
+
+
+}
+
 const sendServerRestart = async (botClass,client)=>{
     await client.sendMessage(botClass.test_group+"@g.us","BOT PERIODICALLY RESTARTING")
 
@@ -427,4 +542,4 @@ const sendServerRestart = async (botClass,client)=>{
 
 
 
-module.exports = { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart};
+module.exports = { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart};

@@ -30,7 +30,7 @@ def get_song():
 
 
 
-    song = download_song(video_id, os.path.join("/usr/src/api", "songs"))
+    song = download_song(video_id, os.path.join("/usr/src/api/media", "songs"))
 #     song = download_song(video_id, os.path.join("/remotefiles/ww.js", "songs"))
 
     if "album_id" in requested_song:
@@ -44,7 +44,7 @@ def get_album():
     requested_album = request.get_json()
     album_id = requested_album['album_id']
 
-    album = download_album(album_id)
+    album = download_album(album_id,os.path.join("/usr/src/api/media", "albums"))
 
     return album
 
@@ -87,4 +87,4 @@ def get_status():
 if __name__ =="__main__":
     # app.run(debug=True,use_reloader=False)
     # app.run(debug=True,use_reloader=False,host='0.0.0.0')
-    app.run(debug=True,use_reloader=True,host='0.0.0.0',port=1080)
+    app.run(debug=True,use_reloader=True,host='0.0.0.0')

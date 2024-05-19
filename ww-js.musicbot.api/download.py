@@ -64,11 +64,11 @@ def download_song(video_id, location):
 def download_video(video_id, location):
     pass
 
-def download_album(album_id):
+def download_album(album_id,location):
 
 
     album_link = f"https://music.youtube.com/playlist?list="
-    albums_location = "C:\\Users\\Mchog\\Desktop\\ytest\\"
+
 
 
     album_metadata = yt.get_album(album_id)
@@ -76,21 +76,21 @@ def download_album(album_id):
     album_songs = Playlist(album_link+album_metadata["audioPlaylistId"])
 
     try:
-        os.makedirs(albums_location+album_name)
+        os.makedirs(location+album_name)
 
     except FileExistsError as e:
         print("Album folder already exists, deleting...")
-        shutil.rmtree(albums_location+album_name)
-        os.makedirs(albums_location + album_name)
+        shutil.rmtree(location+album_name)
+        os.makedirs(location + album_name)
 
 
     for song in album_songs.videos:
-        song_path = download_song(song.video_id,albums_location+album_name)
+        song_path = download_song(song.video_id,location+album_name)
         tagger(song_path, song.video_id, album_id)
 
 
-    archived = shutil.make_archive(albums_location+album_name, 'zip', albums_location+album_name)
-    shutil.rmtree(albums_location+album_name)
+    archived = shutil.make_archive(location+album_name, 'zip', location+album_name)
+    shutil.rmtree(location+album_name)
 
     return archived
 

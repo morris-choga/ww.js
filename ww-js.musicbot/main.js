@@ -1,5 +1,5 @@
 const qrcode = require('qrcode-terminal');
-const { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart} = require("./messenger");
+const { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart} = require("./messenger");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
@@ -28,12 +28,12 @@ class Bot{
             //     }
             // }),
             authStrategy: new LocalAuth({
-                dataPath: "/usr/src/app/songs/sessions",
+                dataPath: "/usr/src/app/media/songs/sessions",
                 // dataPath: "/var/lib/docker/volumes/wwjs_shared-data/_data/sessions",
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: true
+                headless: false
                 ,
                 args: [
                     '--no-sandbox',
@@ -239,14 +239,14 @@ class Bot{
                     if (message._data.quotedMsg.type === "chat" &&  options.includes(message.body)) {
 
                         let data = {};
-                        let songs = message._data.quotedMsg.body
-                        let pos = songs.split("]")
+                        let searchedResults = message._data.quotedMsg.body
+                        let pos = searchedResults.split("]")
                         let decision = message.body;
                         let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
                         // let await message._data.notifyName = await message._data.notifyName
                         // let await fetchCountry(userID) = await fetchCountry(userID)
 
-                        if (options.includes(decision)) {
+                        if (options.includes(decision) && searchedResults.includes("song number")) {
 
 
                             for (let i = 0; i < pos.length - 1; i++) {
@@ -303,7 +303,68 @@ class Bot{
 
 
 
-                        } else {
+                        }
+
+                        else if (options.includes(decision) && searchedResults.includes("album number")){
+
+
+
+                            for (let i = 0; i < pos.length - 1; i++) {
+                                if (i + 1 === parseInt(decision)) {
+                                    let str = pos[i].slice(pos[i].indexOf("[") + 1)
+                                    // data["video_id"] = str.slice(0, str.indexOf("~"))
+                                    data["album_id"] = str.slice(str.indexOf("~") + 1)
+                                }
+                            }
+
+                            Object.keys(Bot.registeredUsers).includes(userID) ? await (async function () {
+
+                                let userSongs = await fetchUsers();
+                                // if (Bot.registeredUsers[userID][1] < 10) {
+                                if (userSongs[userID][1] < 10) {
+
+                                    await sendAlbum(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    // await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+
+
+                                } else {
+                                    await message.reply("You have exceeded your daily limit...")
+
+                                }
+
+                            }).call(this) : await (async function () {
+
+                                let userInfo = {
+                                    "records": [{
+                                        "fields": {
+                                            "userID": "", "userName": "", "userCountry": "", "#songs": 0,"botMessagesReceived": 0
+                                        }
+                                    }]
+                                }
+
+                                userInfo.records[0].fields.userID = userID
+                                userInfo.records[0].fields.userName = await message._data.notifyName
+                                userInfo.records[0].fields.userCountry = await fetchCountry(userID)
+
+
+                                await addUser(userInfo)
+                                console.log(`User ${userInfo.records[0].fields.userName = await message._data.notifyName} added to database`)
+                                Bot.registeredUsers = await fetchUsers();
+
+
+                                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                                await sendSong(data, message, Bot.registeredUsers, userID,this,Bot)
+
+                            }).call(this)
+
+
+
+
+
+
+                        }
+                        else {
                             console.log("invalid request option entered")}
 
 
