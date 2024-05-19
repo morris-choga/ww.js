@@ -68,11 +68,12 @@ def get_song_metadata(song):
 def get_albums_metadata(album):
     albums = []
 
-    # results = yt.search(album, filter="albums")
+    results = yt.search(album, filter="albums")
+    print(results)
     count = 0
 
     # for x in results:
-    for x in yt.search(album, filter="albums"):
+    for x in results:
 
         if count < 3:
             albums.append(
