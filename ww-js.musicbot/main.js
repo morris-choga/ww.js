@@ -1,8 +1,8 @@
 const qrcode = require('qrcode-terminal');
-const { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum} = require("./messenger");
+const { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart} = require("./messenger");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
-const {fetchBots, botSongIncrement} = require("./api");
+const {fetchBots} = require("./api");
 
 
 
@@ -33,7 +33,7 @@ class Bot{
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: true
+                headless: false
                 ,
                 args: [
                     '--no-sandbox',
@@ -95,17 +95,14 @@ class Bot{
             await this.client.destroy();
             process.exit(0);
         });
-        //
-        // this.client.on('qr', (qr) => {
-        //     qrcode.generate(qr, { small: true });
-        // });
+
 
         let pairingCodeRequested = false;
         this.client.on('qr', async (qr) => {
             // NOTE: This event will not be fired if a session is specified.
             qrcode.generate(qr, { small: true });
 
-            // paiuting code example
+
             const pairingCodeEnabled = true;
             if (pairingCodeEnabled && !pairingCodeRequested) {
                 const pairingCode = await this.client.requestPairingCode('13156288660'); // enter the target phone number
@@ -158,6 +155,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+
             }
 
             if((message_body.includes("https://")) && !message_body.includes("request") && ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.song_group)){
@@ -312,8 +310,7 @@ class Bot{
 
 
                     }
-                    // this.messageCount++;
-                    // await botSongIncrement(Bot.registeredBots[sessionName][0],sessionName)
+
 
 
                 }
@@ -399,7 +396,7 @@ class Bot{
 
 
         setTimeout(async ()=>{
-            console.log("PERIODIC RESTART INITIATED")
+            await sendServerRestart(this,this.client)
             await this.client.destroy();
 
         }, 7200000);

@@ -109,7 +109,6 @@ const searchSong =  async (message,client) => {
 
 
 }
-
 const searchAlbum = async (message,client)=>{
 
     requestOptions.body = JSON.stringify({"key": message.body.substring(7)})
@@ -161,8 +160,6 @@ const searchAlbum = async (message,client)=>{
     }
 
 }
-
-
 const sendLyrics =  async (message,client) => {
     requestOptions.body = JSON.stringify({"key": message.body.substring(8)})
     let lyrics = await fetch(`${apiUrl}/lyrics`, requestOptions)
@@ -385,6 +382,46 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
     }
 }
 
+const sendServerRestart = async (botClass,client)=>{
+    await client.sendMessage(botClass.test_group+"@g.us","BOT PERIODICALLY RESTARTING")
+
+     setTimeout(async ()=>{
 
 
-module.exports = { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum};
+            try {
+                await client.sendMessage(botClass.lyrics_group+"@g.us","BOT PERIODICALLY RESTARTING")
+            } catch (error) {
+                console.log(`Error sending Server restart message ${error}`)
+                if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                    console.log("This is when the page need to be restarted")
+                }
+
+            }
+
+        }, 8000);
+
+     setTimeout(async ()=>{
+
+
+            try {
+                 await client.sendMessage(botClass.song_group+"@g.us","BOT PERIODICALLY RESTARTING")
+            } catch (error) {
+                console.log(`Error sending Server restart message ${error}`)
+                if (error.message === 'Protocol error (Runtime.callFunctionOn): Promise was collected') {
+                    console.log("This is when the page need to be restarted")
+                }
+
+            }
+
+        }, 4000);
+
+
+
+
+
+
+}
+
+
+
+module.exports = { sendSong , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart};
