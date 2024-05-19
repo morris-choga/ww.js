@@ -2,6 +2,7 @@ import sys
 
 from ytmusicapi import YTMusic
 import os
+
 oauth = f"{os.getcwd()}/oauth.json"
 yt = YTMusic(oauth)
 import urllib
@@ -23,22 +24,24 @@ def get_songs_metadata(song):
             if count < 2:
                 artist = "".join([c for c in song['artists'][0]['name'] if c not in ['[', ']']])
                 title = "".join([c for c in song['title'] if c not in ['[', ']']])
-                results.append({"artist": artist, "title": title, "video_id": song['videoId'], "album_id": song["album"]["id"]})
+                results.append(
+                    {"artist": artist, "title": title, "video_id": song['videoId'], "album_id": song["album"]["id"]})
 
                 count += 1
             else:
                 break
 
         if len(video_results) > 0:
-
-            results.append({"artist": video_results[0]['artists'][0]['name'], "title": video_results[0]['title'], "video_id": video_results[0]['videoId']})
+            results.append({"artist": video_results[0]['artists'][0]['name'], "title": video_results[0]['title'],
+                            "video_id": video_results[0]['videoId']})
 
         return results
 
-    except Exception  as e:
+    except Exception as e:
         print(f"An error occurred: {e}")
         # return None
         return []
+
 
 def get_song_metadata(song):
     # yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
@@ -57,28 +60,25 @@ def get_song_metadata(song):
         return {"title": title, "album_name": album_name, "artist": artist, "year": year, "video_id": video_id,
                 "url": url}
 
-    except Exception  as e:
+    except Exception as e:
         print(f"An error occurred: {e}")
         return None
+
 
 def get_albums_metadata(album):
     albums = []
 
-
-    results = yt.search(album, filter="albums")
+    # results = yt.search(album, filter="albums")
     count = 0
+
     # for x in results:
-    for x in albums:
+    for x in yt.search(album, filter="albums"):
 
         if count < 3:
-
-            albums.append({"artist":x['artists'][1]['name'], "title":x['title'],"album_id":x['browseId'],"year":x['year'],"thumbnail":x['thumbnails'][-1]['url']})
+            albums.append(
+                {"artist": x['artists'][1]['name'], "title": x['title'], "album_id": x['browseId'], "year": x['year'],
+                 "thumbnail": x['thumbnails'][-1]['url']})
             count += 1
-
-
-
-
-
 
     return albums
 
@@ -97,10 +97,6 @@ def lyrics(song):
         album = yt.get_album(results[0]["album"]["id"])
         album_art = album['thumbnails'][-1]['url']
 
-
-
-
-
         video_id = results[0]['videoId']
         data = yt.get_watch_playlist(video_id)
         lyrics_id = data["lyrics"]
@@ -114,8 +110,7 @@ def lyrics(song):
         return None
 
 
-def tagger(location, video_id, album_id = None):
-
+def tagger(location, video_id, album_id=None):
     title = None
     artist = None
     album = None
@@ -153,7 +148,6 @@ def tagger(location, video_id, album_id = None):
 
         mp3file = EasyID3(location)
 
-
         mp3file["albumartist"] = album
         mp3file["artist"] = artist
         mp3file["album"] = album
@@ -174,9 +168,3 @@ def tagger(location, video_id, album_id = None):
 
     except Exception as e:
         print(f"An error occurred while tagging {title}: {e}")
-
-
-
-
-
-
