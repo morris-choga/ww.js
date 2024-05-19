@@ -86,8 +86,12 @@ def download_album(album_id,location):
 
 
     for song in album_songs.videos:
-        song_path = download_song(song.video_id,location+"/"+ album_name)
-        tagger(song_path, song.video_id, album_id)
+
+        try:
+                song_path = download_song(song.video_id,location+"/"+ album_name)
+                tagger(song_path, song.video_id, album_id)
+        except Exception as e:
+            print(f"Error has occured while downloading or tagging: {str(e)}")
 
 
     archived = shutil.make_archive(location+ "/" +album_name, 'zip', location+"/"+ album_name)
