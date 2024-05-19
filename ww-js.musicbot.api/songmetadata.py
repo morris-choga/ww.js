@@ -37,7 +37,8 @@ def get_songs_metadata(song):
 
     except Exception  as e:
         print(f"An error occurred: {e}")
-        return None
+        # return None
+        return []
 
 def get_song_metadata(song):
     # yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
