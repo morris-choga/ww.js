@@ -65,8 +65,15 @@ def get_albums_metadata(album):
 
 
     results = yt.search(album, filter="albums")
-    for x in results[0:3]:
-        albums.append({"artist":x['artists'][1]['name'], "title":x['title'],"album_id":x['browseId'],"year":x['year'],"thumbnail":x['thumbnails'][-1]['url']})
+    if len(results) > 0:
+        count = 0
+        for x in results:
+            if count < 2:
+                albums.append({"artist":x['artists'][1]['name'], "title":x['title'],"album_id":x['browseId'],"year":x['year'],"thumbnail":x['thumbnails'][-1]['url']})
+                count += 1
+
+
+
 
 
     return albums
