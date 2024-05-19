@@ -155,7 +155,8 @@ const searchAlbum = async (message,client)=>{
     } else{
         setTimeout(async ()=>{
             console.log("An error has occurred while searching album: No object was received or the object was empty")
-            await message.reply("oops! This album seems to be unavailable\nuse !menu for help")
+            // await message.reply("oops! This album seems to be unavailable\nuse !menu for help")
+            await client.sendMessage(message._data.from,"oops! This album seems to be unavailable\nuse !menu for help",{ quotedMessageId:message.id._serialized})
 
         }, 1);
     }
