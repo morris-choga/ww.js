@@ -7,6 +7,7 @@ let apiUrl = "http://api:5000";
 let requestOptions = {
     method: 'POST',
     headers: {"Content-Type": "application/json"},
+    headersTimeout: 600000,
     body: {},
     redirect: 'follow'
 };
