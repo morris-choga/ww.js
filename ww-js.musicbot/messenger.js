@@ -7,7 +7,7 @@ let apiUrl = "http://api:5000";
 let requestOptions = {
     method: 'POST',
     headers: {"Content-Type": "application/json"},
-    headersTimeout: 600000,
+    // headersTimeout: 600000,
     body: {},
     redirect: 'follow'
 };
@@ -266,9 +266,7 @@ const sendSongInfo =  async (message,client) => {
 
             await message.reply("oops! info for this song are unavailable.\nUse !menu for help")
             console.log("An error has occurred while searching song info: No object was received or the object was empty")
-            if (error.message.includes(targetClossed)) {
-                console.log("This is when the page need to be restarted")
-            }
+
         }, 1);
 
     }
@@ -336,7 +334,7 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
 
                 fs.unlink(songPath, (err) => {
                     if (err) {
-                        console.error(`Error deleting file: ${err.message}`);
+                        console.log(`Error deleting file: ${err.message}`);
                     }
                 });
 
@@ -449,7 +447,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
 
                 fs.unlink(albumPath, (err) => {
                     if (err) {
-                        console.error(`Error deleting file: ${err.message}`);
+                        console.log(`Error deleting file: ${err.message}`);
                     }
                 });
 
