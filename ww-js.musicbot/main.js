@@ -163,7 +163,9 @@ class Bot{
                 setTimeout(async ()=>{
 
                     try {
+                        console.log("Message deleted")
                         await message.delete(true)
+
 
                     } catch (error) {
                         console.log(`Error deleting message ${error}`)
