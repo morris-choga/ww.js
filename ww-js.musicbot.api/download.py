@@ -99,8 +99,8 @@ def download_playlist(url):
     playlist_name = playlist["playlist"]
 
     try:
-        # os.makedirs(location + playlist_name)
-        os.makedirs("/usr/src/api/morris/songs/testing")
+        os.makedirs(location + playlist_name)
+        # os.makedirs("/usr/src/api/morris/songs/testing")
 
     except FileExistsError as e:
         print("Album folder already exists, deleting...")
@@ -113,8 +113,8 @@ def download_playlist(url):
         print(title)
 
         if len(song_metadata) > 0:
-            # song = download_song(song_metadata[0]["video_id"], location + playlist_name)
-            song = download_song(song_metadata[0]["video_id"], "/usr/src/api/morris/songs/testing")
+            song = download_song(song_metadata[0]["video_id"], location + playlist_name)
+            # song = download_song(song_metadata[0]["video_id"], "/usr/src/api/morris/songs/testing")
             tagger(song, song_metadata[0]["video_id"], song_metadata[0]["album_id"],track_num=track_num)
             track_num+=1
         else:
