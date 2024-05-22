@@ -1,38 +1,35 @@
-
 from pytube import YouTube
 from ytmusicapi import YTMusic
 from pytube.cli import on_progress
-from songmetadata import tagger
+from songmetadata import tagger, get_playlist, get_songs_metadata
 from moviepy.editor import *
+
 oauth = f"{os.getcwd()}/oauth.json"
 from pytube import Playlist
 import shutil
+
 yt = YTMusic(oauth)
 import os
 
-# from pytubefix.exceptions import PytubeError
 
+# from pytubefix.exceptions import PytubeError
 
 
 def download_song(video_id, location):
     audio_link = f'https://music.youtube.com/watch?v={video_id}'
 
-
-
-
-
     try:
 
         yt = YouTube(audio_link)
         if yt.length <= 900:
-#         if yt.length <= 900000000:
+            #         if yt.length <= 900000000:
             yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
             video = yt.streams.filter(only_audio=True).first()
             vid_file = video.download(output_path=location)
             base = os.path.splitext(vid_file)[0]
             audio_file = base + ".mp3"
         else:
-            return {"Error": "oops! song is too long"},501
+            return {"Error": "oops! song is too long"}, 501
 
 
     # except PytubeError as e:
@@ -42,7 +39,6 @@ def download_song(video_id, location):
     except Exception as e:
         print(f"Error has occured with pytube: {str(e)}")
         return f"Error has occured with pytube: {str(e)}"
-
 
     try:
 
@@ -61,41 +57,65 @@ def download_song(video_id, location):
         print(f"Error has occured: {str(e)}")
         return f"Error has occured: {str(e)}"
 
+
 def download_video(video_id, location):
     pass
 
-def download_album(album_id,location):
 
-
+def download_album(album_id, location):
     album_link = f"https://music.youtube.com/playlist?list="
-
-
 
     album_metadata = yt.get_album(album_id)
     album_name = album_metadata["title"]
-    album_songs = Playlist(album_link+album_metadata["audioPlaylistId"])
+    album_songs = Playlist(album_link + album_metadata["audioPlaylistId"])
     print(len(album_songs))
 
     try:
-        os.makedirs(location+"/"+album_name)
+        os.makedirs(location + "/" + album_name)
 
     except FileExistsError as e:
         print("Album folder already exists, deleting...")
-        shutil.rmtree(location+"/"+ album_name)
-        os.makedirs(location + "/"+ album_name)
-
+        shutil.rmtree(location + "/" + album_name)
+        os.makedirs(location + "/" + album_name)
 
     for song in album_songs.videos:
 
         try:
-                song_path = download_song(song.video_id,location+"/"+ album_name)
-                tagger(song_path, song.video_id, album_id)
+            song_path = download_song(song.video_id, location + "/" + album_name)
+            tagger(song_path, song.video_id, album_id)
         except Exception as e:
             print(f"Error has occured while downloading or tagging: {str(e)}")
 
-
-    archived = shutil.make_archive(location+ "/" +album_name, 'zip', location+"/"+ album_name)
+    archived = shutil.make_archive(location + "/" + album_name, 'zip', location + "/" + album_name)
     shutil.rmtree(location + "/" + album_name)
 
     return archived
+
+
+def download_playlist(url):
+    track_num = 1
+    playlist = get_playlist(url)
+    location = "/remotefiles/songs/"
+    playlist_name = playlist["playlist"]
+
+    try:
+        os.makedirs(location + playlist_name)
+
+    except FileExistsError as e:
+        print("Album folder already exists, deleting...")
+        shutil.rmtree(location + playlist_name)
+        os.makedirs(location + playlist_name)
+
+
+    for title, artist in playlist.items():
+        song_metadata = get_songs_metadata(f"{artist} {title}")
+        print(title)
+
+        if len(song_metadata) > 0:
+            song = download_song(song_metadata[0]["video_id"], location + playlist_name)
+            tagger(song, song_metadata[0]["video_id"], song_metadata[0]["album_id"],track_num=track_num)
+            track_num+=1
+        else:
+            print(f"{title} returned no results")
+
 

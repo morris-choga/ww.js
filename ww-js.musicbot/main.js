@@ -1,5 +1,5 @@
 const qrcode = require('qrcode-terminal');
-const { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart} = require("./messenger");
+const { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart,getPlaylist} = require("./messenger");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
@@ -155,6 +155,11 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+
+            }
+
+            if (message_body.startsWith("!playlist ") && message.body.length > 10){
+                await getPlaylist(message)
 
             }
 

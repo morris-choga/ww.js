@@ -4,3 +4,4 @@ mutagen
 gunicorn
 pytube
 moviepy
+bs4

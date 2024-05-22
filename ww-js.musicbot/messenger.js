@@ -540,6 +540,22 @@ const sendServerRestart = async (botClass,client)=>{
 
 }
 
+const getPlaylist = async ()=>{
+    requestOptions.body = JSON.stringify({"playlist": message.body.substring(10)})
+
+    let playlist = await fetch(`${apiUrl}/playlist`, requestOptions)
+        .then((response) => {
+
+            if (response.ok) {
+                return response.json()
+            }
+            return "Error"
+        }).then((data) => {
+            return data
+        }).catch(error => console.log('an error has occurred while getting playlist https://api:5000/searchalbums ', error))
+
+}
 
 
-module.exports = { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart};
+
+module.exports = { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart, getPlaylist};

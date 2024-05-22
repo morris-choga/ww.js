@@ -1,8 +1,11 @@
 from songmetadata import get_song_metadata, get_songs_metadata, get_albums_metadata,lyrics, tagger
-from download import download_song,download_album
-from flask import request, jsonify
+from download import download_song,download_album,download_playlist
+
 import os
 from flask import Flask
+
+from flask import request,jsonify
+
 
 app = Flask(__name__)
 
@@ -78,7 +81,15 @@ def get_lyrics():
         return {}
     else:
         return result
+@app.route('/playlist', methods=['GET', 'POST'])
+def get_playlist():
+    requested_playlist = request.get_json()
+    playlist_url = requested_playlist['playlist']
 
+
+
+    download_playlist(playlist_url)
+    return ""
 
 @app.route('/get_status', methods=['GET'])
 def get_status():

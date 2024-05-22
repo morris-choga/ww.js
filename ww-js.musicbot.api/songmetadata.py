@@ -1,8 +1,9 @@
 import sys
-
+from bs4 import BeautifulSoup
 from ytmusicapi import YTMusic
 import os
-
+import json
+import requests
 oauth = f"{os.getcwd()}/oauth.json"
 yt = YTMusic(oauth)
 import urllib
@@ -113,7 +114,7 @@ def lyrics(song):
         return None
 
 
-def tagger(location, video_id, album_id=None):
+def tagger(location, video_id, album_id=None,track_num=1):
     title = None
     artist = None
     album = None
@@ -156,7 +157,7 @@ def tagger(location, video_id, album_id=None):
         mp3file["album"] = album
         mp3file["title"] = title
         mp3file["website"] = 'https://morrischoga.vercel.app'
-        mp3file["tracknumber"] = str(1)
+        mp3file["tracknumber"] = str(track_num)
         mp3file.save()
 
         audio = ID3(location)
@@ -171,3 +172,27 @@ def tagger(location, video_id, album_id=None):
 
     except Exception as e:
         print(f"An error occurred while tagging {title}: {e}")
+
+def get_playList_and_song_metadata(url):
+    html = requests.get(url)
+    soup = BeautifulSoup(html.text, 'html.parser')
+    script = soup.script.string
+    json_result = json.loads(script)
+
+    return json_result
+
+def get_playlist(url):
+    playlist = {}
+    playlist_json = get_playList_and_song_metadata(url)
+    playlist["playlist"] = playlist_json["name"]
+
+    for song in range(len(playlist_json["track"])):
+        song_url = playlist_json["track"][song]["url"]
+        song_json = get_playList_and_song_metadata(song_url)
+        artist_name = song_json["audio"]["byArtist"][0]["name"]
+        song_name = song_json["audio"]["name"]
+
+        playlist[song_name] = artist_name
+        # print(f'{song} {artist_name} {song_name}')
+    # return playlist_name, playlist
+    return playlist
