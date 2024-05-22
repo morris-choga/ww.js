@@ -95,7 +95,7 @@ def download_album(album_id, location):
 def download_playlist(url):
     track_num = 1
     playlist = get_playlist(url)
-    location = "/remotefiles/songs/"
+    location = "/usr/src/api/media/morris/"
     playlist_name = playlist["playlist"]
 
     try:

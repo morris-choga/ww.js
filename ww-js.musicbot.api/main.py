@@ -89,7 +89,7 @@ def get_playlist():
 
 
     download_playlist(playlist_url)
-    return ""
+    return "Playlist downloading finished"
 
 @app.route('/get_status', methods=['GET'])
 def get_status():
