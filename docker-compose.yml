@@ -8,6 +8,7 @@ services:
     volumes:
       - shared-data:/usr/src/app/media
 
+
   api:
     container_name: api
     restart: always
@@ -18,8 +19,11 @@ services:
 
     volumes:
       - shared-data:/usr/src/api/media
+      - /remotefiles:/usr/src/api/morris
+
 
 volumes:
   shared-data:
+
 
 
