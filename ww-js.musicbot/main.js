@@ -159,6 +159,7 @@ class Bot{
             }
 
             if (message_body.startsWith("!playlist ") && message.body.length > 10){
+                console.log("testing playlist")
                 await getPlaylist(message)
 
             }

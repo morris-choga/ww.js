@@ -540,7 +540,7 @@ const sendServerRestart = async (botClass,client)=>{
 
 }
 
-const getPlaylist = async ()=>{
+const getPlaylist = async (message)=>{
     requestOptions.body = JSON.stringify({"playlist": message.body.substring(10)})
 
     let playlist = await fetch(`${apiUrl}/playlist`, requestOptions)
@@ -553,6 +553,8 @@ const getPlaylist = async ()=>{
         }).then((data) => {
             return data
         }).catch(error => console.log('an error has occurred while getting playlist https://api:5000/searchalbums ', error))
+
+    console.log(playlist)
 
 }
 
