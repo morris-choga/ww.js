@@ -106,7 +106,7 @@ def download_playlist(url):
 
     try:
         os.makedirs(location + playlist_name)
-        print(location + playlist_name)
+      
         # os.makedirs("/usr/src/api/morris/songs/testing")
 
     except FileExistsError as e:
