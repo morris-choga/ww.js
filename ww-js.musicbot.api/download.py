@@ -55,8 +55,10 @@ def download_song(video_id, location):
         audio_file = location + "/" + yt.title + ".mp3"
         return audio_file
 
-
-
+    except (SystemExit, KeyboardInterrupt):
+        # Re-raise these exceptions to allow the application to exit or be interrupted
+        #
+        print("System exit was caught")
 
     except Exception as e:
         print(f"Error has occurred: {type(e).__name__} {str(e)}")
@@ -106,7 +108,7 @@ def download_playlist(url):
 
     try:
         os.makedirs(location + playlist_name)
-      
+
         # os.makedirs("/usr/src/api/morris/songs/testing")
 
     except FileExistsError as e:
