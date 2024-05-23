@@ -389,7 +389,6 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
         console.log("An error has occurred while searching song info: No object was received or the object was empty")
     }
 }
-
 const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass)=>{
 
     let data = {"album_id": metadata.album_id}
@@ -421,87 +420,115 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
             }
         }).catch(error => console.log('an error has occurred while fetching to send album with  https://api:5000 ', error))
 
-    if (typeof albumPath !== "object") {
-        setTimeout(async ()=>{
-            try {
-                let album = MessageMedia.fromFilePath(albumPath)
-                // song.mimetype = ""
 
-                setTimeout(async ()=>{
+    try {
+        let status;
+        let count = 0;
+        do {
+            await new Promise(resolve => setTimeout(resolve, 30000));  // Wait for 30 seconds
+            let response = await fetch(`${apiUrl}/get_album_status`,requestOptions)
 
-                    try {
+            // status = await response.json();
+            status = await response.json();
 
-                        // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
-                        await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
-                        await userSongIncrement(registeredUsers[userID][0],userID);
-                        await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
+            console.log(`Album status: ${status.status}`);
+            count++
+        } while (status.status !== 200 && count < 5);
 
-                        console.log(`${message._data.notifyName} received album`);
-                        // await message.reply(song)
-                    } catch (error) {
-                        console.log(`Error sending album message ${error}`)
-                        if (error.message.includes(targetClossed)) {
-                            console.log("This is when the page need to be restarted")
-                        }
-
-                    }
-
-                }, 1);
-
-
-
-
-                fs.unlink(albumPath, (err) => {
-                    if (err) {
-                        console.log(`Error deleting file: ${err.message}`);
-                    }
-                });
-
-
-
-
-
-            } catch (e) {
-                if (e.code === 'ENOENT'){
-                    try {
-                        await message.reply("oops! this album seems to be unavailable\nuse !menu for help")
-                    } catch (error) {
-                        await message.reply("oops! this song seems to be unavailable\nuse !menu for help")
-                        console.log(`Error sending message ${error}`)
-
-                    }
-
-                }
-
-                console.log(`An error has occurred while sending media: ${e}`)
-            }
-
-
-        }, 1);
-
-
-
-
-
-
+        let album = MessageMedia.fromFilePath(`/usr/src/app/media/albums/${status.location}.zip`)
+        await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
     }
-    else if (typeof albumPath === "object"){
-
-        setTimeout(async ()=>{
-            try {
-                await message.reply(albumPath.Error)
-            } catch (error) {
-                if (error.message.include(targetClossed)) {
-                    console.log("This is when the page need to be restarted")
-                }
-                console.log(`Error sending message ${error}`)
-
-            }
-
-
-        }, 1);
-        console.log("An error has occurred while searching album info: No object was received or the object was empty")
+    catch (error){
+        console.error('Error downloading album:', error);
     }
+
+
+
+
+
+
+
+    // if (typeof albumPath !== "object") {
+    //     setTimeout(async ()=>{
+    //         try {
+    //             let album = MessageMedia.fromFilePath(albumPath)
+    //             // song.mimetype = ""
+    //
+    //             setTimeout(async ()=>{
+    //
+    //                 try {
+    //
+    //                     // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
+    //                     await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
+    //                     await userSongIncrement(registeredUsers[userID][0],userID);
+    //                     await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
+    //
+    //                     console.log(`${message._data.notifyName} received album`);
+    //                     // await message.reply(song)
+    //                 } catch (error) {
+    //                     console.log(`Error sending album message ${error}`)
+    //                     if (error.message.includes(targetClossed)) {
+    //                         console.log("This is when the page need to be restarted")
+    //                     }
+    //
+    //                 }
+    //
+    //             }, 1);
+    //
+    //
+    //
+    //
+    //             fs.unlink(albumPath, (err) => {
+    //                 if (err) {
+    //                     console.log(`Error deleting file: ${err.message}`);
+    //                 }
+    //             });
+    //
+    //
+    //
+    //
+    //
+    //         } catch (e) {
+    //             if (e.code === 'ENOENT'){
+    //                 try {
+    //                     await message.reply("oops! this album seems to be unavailable\nuse !menu for help")
+    //                 } catch (error) {
+    //                     await message.reply("oops! this song seems to be unavailable\nuse !menu for help")
+    //                     console.log(`Error sending message ${error}`)
+    //
+    //                 }
+    //
+    //             }
+    //
+    //             console.log(`An error has occurred while sending media: ${e}`)
+    //         }
+    //
+    //
+    //     }, 1);
+    //
+    //
+    //
+    //
+    //
+    //
+    // }
+    // else if (typeof albumPath === "object"){
+    //
+    //     setTimeout(async ()=>{
+    //         try {
+    //             await message.reply(albumPath.Error)
+    //         } catch (error) {
+    //             if (error.message.include(targetClossed)) {
+    //                 console.log("This is when the page need to be restarted")
+    //             }
+    //             console.log(`Error sending message ${error}`)
+    //
+    //         }
+    //
+    //
+    //     }, 1);
+    //     console.log("An error has occurred while searching album info: No object was received or the object was empty")
+    // }
 
 
 }

@@ -1,10 +1,12 @@
+import asyncio
 import time
-
+from downloaded_albums import album_ids
 from pytube import YouTube
 from pytube.exceptions import AgeRestrictedError
 from ytmusicapi import YTMusic
 from pytube.cli import on_progress
 from songmetadata import tagger, get_playlist, get_songs_metadata
+from downloaded_albums import album_ids
 from moviepy.editor import *
 
 oauth = f"{os.getcwd()}/oauth.json"
@@ -42,7 +44,7 @@ def download_song(video_id, location):
         print(f"Error has occurred with pytube:{type(e).__name__} {str(e)}")
         return {"Error": "oops! This song seems to be unavailable"}, 502
 
-    except (Exception,SystemExit) as e:
+    except (Exception, SystemExit) as e:
 
         print(f"Error has occurred with pytube: {type(e).__name__} {str(e)}")
         return f"Error has occurred with pytube: {str(e)}"
@@ -93,10 +95,13 @@ def download_album(album_id, location):
             song_path = download_song(song.video_id, location + "/" + album_name)
             tagger(song_path, song.video_id, album_id)
         except Exception as e:
-            print(f"Error has occured while downloading or tagging: {str(e)}")
+            print(f"Error has occurred while downloading or tagging: {str(e)}")
 
     archived = shutil.make_archive(location + "/" + album_name, 'zip', location + "/" + album_name)
     shutil.rmtree(location + "/" + album_name)
+
+    album_ids[album_id] = album_name
+
 
     return archived
 
@@ -106,7 +111,8 @@ def download_playlist(url):
     playlist = get_playlist(url)
     location = "/usr/src/api/morris/songs/"
     # playlist_name = playlist["playlist"]
-    playlist_name = "".join([c for c in playlist["playlist"] if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
+    playlist_name = "".join(
+        [c for c in playlist["playlist"] if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
 
     try:
         os.makedirs(location + playlist_name)
@@ -118,7 +124,6 @@ def download_playlist(url):
         shutil.rmtree(location + playlist_name)
         os.makedirs(location + playlist_name)
 
-
     for title, artist in playlist.items():
         song_metadata = get_songs_metadata(f"{artist} {title}")
         print(title)
@@ -126,10 +131,8 @@ def download_playlist(url):
         if len(song_metadata) > 0:
             song = download_song(song_metadata[0]["video_id"], location + playlist_name)
             # song = download_song(song_metadata[0]["video_id"], "/usr/src/api/morris/songs/testing")
-            tagger(song, song_metadata[0]["video_id"], song_metadata[0]["album_id"],track_num=track_num)
-            track_num+=1
+            tagger(song, song_metadata[0]["video_id"], song_metadata[0]["album_id"], track_num=track_num)
+            track_num += 1
             time.sleep(10)
         else:
             print(f"{title} returned no results")
-
-

@@ -1,3 +1,6 @@
+import asyncio
+from threading import Thread
+from downloaded_albums import album_ids
 from songmetadata import get_song_metadata, get_songs_metadata, get_albums_metadata,lyrics, tagger
 from download import download_song,download_album,download_playlist
 
@@ -45,11 +48,16 @@ def get_song():
 @app.route("/getalbum", methods=['GET', 'POST'])
 def get_album():
     requested_album = request.get_json()
+
     album_id = requested_album['album_id']
+    # album = download_album(album_id,os.path.join("/usr/src/api/media", "albums"))
 
-    album = download_album(album_id,os.path.join("/usr/src/api/media", "albums"))
+    thread = Thread(target=download_album, args=(album_id,os.path.join("/usr/src/api/media", "albums")))
+    thread.start()
 
-    return album
+
+    # return album
+    return "Done"
 
 
 @app.route("/getsonginfo", methods=['GET', 'POST'])
@@ -92,6 +100,22 @@ def get_playlist():
 @app.route('/get_status', methods=['GET'])
 def get_status():
     return {'status': 200}, 200
+
+@app.route('/get_album_status', methods=['GET', 'POST'])
+def get():
+    requested_album = request.get_json()
+    album_id = requested_album['album_id']
+
+
+    # location = "/usr/src/api/media/albums/a.zip"
+    if album_id in album_ids:
+        x = album_ids[album_id]
+        album_ids.pop(album_id)
+        print(x)
+        return {'status': 200,"location":x}, 200
+    return {'status': 404}, 404
+
+
 
 if __name__ =="__main__":
     # app.run(debug=True,use_reloader=False)
