@@ -433,7 +433,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
 
             console.log(`Album status: ${status.status}`);
             count++
-        } while (status.status !== 200 && count < 5);
+        } while (status.status !== 200 && count <= 10);
 
         let album = MessageMedia.fromFilePath(`/usr/src/app/media/albums/${status.location}.zip`)
         await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
