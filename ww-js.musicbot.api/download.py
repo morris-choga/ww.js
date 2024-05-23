@@ -1,3 +1,5 @@
+import time
+
 from pytube import YouTube
 from pytube.exceptions import AgeRestrictedError
 from ytmusicapi import YTMusic
@@ -126,6 +128,7 @@ def download_playlist(url):
             # song = download_song(song_metadata[0]["video_id"], "/usr/src/api/morris/songs/testing")
             tagger(song, song_metadata[0]["video_id"], song_metadata[0]["album_id"],track_num=track_num)
             track_num+=1
+            time.sleep(10)
         else:
             print(f"{title} returned no results")
 
