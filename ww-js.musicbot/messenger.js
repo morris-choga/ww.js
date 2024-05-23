@@ -282,7 +282,13 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
     let songPath = await fetch(`${apiUrl}/getsong`, requestOptions)
         .then((response) => {
             if (response.status===501){
+
                 return {"Error": "oops... song too long"}
+            }
+
+            else if (response.status===502){
+                return {"Error": "oops! This song seems to be unavailable"}
+
             }
             else{
                 if (response.ok) {

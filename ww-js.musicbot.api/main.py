@@ -69,8 +69,6 @@ def get_song_info():
             "album_art":song_metadata["url"],
                 }
 
-
-
 @app.route('/lyrics', methods=['GET', 'POST'])
 def get_lyrics():
     requested_song = request.get_json()

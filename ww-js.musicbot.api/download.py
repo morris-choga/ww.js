@@ -1,4 +1,5 @@
 from pytube import YouTube
+from pytube.exceptions import AgeRestrictedError
 from ytmusicapi import YTMusic
 from pytube.cli import on_progress
 from songmetadata import tagger, get_playlist, get_songs_metadata
@@ -32,13 +33,17 @@ def download_song(video_id, location):
             return {"Error": "oops! song is too long"}, 501
 
 
-    # except PytubeError as e:
-    #     print(f"An error occured with PytubeError: " + str(e))
-    #     return f"An error occured with PytubeError: " + str(e)
+
+
+    except AgeRestrictedError as e:
+
+        print(f"Error has occurred with pytube:{type(e).__name__} {str(e)}")
+        return {"Error": "oops! This song seems to be unavailable"}, 502
 
     except Exception as e:
-        print(f"Error has occured with pytube: {str(e)}")
-        return f"Error has occured with pytube: {str(e)}"
+
+        print(f"Error has occurred with pytube: {type(e).__name__} {str(e)}")
+        return f"Error has occurred with pytube: {str(e)}"
 
     try:
 
@@ -54,8 +59,8 @@ def download_song(video_id, location):
 
 
     except Exception as e:
-        print(f"Error has occured: {str(e)}")
-        return f"Error has occured: {str(e)}"
+        print(f"Error has occurred: {type(e).__name__} {str(e)}")
+        return f"Error has occurred: {str(e)}"
 
 
 def download_video(video_id, location):
