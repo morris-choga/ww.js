@@ -101,7 +101,8 @@ def download_playlist(url):
     track_num = 1
     playlist = get_playlist(url)
     location = "/usr/src/api/morris/songs/"
-    playlist_name = playlist["playlist"]
+    # playlist_name = playlist["playlist"]
+    playlist_name = "".join([c for c in playlist["playlist"] if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
 
     try:
         os.makedirs(location + playlist_name)
