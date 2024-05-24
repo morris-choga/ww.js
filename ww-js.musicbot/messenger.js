@@ -440,7 +440,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
             // status = await response.json();
             status = await response.json();
 
-            console.log(`Album status: ${status.status}`);
+            console.log(`Album retrying: ${status.status} ${data.album_id}`);
             count++
         } while (status.status !== 200 && count <= 10);
 
