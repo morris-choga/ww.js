@@ -431,7 +431,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
 
     try {
         let status;
-        let count = 0;
+        let count = 1;
         do {
             await new Promise(resolve => setTimeout(resolve, 30000));  // Wait for 30 seconds
 
@@ -442,7 +442,8 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
 
             console.log(`Album retrying: ${status.status} ${data.album_id}|${count}`);
             count++
-        } while (status.status !== 200 && count <= 10);
+        // } while (status.status !== 200 && count <= 10);
+        } while (status.status !== 200 && count <= 100);
 
         let album = MessageMedia.fromFilePath(`/usr/src/app/media/albums/${status.location}.zip`)
         await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
