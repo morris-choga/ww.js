@@ -391,12 +391,20 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
 }
 const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass)=>{
 
+
+    let options = {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        // headersTimeout: 600000,
+        body: {},
+        redirect: 'follow'
+    };
     let data = {"album_id": metadata.album_id}
 
 
-    requestOptions.body = JSON.stringify(data)
+    options.body = JSON.stringify(data)
 
-    let albumPath = await fetch(`${apiUrl}/getalbum`, requestOptions)
+    let albumPath = await fetch(`${apiUrl}/getalbum`, options)
         .then((response) => {
             if (response.status===501){
                 return {"Error": "oops... song too long"}
@@ -427,7 +435,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
         do {
             await new Promise(resolve => setTimeout(resolve, 30000));  // Wait for 30 seconds
             console.log(requestOptions)
-            let response = await fetch(`${apiUrl}/get_album_status`,requestOptions)
+            let response = await fetch(`${apiUrl}/get_album_status`,options)
 
             // status = await response.json();
             status = await response.json();
