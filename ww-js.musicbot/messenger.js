@@ -432,6 +432,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
     try {
         let status;
         let count = 1;
+
         do {
             await new Promise(resolve => setTimeout(resolve, 30000));  // Wait for 30 seconds
 
