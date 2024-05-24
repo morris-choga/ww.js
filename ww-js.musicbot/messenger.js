@@ -434,7 +434,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
         let count = 0;
         do {
             await new Promise(resolve => setTimeout(resolve, 30000));  // Wait for 30 seconds
-            console.log(requestOptions)
+
             let response = await fetch(`${apiUrl}/get_album_status`,options)
 
             // status = await response.json();
