@@ -3,7 +3,7 @@ const { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum,
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
-
+//    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
 
 
 
