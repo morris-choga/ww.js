@@ -33,7 +33,7 @@ class Bot{
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: true
+                headless: false
                 ,
                 args: [
                     '--no-sandbox',
