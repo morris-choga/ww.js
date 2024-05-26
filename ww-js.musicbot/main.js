@@ -109,7 +109,8 @@ class Bot{
                 console.log('Pairing code enabled, code: '+ pairingCode);
                 pairingCodeRequested = true;
             }
-        });
+        })
+
 
         this.client.on('loading_screen', (percent, message) => {
             // console.log('LOADING SCREEN', percent, sessionName);
