@@ -37,41 +37,22 @@ class Bot{
                 ,
                 args: [
                     '--no-sandbox',
-                    '--autoplay-policy=user-gesture-required',
-                    '--disable-background-networking',
-                    '--disable-background-timer-throttling',
-                    '--disable-backgrounding-occluded-windows',
-                    '--disable-breakpad',
-                    '--disable-client-side-phishing-detection',
-                    '--disable-component-update',
-                    '--disable-default-apps',
-                    '--disable-dev-shm-usage',
-                    '--disable-domain-reliability',
-                    '--disable-features=AudioServiceOutOfProcess',
-                    '--disable-hang-monitor',
-                    '--disable-ipc-flooding-protection',
-                    '--disable-notifications',
-                    '--disable-offer-store-unmasked-wallet-cards',
-                    '--disable-popup-blocking',
-                    '--disable-print-preview',
-                    '--disable-prompt-on-repost',
-                    '--disable-renderer-backgrounding',
-                    '--disable-setuid-sandbox',
-                    '--disable-speech-api',
-                    '--disable-sync',
+                    '--no-experiments',
                     '--hide-scrollbars',
-                    '--ignore-gpu-blacklist',
-                    '--metrics-recording-only',
-                    '--mute-audio',
-                    '--no-default-browser-check',
-                    '--no-first-run',
-                    '--no-pings',
-                    '--no-zygote',
-                    '--password-store=basic',
-                    '--use-gl=swiftshader',
-                    '--use-mock-keychain',
-                    '--allow-insecure-localhost',
-                    '--disable-gpu'
+                    '--disable-plugins',
+                    '--disable-infobars',
+                    '--disable-translate',
+                    '--disable-pepper-3d',
+                    '--disable-extensions',
+                    '--disable-dev-shm-usage',
+                    '--disable-notifications',
+                    '--disable-setuid-sandbox',
+                    '--disable-crash-reporter',
+                    '--disable-smooth-scrolling',
+                    '--disable-login-animations',
+                    '--disable-dinosaur-easter-egg',
+                    '--disable-accelerated-2d-canvas',
+                    '--disable-rtc-smoothness-algorithm'
                 ]
             },
             // webVersion: '2.3000.1012750699',
@@ -462,14 +443,13 @@ class Bot{
         return this.messageCount
     }
     initialize() {
-        // Initialize your client here if necessary
 
 
-        setTimeout(async ()=>{
-            await sendServerRestart(this,this.client)
-            await this.client.destroy();
-
-        }, 7200000);
+        // setTimeout(async ()=>{
+        //     await sendServerRestart(this,this.client)
+        //     await this.client.destroy();
+        //
+        // }, 7200000);
 
 
         this.client.initialize().catch(reason => {
