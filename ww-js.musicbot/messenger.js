@@ -2,8 +2,8 @@ const {MessageMedia} = require("whatsapp-web.js");
 const {fetchUsers, userSongIncrement, botMessageIncrement, fetchBotMessages, botSongIncrement} = require("./api");
 const fs = require("fs");
 
-// let apiUrl = "http://127.0.0.1:5000";
-let apiUrl = "http://api:5000";
+let apiUrl = "http://127.0.0.1:5000";
+// let apiUrl = "http://api:5000";
 let requestOptions = {
     method: 'POST',
     headers: {"Content-Type": "application/json"},
@@ -157,6 +157,59 @@ const searchAlbum = async (message,client)=>{
     } else{
         setTimeout(async ()=>{
             console.log("An error has occurred while searching album: No object was received or the object was empty")
+            await message.reply("oops! This album seems to be unavailable\nuse !menu for help")
+            // await client.sendMessage(message._data.from,"oops! This album seems to be unavailable\nuse !menu for help",{ quotedMessageId:message.id._serialized})
+
+        }, 1);
+    }
+
+}
+const searchVideo = async (message,client)=>{
+
+
+    requestOptions.body = JSON.stringify({"key": message.body.substring(7)})
+    let albums = await fetch(`${apiUrl}/searchvideos`, requestOptions)
+        .then((response) => {
+
+            if (response.ok) {
+                return response.json()
+            }
+            return "Error"
+        }).then((data) => {
+            return data
+        }).catch(error => console.log('an error has occurred searching for video with fetching https://api:5000/searchvideos ', error))
+
+
+    if (typeof albums === "object" && !Object.keys(albums).length == 0){
+        let content = ""
+        let options = ['1️⃣','2️⃣','3️⃣'];
+
+        for (let i = 0; i< albums.length; i++){
+
+            content += `*${options[i]}: ${albums[i].author} - ${albums[i].title}*\n[${albums[i].video_id}]\n\n`
+        }
+        content+="________________________________________\nReply this message with video number"
+        setTimeout(async ()=>{
+
+            try {
+                // await message.reply(content)
+                await client.sendMessage(message._data.from,content)
+
+
+            } catch (error) {
+                console.log(`Error sending video search message ${error}`)
+                if (error.message.includes(targetClossed)) {
+                    console.log("This is when the page need to be restarted")
+                }
+
+
+            }
+
+        }, 1);
+
+    } else{
+        setTimeout(async ()=>{
+            console.log("An error has occurred while searching video: No object was received or the object was empty")
             await message.reply("oops! This album seems to be unavailable\nuse !menu for help")
             // await client.sendMessage(message._data.from,"oops! This album seems to be unavailable\nuse !menu for help",{ quotedMessageId:message.id._serialized})
 
@@ -389,6 +442,124 @@ const sendSong = async (metadata,message,registeredUsers,userID,client,botClass)
         console.log("An error has occurred while searching song info: No object was received or the object was empty")
     }
 }
+const sendVideo = async (metadata,message,registeredUsers,userID,client,botClass) => {
+
+
+    let data = {"video_id": metadata.video_id}
+
+
+    requestOptions.body = JSON.stringify(data)
+
+    let videoPath = await fetch(`${apiUrl}/getvideo`, requestOptions)
+        .then((response) => {
+            if (response.status===501){
+
+                return {"Error": "oops... song too long"}
+            }
+
+            else if (response.status===502){
+                return {"Error": "oops! This song seems to be unavailable"}
+
+            }
+            else{
+                if (response.ok) {
+                    return response.text()
+                }
+            }
+
+        }).then((data) => {
+            if (typeof data === "object"){
+                return data
+            }
+            else {
+                let response = data
+                let apiResponse = response.replace("api", "app")
+
+                return apiResponse
+            }
+        }).catch(error => console.log('an error has occurred while fetching to send video with  https://api:5000 ', error))
+
+    if (typeof videoPath !== "object") {
+        setTimeout(async ()=>{
+            try {
+                let video = MessageMedia.fromFilePath(videoPath)
+                // song.mimetype = ""
+
+                setTimeout(async ()=>{
+
+                    try {
+
+                        // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
+                        await client.client.sendMessage(message._data.from, video,{ quotedMessageId:message.id._serialized})
+                        await userSongIncrement(registeredUsers[userID][0],userID);
+                        await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
+
+                        console.log(`${message._data.notifyName} received song`);
+                        // await message.reply(song)
+                    } catch (error) {
+                        console.log(`Error sending video message ${error}`)
+                        if (error.message.includes(targetClossed)) {
+                            console.log("This is when the page need to be restarted")
+                        }
+
+                    }
+
+                }, 1);
+
+
+
+
+                fs.unlink(videoPath, (err) => {
+                    if (err) {
+                        console.log(`Error deleting file: ${err.message}`);
+                    }
+                });
+
+
+
+
+
+            } catch (e) {
+                if (e.code === 'ENOENT'){
+                    try {
+                        await message.reply("oops! this video seems to be unavailable\nuse !menu for help")
+                    } catch (error) {
+                        console.log(`Error sending message ${error}`)
+
+                    }
+
+                }
+
+                console.log(`An error has occurred while sending media: ${e}`)
+            }
+
+
+        }, 1);
+
+
+
+
+
+
+    }
+    else if (typeof videoPath === "object"){
+
+        setTimeout(async ()=>{
+            try {
+                await message.reply(videoPath.Error)
+            } catch (error) {
+                if (error.message.include(targetClossed)) {
+                    console.log("This is when the page need to be restarted")
+                }
+                console.log(`Error sending message ${error}`)
+
+            }
+
+
+        }, 1);
+        console.log("An error has occurred while searching song info: No object was received or the object was empty")
+    }
+}
 const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass)=>{
 
 
@@ -604,4 +775,4 @@ const getPlaylist = async (message)=>{
 
 
 
-module.exports = { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart, getPlaylist};
+module.exports = { sendSong, sendAlbum , sendVideo, sendLyrics, sendSongInfo, searchSong, searchAlbum, searchVideo, sendServerRestart, getPlaylist};

@@ -1,5 +1,5 @@
 const qrcode = require('qrcode-terminal');
-const { sendSong, sendAlbum , sendLyrics, sendSongInfo, searchSong, searchAlbum, sendServerRestart,getPlaylist} = require("./messenger");
+const { sendSong, sendAlbum , sendLyrics, sendSongInfo, sendVideo, searchSong, searchAlbum, searchVideo, sendServerRestart,getPlaylist} = require("./messenger");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
@@ -33,7 +33,7 @@ class Bot{
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: true
+                headless: false
                 ,
                 args: [
                     '--no-sandbox',
@@ -179,7 +179,7 @@ class Bot{
 
 
 
-            if((await message.getChat()).isGroup && ((await message.getChat()).id.user !== this.song_group && (await message.getChat()).id.user !== this.lyrics_group && (await message.getChat()).id.user !== this.test_group ) && (message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
+            if((await message.getChat()).isGroup && ((await message.getChat()).id.user !== this.song_group && (await message.getChat()).id.user !== this.lyrics_group && (await message.getChat()).id.user !== this.test_group ) && (message_body.startsWith("!video") || message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
 
 
 
@@ -231,6 +231,7 @@ class Bot{
                         let data = {};
                         let searchedResults = message._data.quotedMsg.body
                         let pos = searchedResults.split("]")
+
                         let decision = message.body;
                         let userID = (await message.id.participant).substring(0, (await message.id.participant).indexOf('@'))
                         // let await message._data.notifyName = await message._data.notifyName
@@ -354,6 +355,67 @@ class Bot{
 
 
                         }
+
+                        else if (options.includes(decision) && searchedResults.includes("video number")){
+
+
+
+                            for (let i = 0; i < pos.length - 1; i++) {
+                                if (i + 1 === parseInt(decision)) {
+                                    data["video_id"] = pos[i].slice(pos[i].indexOf("[") + 1)
+                                    // data["video_id"] = str.slice(0, str.indexOf("]"))
+                                    // data["album_id"] = str.slice(str.indexOf("~") + 1)
+                                }
+                            }
+
+
+                            Object.keys(Bot.registeredUsers).includes(userID) ? await (async function () {
+
+                                let userSongs = await fetchUsers();
+                                // if (Bot.registeredUsers[userID][1] < 10) {
+                                if (userSongs[userID][1] < 10) {
+
+                                    await sendVideo(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    // await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+
+
+                                } else {
+                                    await message.reply("You have exceeded your daily limit...")
+
+                                }
+
+                            }).call(this) : await (async function () {
+
+                                let userInfo = {
+                                    "records": [{
+                                        "fields": {
+                                            "userID": "", "userName": "", "userCountry": "", "#songs": 0,"botMessagesReceived": 0
+                                        }
+                                    }]
+                                }
+
+                                userInfo.records[0].fields.userID = userID
+                                userInfo.records[0].fields.userName = await message._data.notifyName
+                                userInfo.records[0].fields.userCountry = await fetchCountry(userID)
+
+
+                                await addUser(userInfo)
+                                console.log(`User ${userInfo.records[0].fields.userName = await message._data.notifyName} added to database`)
+                                Bot.registeredUsers = await fetchUsers();
+
+
+                                // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
+                                await sendSong(data, message, Bot.registeredUsers, userID,this,Bot)
+
+                            }).call(this)
+
+
+
+
+
+
+                        }
                         else {
                             console.log("invalid request option entered")}
 
@@ -408,6 +470,20 @@ class Bot{
                 else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
                     if ((await message.getChat()).id.user === this.test_group ) {
                         await searchAlbum(message,this.client)
+
+                        //dont forget to increment bot message
+
+                    }
+
+
+
+
+                }
+
+
+                else if (message_body.startsWith("!video ") && message.body.length > 7 && isGroup) {
+                    if ((await message.getChat()).id.user === this.test_group ) {
+                        await searchVideo(message,this.client)
 
                         //dont forget to increment bot message
 

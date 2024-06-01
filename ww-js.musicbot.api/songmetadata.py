@@ -4,6 +4,7 @@ from ytmusicapi import YTMusic
 import os
 import json
 import requests
+
 oauth = f"{os.getcwd()}/oauth.json"
 yt = YTMusic(oauth)
 import urllib
@@ -11,6 +12,7 @@ import os
 from mutagen.id3 import ID3, TIT2, TALB, TPE1, TPE2, COMM, TCOM, TCON, TDRC, TRCK, APIC
 from mutagen.easyid3 import EasyID3
 from pytube import YouTube
+from pytube import Search
 
 
 def get_songs_metadata(song):
@@ -80,16 +82,31 @@ def get_albums_metadata(album):
         if count < 3:
             albums.append(
                 # {"artist": x['artists'][1]['name'], "title": x['title'], "album_id": x['browseId'], "year": x['year']})
-                {"artist": x['artists'][0]['name'],"title": x['title'], "album_id": x['browseId'], "year": x['year']})
+                {"artist": x['artists'][0]['name'], "title": x['title'], "album_id": x['browseId'], "year": x['year']})
 
             count += 1
 
     return albums
 
 
-def get_videos_metadata():
-    # https://pypi.org/project/ytsearch/0.2.3.dev0/
-    pass
+def get_videos_metadata(video):
+    videos = []
+    count = 0
+    results = Search(video).fetch_and_parse()
+
+    for index, vid in enumerate(results[0]):
+
+        if count < 3:
+            author = "".join([c for c in vid.author if c not in ['[', ']']])
+            title = "".join([c for c in vid.title if c not in ['[', ']']])
+            videos.append(
+                {"author": author, "title": title, "video_id": vid.video_id})
+
+            count += 1
+        else:
+            break
+
+    return videos
 
 
 def lyrics(song):
@@ -114,7 +131,7 @@ def lyrics(song):
         return None
 
 
-def tagger(location, video_id, album_id=None,track_num=1):
+def tagger(location, video_id, album_id=None, track_num=1):
     title = None
     artist = None
     album = None
@@ -173,6 +190,7 @@ def tagger(location, video_id, album_id=None,track_num=1):
     except Exception as e:
         print(f"An error occurred while tagging {title}: {e}")
 
+
 def get_playList_and_song_metadata(url):
     html = requests.get(url)
     soup = BeautifulSoup(html.text, 'html.parser')
@@ -180,6 +198,7 @@ def get_playList_and_song_metadata(url):
     json_result = json.loads(script)
 
     return json_result
+
 
 def get_playlist(url):
     playlist = {}

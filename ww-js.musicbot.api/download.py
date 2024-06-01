@@ -70,7 +70,39 @@ def download_song(video_id, location):
 
 
 def download_video(video_id, location):
-    pass
+
+
+
+    try:
+
+        yt = YouTube(f"https://youtube.com/watch?v={video_id}")
+        if yt.length <= 900:
+            #         if yt.length <= 900000000:
+            yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
+            print(yt.streams.filter(progressive=True,only_video=True))
+
+            video = yt.streams.filter(res="720p").first()
+            vid_file = video.download(output_path=location)
+
+            return vid_file
+
+        else:
+            return {"Error": "oops! song is too long"}, 501
+
+
+
+
+    except AgeRestrictedError as e:
+
+        print(f"Error has occurred with pytube:{type(e).__name__} {str(e)}")
+        return {"Error": "oops! This song seems to be unavailable"}, 502
+
+    except (Exception, SystemExit) as e:
+
+        print(f"Error has occurred with pytube: {type(e).__name__} {str(e)}")
+        return f"Error has occurred with pytube: {str(e)}"
+
+    return ""
 
 
 def download_album(album_id, location):

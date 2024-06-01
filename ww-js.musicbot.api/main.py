@@ -1,8 +1,8 @@
 import asyncio
 from threading import Thread
 from downloaded_albums import album_ids
-from songmetadata import get_song_metadata, get_songs_metadata, get_albums_metadata,lyrics, tagger
-from download import download_song,download_album,download_playlist
+from songmetadata import get_song_metadata, get_songs_metadata, get_albums_metadata,lyrics, tagger, get_videos_metadata
+from download import download_song,download_album,download_playlist,download_video
 
 import os
 from flask import Flask
@@ -27,6 +27,15 @@ def search_album():
     albums_metadata = get_albums_metadata(f"{requested_album['key']}")
     return  albums_metadata
 
+@app.route('/searchvideos', methods=['GET', 'POST'])
+def search_video():
+    requested_video = request.get_json()
+
+    videos_metadata = get_videos_metadata(f"{requested_video['key']}")
+
+
+    return videos_metadata
+
 
 
 @app.route("/getsong", methods=['GET', 'POST'])
@@ -41,6 +50,32 @@ def get_song():
 
     if "album_id" in requested_song:
         tagger(song,video_id,requested_song["album_id"])
+
+    else: tagger(song,video_id)
+    return song
+
+@app.route("/getvideo", methods=['GET', 'POST'])
+def get_video():
+    requested_video = request.get_json()
+
+
+    video_id = requested_video['video_id']
+
+    video = download_video(video_id, os.path.join("/usr/src/api/media", "videos"))
+
+    return video
+
+
+
+
+
+
+
+    song = download_song(video_id, os.path.join("/usr/src/api/media", "songs"))
+#     song = download_song(video_id, os.path.join("/remotefiles/ww.js", "songs"))
+
+    if "album_id" in requested_video:
+        tagger(song,video_id,requested_video["album_id"])
 
     else: tagger(song,video_id)
     return song
@@ -115,6 +150,8 @@ def get():
         print(x)
         return {'status': 200,"location":x}, 200
     return {'status': 404}, 404
+
+
 
 
 
