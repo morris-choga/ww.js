@@ -33,7 +33,7 @@ class Bot{
             }),
             puppeteer: {
                 headless: true,
-                // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+                // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
                 // executablePath: "/usr/src/app/chrome/google-chrome-stable"
 
                 args: [
