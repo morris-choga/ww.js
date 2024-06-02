@@ -34,7 +34,7 @@ class Bot{
             puppeteer: {
                 headless: true,
                 // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-                executablePath: "/usr/src/app/chrome/google-chrome-stable",
+                executablePath: "/usr/src/app/chrome/google-chrome",
 
                 args: [
                     '--no-sandbox',
@@ -547,12 +547,10 @@ const bot2 = new Bot("6159",[0,1,2,4,5,3,6,7,8,9]);
 
 
 
-while (true){
-
-}
 
 
-// bot1.initialize();
+
+bot1.initialize();
 // bot2.initialize();
 
 
