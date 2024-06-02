@@ -10,7 +10,17 @@ services:
       - /usr/bin:/usr/src/app/chrome
 
 
+  api:
+    container_name: api
+    restart: always
+    build:
+      context: ./ww-js.musicbot.api
+    ports:
+      - "5000:5000"
 
+    volumes:
+      - shared-data:/usr/src/api/media
+      - /remotefiles:/usr/src/api/morris
 
 
 volumes:
