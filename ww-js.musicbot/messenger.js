@@ -2,8 +2,8 @@ const {MessageMedia} = require("whatsapp-web.js");
 const {fetchUsers, userSongIncrement, botMessageIncrement, fetchBotMessages, botSongIncrement} = require("./api");
 const fs = require("fs");
 
-// let apiUrl = "http://127.0.0.1:5000";
-let apiUrl = "http://api:5000";
+let apiUrl = "http://127.0.0.1:5000";
+// let apiUrl = "http://api:5000";
 let requestOptions = {
     method: 'POST',
     headers: {"Content-Type": "application/json"},
@@ -473,7 +473,8 @@ const sendVideo = async (metadata,message,registeredUsers,userID,client,botClass
             }
             else {
                 let response = data
-                let apiResponse = response.replace("api", "app")
+                // let apiResponse = response.replace("api", "app")
+                let apiResponse = response.replace("app", "app")
 
                 return apiResponse
             }
@@ -491,10 +492,10 @@ const sendVideo = async (metadata,message,registeredUsers,userID,client,botClass
 
                         // await client.client.sendMessage(message._data.from, song,{ sendMediaAsDocument: true ,quotedMessageId:message.id._serialized})
                         await client.client.sendMessage(message._data.from, video,{ quotedMessageId:message.id._serialized})
-                        await userSongIncrement(registeredUsers[userID][0],userID);
-                        await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
+                        // await userSongIncrement(registeredUsers[userID][0],userID);
+                        // await botSongIncrement(botClass.registeredBots[client.sessionName][0],client.sessionName)
 
-                        console.log(`${message._data.notifyName} received song`);
+                        console.log(`${message._data.notifyName} received video`);
                         // await message.reply(song)
                     } catch (error) {
                         console.log(`Error sending video message ${error}`)

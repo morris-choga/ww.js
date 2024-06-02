@@ -61,7 +61,8 @@ def get_video():
 
     video_id = requested_video['video_id']
 
-    video = download_video(video_id, os.path.join("/usr/src/api/media", "videos"))
+#     video = download_video(video_id, os.path.join("/usr/src/api/media", "videos"))
+    video = download_video(video_id, os.path.join("/usr/src/app/media", "videos"))
 
     return video
 
@@ -147,7 +148,7 @@ def get():
     if album_id in album_ids:
         x = album_ids[album_id]
         album_ids.pop(album_id)
-        print(x)
+
         return {'status': 200,"location":x}, 200
     return {'status': 404}, 404
 

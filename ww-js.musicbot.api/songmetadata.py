@@ -92,11 +92,14 @@ def get_albums_metadata(album):
 def get_videos_metadata(video):
     videos = []
     count = 0
+
+
     results = Search(video).fetch_and_parse()
 
     for index, vid in enumerate(results[0]):
 
         if count < 3:
+
             author = "".join([c for c in vid.author if c not in ['[', ']']])
             title = "".join([c for c in vid.title if c not in ['[', ']']])
             videos.append(
