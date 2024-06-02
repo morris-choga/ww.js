@@ -29,14 +29,13 @@ class Bot{
             // }),
             authStrategy: new LocalAuth({
                 dataPath: "/usr/src/app/media/songs/sessions",
-                // dataPath: "/var/lib/docker/volumes/wwjs_shared-data/_data/sessions",
                 clientId: `${sessionName}`
             }),
             puppeteer: {
                 headless: true,
                 // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-                // executablePath: "/usr/bin/google-chrome-stable"
-                executablePath: "/usr/src/api/chrome/google-chrome-stable"
+                executablePath: "/usr/bin/google-chrome-stable"
+                // executablePath: "/usr/src/api/chrome/google-chrome-stable"
                 ,
                 args: [
                     '--no-sandbox',
