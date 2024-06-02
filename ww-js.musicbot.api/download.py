@@ -79,7 +79,7 @@ def download_video(video_id, location):
         if yt.length <= 900:
             #         if yt.length <= 900000000:
             yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
-           
+
 
             video = yt.streams.filter(res="720p").first()
             vid_file = video.download(output_path=location)
