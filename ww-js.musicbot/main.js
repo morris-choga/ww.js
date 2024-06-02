@@ -35,7 +35,8 @@ class Bot{
             puppeteer: {
                 headless: true,
                 // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-                executablePath: "/usr/bin/google-chrome-stable"
+                // executablePath: "/usr/bin/google-chrome-stable"
+                executablePath: "/usr/src/api/chrome/google-chrome-stable"
                 ,
                 args: [
                     '--no-sandbox',
@@ -377,7 +378,7 @@ class Bot{
                                 // if (Bot.registeredUsers[userID][1] < 10) {
                                 if (userSongs[userID][1] < 10) {
 
-                                    await sendVideo(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    // await sendVideo(data,message,Bot.registeredUsers,userID,this,Bot)
                                     // await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
