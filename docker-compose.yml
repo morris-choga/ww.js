@@ -5,7 +5,15 @@ services:
     restart: always
     build:
       context: ./ww-js.musicbot
+    environment:
+      - DISPLAY=:1
+    devices:
+      - /dev/dri:/dev/dri
+
+    network_mode: "host"
+
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - shared-data:/usr/src/app/media
       - /usr/bin:/usr/src/app/chrome
 
