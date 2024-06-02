@@ -7,6 +7,7 @@ services:
       context: ./ww-js.musicbot
     volumes:
       - shared-data:/usr/src/app/media
+      - /usr/bin:/usr/src/app/chrome
 
 
   api:
