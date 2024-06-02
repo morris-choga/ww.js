@@ -547,7 +547,9 @@ const bot2 = new Bot("6159",[0,1,2,4,5,3,6,7,8,9]);
 
 
 
+while (true){
 
+}
 
 
 // bot1.initialize();
