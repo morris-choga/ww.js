@@ -9,12 +9,13 @@ from pytube.cli import on_progress
 from songmetadata import tagger, get_playlist, get_songs_metadata
 from downloaded_albums import album_ids
 from moviepy.editor import *
-import os
-oauth = f"oauth.json"
+
+oauth = f"{os.getcwd()}/oauth.json"
 from pytube import Playlist
 import shutil
 
 yt = YTMusic(oauth)
+import os
 
 
 
