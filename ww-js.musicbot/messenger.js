@@ -473,8 +473,8 @@ const sendVideo = async (metadata,message,registeredUsers,userID,client,botClass
             }
             else {
                 let response = data
-                // let apiResponse = response.replace("api", "app")
-                let apiResponse = response.replace("app", "app")
+                let apiResponse = response.replace("api", "app")
+                // let apiResponse = response.replace("app", "app")
 
                 return apiResponse
             }

@@ -61,8 +61,8 @@ def get_video():
 
     video_id = requested_video['video_id']
 
-#     video = download_video(video_id, os.path.join("/usr/src/api/media", "videos"))
-    video = download_video(video_id, os.path.join("/usr/src/app/media", "videos"))
+    video = download_video(video_id, os.path.join("/usr/src/api/media", "videos"))
+#     video = download_video(video_id, os.path.join("/usr/src/app/media", "videos"))
 
     return video
 
