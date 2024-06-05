@@ -22,6 +22,7 @@ class Bot{
         let reInitializeCount = 0
         this.client = new Client({
 
+
             // linkingMethod:  new LinkingMethod({
             //     phone: {
             //         number: "+639514176425"
