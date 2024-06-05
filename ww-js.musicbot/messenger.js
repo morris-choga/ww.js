@@ -486,6 +486,7 @@ const sendVideo = async (metadata,message,registeredUsers,userID,client,botClass
                 let video = MessageMedia.fromFilePath(videoPath)
                 // song.mimetype = ""
 
+
                 setTimeout(async ()=>{
 
                     try {
