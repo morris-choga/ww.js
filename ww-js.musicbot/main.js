@@ -470,7 +470,7 @@ class Bot{
                 }
 
                 else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
-                    if ((await message.getChat()).id.user === this.test_group && (await message.getChat()).id.user === this.song_group) {
+                    if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group) {
                         await searchAlbum(message,this.client)
 
                         //dont forget to increment bot message
