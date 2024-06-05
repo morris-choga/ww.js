@@ -28,6 +28,7 @@ class Bot{
             //         number: "+639514176425"
             //     }
             // }),
+
             authStrategy: new LocalAuth({
                 dataPath: "/usr/src/app/media/songs/sessions",
                 clientId: `${sessionName}`
