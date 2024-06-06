@@ -88,7 +88,7 @@ class Bot{
 
             const pairingCodeEnabled = true;
             if (pairingCodeEnabled && !pairingCodeRequested) {
-                const pairingCode = await this.client.requestPairingCode('263781347768'); // enter the target phone number
+                const pairingCode = await this.client.requestPairingCode('15853025202'); // enter the target phone number
                 console.log('Pairing code enabled, code: '+ pairingCode);
                 pairingCodeRequested = true;
             }
