@@ -377,7 +377,7 @@ class Bot{
                                 // if (Bot.registeredUsers[userID][1] < 10) {
                                 if (userSongs[userID][1] < 10) {
 
-                                    // await sendVideo(data,message,Bot.registeredUsers,userID,this,Bot)
+                                    await sendVideo(data,message,Bot.registeredUsers,userID,this,Bot)
                                     // await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
@@ -433,7 +433,7 @@ class Bot{
 
 
                 else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && ((await message.getChat()).id.user === this.song_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
-                    await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song. )\n\nNB: !song-info can be used to verify if a song exists to avoid requesting and downloading wrong song")
+                    await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!album* (eg !metro booming heroes & villains)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song.)")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
