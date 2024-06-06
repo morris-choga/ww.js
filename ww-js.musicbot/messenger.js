@@ -623,7 +623,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
         await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
     }
     catch (error){
-        console.error('Error downloading album:', error);
+        console.error('Error sending album:', error);
     }
 
 
