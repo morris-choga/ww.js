@@ -88,7 +88,7 @@ class Bot{
 
             const pairingCodeEnabled = true;
             if (pairingCodeEnabled && !pairingCodeRequested) {
-                const pairingCode = await this.client.requestPairingCode('15853025202'); // enter the target phone number
+                const pairingCode = await this.client.requestPairingCode('1585302520'); // enter the target phone number
                 console.log('Pairing code enabled, code: '+ pairingCode);
                 pairingCodeRequested = true;
             }
@@ -433,7 +433,7 @@ class Bot{
 
 
                 else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && ((await message.getChat()).id.user === this.song_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
-                    await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!album* (eg !metro booming heroes & villains)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song.)")
+                    await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!video* (eg !video how to install whatsapp)\n🤖*!album* (eg !metro booming heroes & villains)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song.)")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
