@@ -501,7 +501,7 @@ const sendVideo = async (metadata,message,registeredUsers,userID,client,botClass
                     } catch (error) {
                         console.log(`Error sending video message ${error}`)
                         if (error.message.includes(targetClossed)) {
-                            console.log("This is when the page need to be restarted")
+                            process.exit(0)
                         }
 
                     }
@@ -624,6 +624,9 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
     }
     catch (error){
         console.error('Error sending album:', error);
+        if (error.message.includes(targetClossed)) {
+            process.exit(0);
+        }
     }
 
 

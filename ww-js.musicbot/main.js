@@ -65,7 +65,7 @@ class Bot{
             // }
 
         });
-        console.log()
+
 
 
         process.on('exit', async (code) => {
@@ -115,6 +115,7 @@ class Bot{
 
         this.client.on('ready', () => {
             console.log(`bot ${sessionName} ready!`);
+
         });
 
 
@@ -139,6 +140,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+
 
             }
 
