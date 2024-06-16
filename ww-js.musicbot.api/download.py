@@ -30,7 +30,7 @@ def download_song(video_id, location):
     try:
 
         yt = YouTube(audio_link)
-        print("determining length")
+
         if yt.length <= 900:
             #         if yt.length <= 900000000:
             yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
