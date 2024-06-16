@@ -30,10 +30,12 @@ def download_song(video_id, location):
     try:
 
         yt = YouTube(audio_link)
+        print(yt.length)
         if yt.length <= 900:
             #         if yt.length <= 900000000:
             yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
             video = yt.streams.filter(only_audio=True).first()
+            print("video.download")
             vid_file = video.download(output_path=location)
             base = os.path.splitext(vid_file)[0]
             audio_file = base + ".mp3"
