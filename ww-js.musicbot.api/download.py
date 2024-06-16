@@ -16,7 +16,8 @@ oauth = f"{os.getcwd()}/auth.json"
 from pytube import Playlist
 import shutil
 
-yt = YTMusic(oauth)
+yt = YTMusic(oauth,proxies={"http":"http://209.58.171.215","http":"http://154.16.146.44"})
+# yt = YTMusic(oauth)
 import os
 
 
