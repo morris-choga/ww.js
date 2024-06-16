@@ -5,7 +5,7 @@ import os
 import json
 import requests
 
-oauth = f"{os.getcwd()}/oauth.json"
+oauth = f"{os.getcwd()}/auth.json"
 yt = YTMusic(oauth)
 import urllib
 import os
