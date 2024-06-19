@@ -53,7 +53,8 @@ def download_song(video_id, location):
 
     except (Exception, SystemExit) as e:
 
-        print(f"Error has occurred with pytube: {type(e).__name__} {str(e)}")
+        # print(f"Error has occurred with pytube: {type(e).__name__} {str(e)}")
+        print(e)
         return f"Error has occurred with pytube: {str(e)}"
 
     try:
