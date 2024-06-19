@@ -16,8 +16,8 @@ oauth = f"{os.getcwd()}/auth.json"
 from pytube import Playlist
 import shutil
 
-yt = YTMusic(oauth,proxies={"http":"http://209.58.171.215","http":"http://154.16.146.44"})
-# yt = YTMusic(oauth)
+# yt = YTMusic(oauth,proxies={"http":"http://209.58.171.215","http":"http://154.16.146.44"})
+yt = YTMusic(oauth)
 import os
 
 
@@ -31,12 +31,12 @@ def download_song(video_id, location):
     try:
 
         yt = YouTube(audio_link)
+        print(yt.length)
 
         if yt.length <= 900:
             #         if yt.length <= 900000000:
             yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
             video = yt.streams.filter(only_audio=True).first()
-            print("video.download")
             vid_file = video.download(output_path=location)
             base = os.path.splitext(vid_file)[0]
             audio_file = base + ".mp3"
