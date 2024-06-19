@@ -31,7 +31,7 @@ def download_song(video_id, location):
     try:
 
         yt = YouTube(audio_link)
-        print(yt.length)
+        print(yt)
 
         if yt.length <= 900:
             #         if yt.length <= 900000000:
