@@ -13,6 +13,7 @@ services:
       - shared-data:/usr/src/app/media
       - /usr/bin:/usr/src/app/chrome
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - /run/dbus/:/run/dbus/
 
 
   api:
