@@ -39,6 +39,7 @@ class Bot{
                 executablePath: "/usr/src/app/chrome/google-chrome",
                 args: [
                     '--no-sandbox',
+                    '--user-data-dir',
                     '--no-experiments',
                     '--hide-scrollbars',
                     '--disable-plugins',
