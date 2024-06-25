@@ -12,7 +12,7 @@ from downloaded_albums import album_ids
 os.environ["FFMPEG_BINARY"] = "/usr/bin/ffmpeg"
 from moviepy.editor import AudioFileClip
 
-oauth = f"{os.getcwd()}/oauth.json"
+oauth = f"{os.getcwd()}/auth.json"
 from pytube import Playlist
 import shutil
 
