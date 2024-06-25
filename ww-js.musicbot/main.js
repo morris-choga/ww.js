@@ -34,7 +34,7 @@ class Bot{
                 clientId: `${sessionName}`
             }),
             puppeteer: {
-                headless: false,
+                headless: true,
                 // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
                 executablePath: "/usr/src/app/chrome/google-chrome",
                 args: [
