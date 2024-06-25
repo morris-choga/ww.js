@@ -6,9 +6,13 @@ services:
     build:
       context: ./ww-js.musicbot
 
+    environment:
+      - DISPLAY=:1
+
     volumes:
       - shared-data:/usr/src/app/media
       - /usr/bin:/usr/src/app/chrome
+      - /tmp/.X11-unix:/tmp/.X11-unix
 
 
   api:
