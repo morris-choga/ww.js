@@ -54,7 +54,9 @@ class Bot{
                     '--disable-login-animations',
                     '--disable-dinosaur-easter-egg',
                     '--disable-accelerated-2d-canvas',
-                    '--disable-rtc-smoothness-algorithm'
+                    '--disable-rtc-smoothness-algorithm',
+                    "--disable-setuid-sandbox",
+                    "--disable-gpu"
                 ]
             },
             // webVersion: '2.3000.1012750699',
