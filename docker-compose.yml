@@ -15,6 +15,10 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /run/dbus/:/run/dbus/
 
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+
 
   api:
     container_name: api
