@@ -30,7 +30,7 @@ class Bot{
             // }),
 
             authStrategy: new LocalAuth({
-                dataPath: "/usr/src/app/media/songs/sessions",
+                dataPath: "/usr/src/app/media/sessions",
                 clientId: `${sessionName}`
             }),
             puppeteer: {
@@ -88,7 +88,7 @@ class Bot{
 
             const pairingCodeEnabled = true;
             if (pairingCodeEnabled && !pairingCodeRequested) {
-                const pairingCode = await this.client.requestPairingCode('263713718573'); // enter the target phone number
+                const pairingCode = await this.client.requestPairingCode('48503374165'); // enter the target phone number
                 console.log('Pairing code enabled, code: '+ pairingCode);
                 pairingCodeRequested = true;
             }
