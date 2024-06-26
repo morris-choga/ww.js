@@ -26,7 +26,7 @@ import os
 
 
 def download_song(video_id, location):
-    proxies = {"http": "http://50.174.145.11", "http": "http://50.217.226.43"}
+    proxies = {"SOCKS4":"http://100.231.137.47","SOCKS4":"http://116.105.64.178"}
     audio_link = f'https://music.youtube.com/watch?v={video_id}'
 
     try:
