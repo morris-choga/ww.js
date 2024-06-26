@@ -26,12 +26,12 @@ import os
 
 
 def download_song(video_id, location):
-    proxies = {"SOCKS4":"http://100.231.137.47","SOCKS4":"http://116.105.64.178"}
+    # proxies = {"SOCKS4":"http://100.231.137.47","SOCKS4":"http://116.105.64.178"}
     audio_link = f'https://music.youtube.com/watch?v={video_id}'
 
     try:
 
-        yt = YouTube(audio_link,proxies=proxies)
+        yt = YouTube(audio_link,use_oauth=True,allow_oauth_cache=True)
         print(yt)
 
         if yt.length <= 900:
