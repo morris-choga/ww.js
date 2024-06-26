@@ -2,10 +2,10 @@ import asyncio
 import time
 import os
 from downloaded_albums import album_ids
-from pytube import YouTube
-from pytube.exceptions import AgeRestrictedError
+from pytubefix import YouTube
+from pytubefix.exceptions import AgeRestrictedError
 from ytmusicapi import YTMusic
-from pytube.cli import on_progress
+from pytubefix.cli import on_progress
 from songmetadata import tagger, get_playlist, get_songs_metadata
 from downloaded_albums import album_ids
 # from moviepy.editor import *
@@ -13,7 +13,7 @@ os.environ["FFMPEG_BINARY"] = "/usr/bin/ffmpeg"
 from moviepy.editor import AudioFileClip
 
 oauth = f"{os.getcwd()}/oauth.json"
-from pytube import Playlist
+from pytubefix import Playlist
 import shutil
 
 # yt = YTMusic(oauth,proxies={"http":"http://209.58.171.215","http":"http://154.16.146.44"})

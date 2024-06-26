@@ -11,8 +11,8 @@ import urllib
 import os
 from mutagen.id3 import ID3, TIT2, TALB, TPE1, TPE2, COMM, TCOM, TCON, TDRC, TRCK, APIC
 from mutagen.easyid3 import EasyID3
-from pytube import YouTube
-from pytube import Search
+
+from pytubefix import Search
 
 
 def get_songs_metadata(song):
