@@ -90,7 +90,8 @@ class Bot{
 
             const pairingCodeEnabled = true;
             if (pairingCodeEnabled && !pairingCodeRequested) {
-                const pairingCode = await this.client.requestPairingCode('263713718573'); // enter the target phone number
+                // const pairingCode = await this.client.requestPairingCode('263713718573'); // enter the target phone number
+                const pairingCode = await this.client.requestPairingCode('13156366159'); // enter the target phone number
                 console.log('Pairing code enabled, code: '+ pairingCode);
                 pairingCodeRequested = true;
             }
@@ -549,7 +550,7 @@ class Bot{
 
 
 
-const bot1 = new Bot("8573",[0,1,2,8,4]);
+// const bot1 = new Bot("8573",[0,1,2,8,4]);
 const bot2 = new Bot("6159",[5,6,7,3,9]);
 // const bot3 = new Bot("8573",[3,6,7,8,9]);
 
@@ -558,7 +559,7 @@ const bot2 = new Bot("6159",[5,6,7,3,9]);
 
 
 
-bot1.initialize();
+// bot1.initialize();
 bot2.initialize();
 
 
