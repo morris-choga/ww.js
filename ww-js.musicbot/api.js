@@ -1,9 +1,11 @@
 
-let apiKey = "patg3nVCYWdoRthJn.56198a4363e0982055386462c75e70566e51bc2b4bac7cd605b6996a87b51521";
+let ww_jsDB = "patg3nVCYWdoRthJn.56198a4363e0982055386462c75e70566e51bc2b4bac7cd605b6996a87b51521";
+let musicmaniaDB = "patNssNlywzCC848j.dd94531ca825456f8f30256635d6b92de93620e42f574bbc8821c1bb8caa0746"
 let airtableUsers = "https://api.airtable.com/v0/appAcgdXpcBoOwP5X/tblk48SN08xOlGQz9"
 let airtableBots = "https://api.airtable.com/v0/appAcgdXpcBoOwP5X/tbljbHR3avdBQob3F"
+
 const airtableHeaders = {
-    "Authorization": `Bearer ${apiKey}`,
+    "Authorization": `Bearer ${ww_jsDB}`,
     'Content-Type': 'application/json',
 
 }
@@ -99,8 +101,6 @@ const fetchUsers = async () => {
 
 
 }
-
-
 const userSongIncrement = async (id,userID) => {
     let users = await fetchUsers();
     let songsNum = parseInt(users[userID][1]) + 1;
@@ -117,7 +117,6 @@ const userSongIncrement = async (id,userID) => {
     })
 
 }
-
 const botSongIncrement = async (id , botID) =>{
     let bots = await fetchBots();
     let songsNum = parseInt(bots[botID][2]) + 1;
@@ -190,31 +189,28 @@ const fetchBots = async () => {
 
 }
 
-// const botMessageIncrement = async (id,botMessagesNum) => {
-//     let botMessagesObject = {
-//         "fields": {"#botMessagesReceived":botMessagesNum}
-//     }
-//
-//     let result = await fetch(`${airtableUsers}/${id}`, {
-//         method: 'PATCH',
-//         headers: airtableHeaders,
-//         body: JSON.stringify(botMessagesObject)
-//     })
-//
-// }
+const fetchHiphopDX = async () =>{
+
+    let result = await fetch("http://127.0.0.1:8080/hiphopdx",{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then((body)=>{
+
+        return  body.json()
+    }).then((res)=>{
+
+        return res;
+    }).catch(error=>{
+        console.log(`An error occurred while fetching hiphopdx news: ${error}`)
+    });
 
 
+    return result;
 
-// (async function (){
-//     addUser({
-//         "records": [{"fields":{
-//                 "userID": "","userName": "","userCountry": "","#songs": 0
-//             }
-//         }]})
-// })()
+}
 
-
-module.exports = { fetchCountry , fetchUsers , addUser , userSongIncrement, botSongIncrement, botMessageIncrement, fetchBots};
+module.exports = { fetchCountry , fetchUsers , addUser , userSongIncrement, botSongIncrement, botMessageIncrement, fetchBots, fetchHiphopDX};
 
 
 
