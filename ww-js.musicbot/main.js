@@ -560,7 +560,7 @@ const bot2 = new Bot("6159",[5,6,7,3,9]);
 
 
 bot1.initialize();
-bot2.initialize();
+// bot2.initialize();
 
 
 // bot3.initialize();
