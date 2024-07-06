@@ -622,6 +622,14 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
         let album = MessageMedia.fromFilePath(`/usr/src/app/media/albums/${status.location}.zip`)
         await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
         console.log(`${message._data.notifyName} received album`);
+
+        fs.unlink(`/usr/src/app/media/albums/${status.location}.zip`, (err) => {
+            if (err) {
+                console.log(`Error deleting album: ${err.message}`);
+            }
+        });
+
+
     }
     catch (error){
         console.error('Error sending album:', error);
