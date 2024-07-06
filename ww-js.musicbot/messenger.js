@@ -621,6 +621,7 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
 
         let album = MessageMedia.fromFilePath(`/usr/src/app/media/albums/${status.location}.zip`)
         await client.client.sendMessage(message._data.from, album,{ quotedMessageId:message.id._serialized})
+        console.log(`${message._data.notifyName} received album`);
     }
     catch (error){
         console.error('Error sending album:', error);
