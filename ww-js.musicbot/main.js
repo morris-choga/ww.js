@@ -4,6 +4,7 @@ const { hiphopDXNews} = require("./news");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
+const schedule = require('node-schedule');
 //    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
 
 
@@ -145,7 +146,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                await hiphopDXNews(this.client,message)
+
 
 
 
@@ -532,6 +533,16 @@ class Bot{
     }
     initialize() {
 
+        if (this.sessionName ==="6159"){
+
+            schedule.scheduleJob("0 * * * *",async ()=>{
+                console.log("Job scheduled for "+this.sessionName)
+                await hiphopDXNews(this.client)
+
+            })
+
+
+        }
 
         // setTimeout(async ()=>{
         //     await sendServerRestart(this,this.client)

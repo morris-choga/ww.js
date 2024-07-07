@@ -787,13 +787,13 @@ const getPlaylist = async (message)=>{
 
 
 
-const sendNews = async (client,title,imageURL,article,message)=>{
+const sendNews = async (client,title,imageURL,article)=>{
     let image = await MessageMedia.fromUrl(imageURL, { unsafeMime: true })
 
     setTimeout(async ()=>{
 
         try {
-            await client.sendMessage(message._data.from,image,{caption: `*${title}*\n\n${article}`})
+            await client.sendMessage("120363243170575745",image,{caption: `*${title}*\n\n${article}`})
             // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
         } catch (error) {
             console.log(`Error sending news ${error}`)

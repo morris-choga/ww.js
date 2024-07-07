@@ -2,7 +2,7 @@ const {fetchHiphopDX, lastNewsUpdate, updateLastNewsTime} = require("./api");
 const {sendNews} = require("./messenger");
 
 
-const hiphopDXNews = async (client,message) =>{
+const hiphopDXNews = async (client) =>{
 
     let news = await fetchHiphopDX()
 
@@ -10,7 +10,7 @@ const hiphopDXNews = async (client,message) =>{
 
 
         if (news[key][1] > await lastNewsUpdate()){
-            await sendNews(client,key,news[key][2],news[key][3],message)
+            await sendNews(client,key,news[key][2],news[key][3])
         }
         else {
 
