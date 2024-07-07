@@ -17,6 +17,7 @@ class Bot{
     song_group = "120363223962652835"
     test_group = "120363243170575745"
     lyrics_group =  "120363244367417149"
+    general_group =  "120363244367417149"
 
 
     constructor(sessionName,range) {
@@ -147,7 +148,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                await hiphopDXNews(this.client)
+                console.log((await message.getChat()).id.user)
 
 
 
@@ -557,7 +558,7 @@ class Bot{
             })
         }
 
-        hiphopDXNews(this.client)
+
 
     }
 
