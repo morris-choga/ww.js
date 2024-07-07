@@ -99,21 +99,21 @@ class Bot{
 
 
         this.client.on('loading_screen', (percent, message) => {
-            // console.log('LOADING SCREEN', percent, sessionName);
-            switch (percent){
-                case "0":
-                    console.log(`bot ${sessionName} 0%`);
-                    break;
-                case "50":
-                    console.log(`bot ${sessionName} 50%`);
-                    break;
-                case "75":
-                    console.log(`bot ${sessionName} 75%`);
-                    break;
-                case "100":
-                    console.log(`bot ${sessionName} 100%`);
-                    break;
-            }
+            console.log('LOADING SCREEN', percent, sessionName);
+            // switch (percent){
+            //     case "0":
+            //         console.log(`bot ${sessionName} 0%`);
+            //         break;
+            //     case "50":
+            //         console.log(`bot ${sessionName} 50%`);
+            //         break;
+            //     case "75":
+            //         console.log(`bot ${sessionName} 75%`);
+            //         break;
+            //     case "100":
+            //         console.log(`bot ${sessionName} 100%`);
+            //         break;
+            // }
         });
 
         this.client.on('ready', () => {
