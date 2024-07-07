@@ -537,6 +537,17 @@ class Bot{
     }
     initialize() {
 
+
+
+
+        this.client.initialize().catch(reason => {
+            console.log("Client stopped Morris: "+ reason)
+            }
+
+
+
+        )
+
         if (this.sessionName ==="6159"){
 
             schedule.scheduleJob("0 * * * *",async ()=>{
@@ -544,23 +555,10 @@ class Bot{
                 await hiphopDXNews(this.client)
 
             })
-
-
-
-
         }
 
-        // setTimeout(async ()=>{
-        //     await sendServerRestart(this,this.client)
-        //     await this.client.destroy();
-        //
-        // }, 7200000);
+        hiphopDXNews(this.client)
 
-
-        this.client.initialize().catch(reason => {
-            console.log("Client stopped Morris: "+ reason)
-            }
-        )
     }
 
 
