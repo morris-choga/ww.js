@@ -69,6 +69,7 @@ class Bot{
             // }
 
         });
+        hiphopDXNews(this.client)
 
 
 
@@ -543,7 +544,7 @@ class Bot{
 
             })
 
-            hiphopDXNews(this.client)
+
 
 
         }
