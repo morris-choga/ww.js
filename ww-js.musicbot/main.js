@@ -146,6 +146,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+                console.log(message._data.from)
 
 
 
@@ -542,7 +543,7 @@ class Bot{
 
             })
 
-            hiphopDXNews(this.client)
+            // hiphopDXNews(this.client)
 
 
         }
