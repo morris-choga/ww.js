@@ -532,6 +532,7 @@ class Bot{
         return this.messageCount
     }
     initialize() {
+        console.log(this.sessionName)
 
         if (this.sessionName ==="6159"){
 
