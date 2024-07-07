@@ -543,7 +543,7 @@ class Bot{
 
             })
 
-            // hiphopDXNews(this.client)
+            hiphopDXNews(this.client)
 
 
         }
