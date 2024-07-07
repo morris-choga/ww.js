@@ -1,5 +1,6 @@
 const qrcode = require('qrcode-terminal');
 const { sendSong, sendAlbum , sendLyrics, sendSongInfo, sendVideo, searchSong, searchAlbum, searchVideo, sendServerRestart,getPlaylist} = require("./messenger");
+const { hiphopDXNews} = require("./news");
 const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
@@ -119,6 +120,7 @@ class Bot{
         this.client.on('ready', () => {
             console.log(`bot ${sessionName} ready!`);
 
+
         });
 
 
@@ -143,6 +145,8 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+                await hiphopDXNews(this.client,message)
+
 
 
             }

@@ -1,8 +1,10 @@
+const moment = require("moment-timezone");
 
 let ww_jsDB = "patg3nVCYWdoRthJn.56198a4363e0982055386462c75e70566e51bc2b4bac7cd605b6996a87b51521";
 let musicmaniaDB = "patNssNlywzCC848j.dd94531ca825456f8f30256635d6b92de93620e42f574bbc8821c1bb8caa0746"
 let airtableUsers = "https://api.airtable.com/v0/appAcgdXpcBoOwP5X/tblk48SN08xOlGQz9"
 let airtableBots = "https://api.airtable.com/v0/appAcgdXpcBoOwP5X/tbljbHR3avdBQob3F"
+let lastNewsUpdateUrl = "https://api.airtable.com/v0/appxa0XpncVdHR2FT/tblBqXCofrXYsNMTY/recO1lKlb3WpFYto6"
 
 const airtableHeaders = {
     "Authorization": `Bearer ${ww_jsDB}`,
@@ -191,7 +193,7 @@ const fetchBots = async () => {
 
 const fetchHiphopDX = async () =>{
 
-    let result = await fetch("http://66.181.46.3:8080/hiphopdx",{
+    let result = await fetch("http://127.0.0.1:8080/hiphopdx",{
         headers: {
             'Content-Type': 'application/json'
         }
@@ -210,7 +212,59 @@ const fetchHiphopDX = async () =>{
 
 }
 
-module.exports = { fetchCountry , fetchUsers , addUser , userSongIncrement, botSongIncrement, botMessageIncrement, fetchBots, fetchHiphopDX};
+const lastNewsUpdate = async ()=>{
+
+    let result = await fetch(lastNewsUpdateUrl,{
+        headers: {
+            "Authorization": `Bearer ${musicmaniaDB}`,
+            'Content-Type': 'application/json',
+        },
+    }).then((response)=>{
+        let body =  response.json()
+
+        return body
+    }).catch(error=>{
+        console.log(`An error occurred while fetching lastNews update: ${error}`)
+    });
+
+    return result.fields.Update
+
+}
+
+const updateLastNewsTime = async ()=>{
+
+    const isoDate = new Date().toISOString();
+    const timezone = "America/Los_Angeles"; // For UTC-7 (PDT during daylight saving)
+
+    const americanDate = moment(isoDate).tz(timezone).format('YYYY-MM-DDTHH:mm:ssZ');
+
+    let update = {
+        "fields": {"Update":americanDate}
+    }
+
+    let result = await fetch(lastNewsUpdateUrl,{
+        method: 'PATCH',
+        headers: {
+            "Authorization": `Bearer ${musicmaniaDB}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(update)
+    }).then((response)=>{
+        let body =  response.json()
+
+        return body
+    }).catch(error=>{
+        console.log(`An error occurred while updating last news: ${error}`)
+    });
+
+
+return result
+
+
+}
+
+
+module.exports = { fetchCountry , fetchUsers , addUser , userSongIncrement, botSongIncrement, botMessageIncrement, fetchBots, fetchHiphopDX, lastNewsUpdate,updateLastNewsTime};
 
 
 

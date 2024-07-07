@@ -1,10 +1,18 @@
 {
 
   "dependencies": {
+
     "i": "^0.3.7",
+
+    "moment-timezone": "^0.5.45",
+
     "npm": "^10.5.1",
+
     "qrcode-terminal": "^0.12.0",
+
     "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
 
   }
+
 }
+

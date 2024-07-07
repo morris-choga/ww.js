@@ -728,7 +728,6 @@ const sendAlbum = async (metadata,message,registeredUsers,userID,client,botClass
 
 
 }
-
 const sendServerRestart = async (botClass,client)=>{
     await client.sendMessage(botClass.test_group+"@g.us","BOT PERIODICALLY RESTARTING")
 
@@ -768,7 +767,6 @@ const sendServerRestart = async (botClass,client)=>{
 
 
 }
-
 const getPlaylist = async (message)=>{
     requestOptions.body = JSON.stringify({"playlist": message.body.substring(10)})
 
@@ -789,4 +787,23 @@ const getPlaylist = async (message)=>{
 
 
 
-module.exports = { sendSong, sendAlbum , sendVideo, sendLyrics, sendSongInfo, searchSong, searchAlbum, searchVideo, sendServerRestart, getPlaylist};
+const sendNews = async (client,title,imageURL,article,message)=>{
+    let image = await MessageMedia.fromUrl(imageURL, { unsafeMime: true })
+
+    setTimeout(async ()=>{
+
+        try {
+            await client.sendMessage(message._data.from,image,{caption: article})
+            // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
+        } catch (error) {
+            console.log(`Error sending news ${error}`)
+        }
+
+    }, 500);
+
+
+}
+
+
+
+module.exports = { sendSong, sendAlbum , sendVideo, sendLyrics, sendSongInfo, searchSong, searchAlbum, searchVideo, sendServerRestart, getPlaylist,sendNews};
