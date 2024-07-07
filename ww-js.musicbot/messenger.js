@@ -793,7 +793,7 @@ const sendNews = async (client,title,imageURL,article,message)=>{
     setTimeout(async ()=>{
 
         try {
-            await client.sendMessage(message._data.from,image,{caption: article})
+            await client.sendMessage(message._data.from,image,{caption: `*${title}*\n\n${article}`})
             // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
         } catch (error) {
             console.log(`Error sending news ${error}`)
