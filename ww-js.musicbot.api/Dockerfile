@@ -13,6 +13,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN mv __cache__ /usr/local/lib/python3.9/site-packages/pytubefix
+RUN mv __cache__ cipher.py /usr/local/lib/python3.9/site-packages/pytubefix
 
 CMD ["gunicorn", "--bind","0.0.0.0:5000", "--timeout","600","main:app"]
