@@ -103,18 +103,19 @@ def get_videos_metadata(video):
     for index, vid in enumerate(results[0]["videos"]):
 
         if count < 3:
+            print(vid)
 
-
-            author = "".join([c for c in vid.author if c not in ['[', ']']])
-            title = "".join([c for c in vid.title if c not in ['[', ']']])
-            videos.append(
-                {"author": author, "title": title, "video_id": vid.video_id})
+            # author = "".join([c for c in vid.author if c not in ['[', ']']])
+            # title = "".join([c for c in vid.title if c not in ['[', ']']])
+            # videos.append(
+            #     {"author": author, "title": title, "video_id": vid.video_id})
 
             count += 1
         else:
             break
 
-    return videos
+    # return videos
+    return {}
 
 
 def lyrics(song):
