@@ -96,14 +96,14 @@ def get_videos_metadata(video):
 
 
     results = Search(video).fetch_and_parse()
-    print(results)
+
 
 
 
     for index, vid in enumerate(results[0]["videos"]):
 
         if count < 3:
-            print(vid)
+            print(vid.author)
 
             # author = "".join([c for c in vid.author if c not in ['[', ']']])
             # title = "".join([c for c in vid.title if c not in ['[', ']']])
