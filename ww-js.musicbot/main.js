@@ -500,8 +500,8 @@ class Bot{
 
                 else if (message_body.startsWith("!video ") && message.body.length > 7 && isGroup) {
                     if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group ) {
-                        // await searchVideo(message,this.client)
-                        await message.reply("This feature is currently unavailable")
+                        await searchVideo(message,this.client)
+                        // await message.reply("This feature is currently unavailable")
 
                         //dont forget to increment bot message
 
