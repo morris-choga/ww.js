@@ -448,7 +448,7 @@ class Bot{
 
 
                 else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && ((await message.getChat()).id.user === this.song_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
-                    await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!video* (eg !video how to install whatsapp)\n🤖*!album* (eg !metro booming heroes & villains)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song.)")
+                    await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!video* (eg !video how to install whatsapp) (temporarily unavailable)\n🤖*!album* (eg !metro booming heroes & villains) (temporarily unavailable)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song.)")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
@@ -484,33 +484,33 @@ class Bot{
 
                 }
 
-                else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
-                    if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group) {
-                        await searchAlbum(message,this.client)
-
-                        //dont forget to increment bot message
-
-                    }
-
-
-
-
-                }
-
-
-                else if (message_body.startsWith("!video ") && message.body.length > 7 && isGroup) {
-                    if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group ) {
-                        await searchVideo(message,this.client)
-                        // await message.reply("This feature is currently unavailable")
-
-                        //dont forget to increment bot message
-
-                    }
+                // else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
+                //     if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group) {
+                //         await searchAlbum(message,this.client)
+                //
+                //         //dont forget to increment bot message
+                //
+                //     }
+                //
+                //
+                //
+                //
+                // }
 
 
-
-
-                }
+                // else if (message_body.startsWith("!video ") && message.body.length > 7 && isGroup) {
+                //     if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group ) {
+                //         await searchVideo(message,this.client)
+                //         // await message.reply("This feature is currently unavailable")
+                //
+                //         //dont forget to increment bot message
+                //
+                //     }
+                //
+                //
+                //
+                //
+                // }
 
 
 
