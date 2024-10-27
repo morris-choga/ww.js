@@ -572,7 +572,7 @@ class Bot{
 // const bot1 = new Bot("8573",[0,1,2,8,4]);
 const bot1 = new Bot("8827",[0,1,2,8,4]);
 const bot2 = new Bot("6159",[5,6,7,3,9]);
-// const bot3 = new Bot("8573",[3,6,7,8,9]);
+const bot3 = new Bot("8573",[]);
 
 // 263 78 024 8827
 
@@ -585,7 +585,7 @@ bot1.initialize();
 bot2.initialize();
 
 
-// bot3.initialize();
+bot3.initialize();
 
 
 
