@@ -570,9 +570,9 @@ class Bot{
 
 
 const bot1 = new Bot("8827",[0,1,2]);
-const bot2 = new Bot("6159",[3,4,5]);
+// const bot2 = new Bot("6159",[3,4,5]);
 //Chichie
-// const bot3 = new Bot("8573",[6,7,8,9]);
+const bot3 = new Bot("8573",[6,7,8,9]);
 
 // 263 78 024 8827
 
@@ -582,8 +582,8 @@ const bot2 = new Bot("6159",[3,4,5]);
 
 
 bot1.initialize();
-bot2.initialize();
-// bot3.initialize();
+// bot2.initialize();
+bot3.initialize();
 
 
 
