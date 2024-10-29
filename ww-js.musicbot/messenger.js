@@ -86,8 +86,8 @@ const searchSong =  async (message,client) => {
         setTimeout(async ()=>{
 
             try {
-                // await message.reply(content)
-                await client.sendMessage(message._data.from,content)
+                await message.reply(content)
+                // await client.sendMessage(message._data.from,content)
 
 
             } catch (error) {
@@ -239,7 +239,9 @@ const sendLyrics =  async (message,client) => {
         setTimeout(async ()=>{
 
             try {
-                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
+                // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
+                await message.reply(picture,{caption: lyrics["lyrics"]})
+
                 // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
             } catch (error) {
                 console.log(`Error sending lyrics message ${error}`)
