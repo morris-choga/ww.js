@@ -194,9 +194,10 @@ const fetchBots = async () => {
 const fetchHiphopDX = async () =>{
 
     let result = await fetch("http://66.181.46.3:8080/hiphopdx",{
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        method: 'GET'
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // }
     }).then((body)=>{
 
         return  body.json()
