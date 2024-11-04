@@ -548,14 +548,14 @@ class Bot{
 
         )
 
-        if (this.sessionName ==="6159"){
-
-            schedule.scheduleJob("0 * * * *",async ()=>{
-                console.log("Job scheduled for "+this.sessionName)
-                await hiphopDXNews(this.client)
-
-            })
-        }
+        // if (this.sessionName ==="6159"){
+        //
+        //     schedule.scheduleJob("0 * * * *",async ()=>{
+        //         console.log("Job scheduled for "+this.sessionName)
+        //         await hiphopDXNews(this.client)
+        //
+        //     })
+        // }
 
 
 
