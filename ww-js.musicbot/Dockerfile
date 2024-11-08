@@ -29,4 +29,4 @@ COPY . .
 
 
 
-CMD echo "nameserver 8.8.8.8" > /etc/resolv.conf && node main.js
+CMD node main.js
