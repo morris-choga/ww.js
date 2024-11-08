@@ -147,6 +147,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
+                console.log((await message.getChat()).isGroup)
 
 
 
@@ -189,7 +190,7 @@ class Bot{
                 await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
-            }
+            }  //problem
 
 
 
