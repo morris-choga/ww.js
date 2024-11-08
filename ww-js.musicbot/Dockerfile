@@ -18,7 +18,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
 #COPY puppeteer-browsers-latest.tgz puppeteer-latest.tgz puppeteer-core-latest.tgz ./
 
 ENV DBUS_SESSION_BUS_ADDRESS autolaunch:
@@ -29,4 +29,4 @@ COPY . .
 
 
 
-CMD node main.js
+CMD echo "nameserver 8.8.8.8" > /etc/resolv.conf && node main.js
