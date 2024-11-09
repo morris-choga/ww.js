@@ -147,7 +147,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                console.log((message.getChat()))
+                console.log(message)
 
 
 
