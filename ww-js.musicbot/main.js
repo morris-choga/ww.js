@@ -142,12 +142,12 @@ class Bot{
 
 
 
-            //If a new user is added, the program is likely to break when he/she requests for a song because their records dont exist on the online database
+            //If a new user is added, the program is likely to break when he/she requests for a song because their records don't exist on the online database
 
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                console.log(message)
+                console.log((await message.getChat()))
 
 
 
