@@ -129,10 +129,12 @@ class Bot{
 
         this.client.on('message', async (message) => {
 
+
             // let (await message.id.participant) = (await message.id.participant);
-            // let (await message.getChat()).id.user = (await message.getChat()).id.user
+            let user = (await message.getChat()).id.user
             let message_body = message.body.toLocaleLowerCase()
-            // let groupParticipantsNumber = (await message.getChat()).isGroup ? (await message.getChat()).participants.length : 0
+            let isGroup = (await message.getChat()).isGroup
+            // let groupParticipantsNumber = isGroup ? (await message.getChat()).participants.length : 0
 
             // console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
             // console.log(Bot.registeredUsers === undefined ? "registeredUsers undefined" : "registeredUsers defined")
@@ -147,8 +149,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                console.log((await message.getChat().catch((reason)=>{
-                    console.log(reason)})))
+                console.log(isGroup)
 
 
 
@@ -164,7 +165,7 @@ class Bot{
 
             }
 
-            if((message_body.includes("https://")) && !message_body.includes("request") && ((await message.getChat()).id.user === this.general_group || (await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.song_group)){
+            if((message_body.includes("https://")) && !message_body.includes("request") && (user === this.general_group || user === this.test_group || user === this.lyrics_group || user === this.song_group)){
 
                 setTimeout(async ()=>{
 
@@ -184,7 +185,7 @@ class Bot{
 
             }
 
-            if ((message_body.startsWith("!song") || message_body.startsWith("!lyrics")) && message.body.length > 6 && !(await message.getChat()).isGroup){
+            if ((message_body.startsWith("!song") || message_body.startsWith("!lyrics")) && message.body.length > 6 && !isGroup){
 
                 await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
                 // this.messageCount++;
@@ -197,7 +198,7 @@ class Bot{
 
 
 
-            if((await message.getChat()).isGroup && ((await message.getChat()).id.user !== this.song_group && (await message.getChat()).id.user !== this.lyrics_group && (await message.getChat()).id.user !== this.test_group ) && (message_body.startsWith("!video") || message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
+            if(isGroup && (user !== this.song_group && user !== this.lyrics_group && user !== this.test_group ) && (message_body.startsWith("!video") || message_body.startsWith("!song") || message_body.startsWith("!lyrics"))){
 
 
 
@@ -222,7 +223,8 @@ class Bot{
 
             }
 
-            if (message_body.startsWith("!lyrics ") && message.body.length > 8 && ((await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
+            if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (user === this.lyrics_group || user === this.test_group)){
+                console.log("Lyrics called")
                 await sendLyrics(message,this.client)
                 // this.messageCount++;
                 await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
@@ -233,16 +235,16 @@ class Bot{
 
 
                 let options = ["1","2","3"]
-                let isGroup = (await message.getChat()).isGroup
+                
 
                 if (message_body.startsWith("id")&& isGroup){
 
-                    console.log((await message.getChat()).id.user)
+                    console.log(user)
                 }
 
 
 
-                else if (message.hasQuotedMsg && ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group)){
+                else if (message.hasQuotedMsg && (user === this.test_group || user === this.song_group)){
 
                     if (message._data.quotedMsg.type === "chat" &&  options.includes(message.body)) {
 
@@ -448,7 +450,7 @@ class Bot{
 
 
 
-                else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && ((await message.getChat()).id.user === this.song_group || (await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.test_group)){
+                else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && (user === this.song_group || user === this.lyrics_group || user === this.test_group)){
                     await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!video* (eg !video how to install whatsapp) (temporarily unavailable)\n🤖*!album* (eg !metro booming heroes & villains) (temporarily unavailable)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song.)")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
@@ -456,13 +458,13 @@ class Bot{
 
 
 
-                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (await message.getChat()).id.user !== this.lyrics_group){
+                else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && user !== this.lyrics_group){
                     await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
 
-                else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && ((await message.getChat()).id.user === this.lyrics_group || (await message.getChat()).id.user === this.song_group)) {
+                else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && (user === this.lyrics_group || user === this.song_group)) {
                     await sendSongInfo(message,this.client)
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
@@ -471,7 +473,7 @@ class Bot{
 
                 else if (message_body.startsWith("!song ") && message.body.length > 6 && isGroup) {
 
-                    if ((await message.getChat()).id.user === this.test_group  || (await message.getChat()).id.user === this.song_group) {
+                    if (user === this.test_group  || user === this.song_group) {
 
                         await searchSong(message,this.client)
                         await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
@@ -486,7 +488,7 @@ class Bot{
                 }
 
                 // else if (message_body.startsWith("!album ") && message.body.length > 7 && isGroup) {
-                //     if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group) {
+                //     if (user === this.test_group || user === this.song_group) {
                 //         await searchAlbum(message,this.client)
                 //
                 //         //dont forget to increment bot message
@@ -500,7 +502,7 @@ class Bot{
 
 
                 // else if (message_body.startsWith("!video ") && message.body.length > 7 && isGroup) {
-                //     if ((await message.getChat()).id.user === this.test_group || (await message.getChat()).id.user === this.song_group ) {
+                //     if (user === this.test_group || user === this.song_group ) {
                 //         await searchVideo(message,this.client)
                 //         // await message.reply("This feature is currently unavailable")
                 //
