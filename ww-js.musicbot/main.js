@@ -5,7 +5,7 @@ const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
 const schedule = require('node-schedule');
-const {logTar} = require("npm/lib/utils/tar");
+
 //    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
 
 
