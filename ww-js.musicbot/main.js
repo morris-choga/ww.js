@@ -5,6 +5,7 @@ const { Client,LocalAuth} = require('whatsapp-web.js');
 const { fetchCountry, fetchUsers, addUser,botMessageIncrement } = require("./api.js");
 const {fetchBots} = require("./api");
 const schedule = require('node-schedule');
+const {logTar} = require("npm/lib/utils/tar");
 //    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
 
 
@@ -133,7 +134,10 @@ class Bot{
             // let (await message.id.participant) = (await message.id.participant);
             let user = (await message.getChat()).id.user
             let message_body = message.body.toLocaleLowerCase()
-            let isGroup = (await message.getChat()).isGroup
+            let group = (await message.getChat().catch((error)=>{
+                console.log(error)
+            }))
+            let isGroup = group.isGroup
             // let groupParticipantsNumber = isGroup ? (await message.getChat()).participants.length : 0
 
             // console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
