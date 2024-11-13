@@ -131,14 +131,15 @@ class Bot{
         this.client.on('message', async (message) => {
 
 
-            // let (await message.id.participant) = (await message.id.participant);
-            let user = (await message.getChat()).id.user
-            let message_body = message.body.toLocaleLowerCase()
-            let group = (await message.getChat().catch((error)=>{
+            let chat = (await message.getChat().catch((error)=>{
                 console.log(error)
             }))
-            let isGroup = group.isGroup
-            // let groupParticipantsNumber = isGroup ? (await message.getChat()).participants.length : 0
+            // let (await message.id.participant) = (await message.id.participant);
+            let user = chat.id.user
+            let message_body = message.body.toLocaleLowerCase()
+
+            let isGroup = chat.isGroup
+            // let groupParticipantsNumber = isGroup ? chat.participants.length : 0
 
             // console.log(Bot.registeredBots === undefined ? "registeredBots undefined" : "registeredBots defined")
             // console.log(Bot.registeredUsers === undefined ? "registeredUsers undefined" : "registeredUsers defined")
@@ -191,7 +192,7 @@ class Bot{
 
             if ((message_body.startsWith("!song") || message_body.startsWith("!lyrics")) && message.body.length > 6 && !isGroup){
 
-                await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
+                await message.reply("For now the bot can only work in a chat chat. Please add me in a chat to  request for songs...")
                 // this.messageCount++;
                 await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
@@ -206,11 +207,11 @@ class Bot{
 
 
 
-                if ((await message.getChat()).participants.length < 11) {
+                if (chat.participants.length < 11) {
 
 
                     setTimeout(async () => {
-                        await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - (await message.getChat()).participants.length} more people to the group`)
+                        await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - chat.participants.length} more people to the group`)
                         // this.messageCount++;
                         await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                     }, 5000);
@@ -218,7 +219,7 @@ class Bot{
 
                 else {
 
-                    await message.reply("Join the group to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
+                    await message.reply("Join the chat to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
@@ -463,7 +464,7 @@ class Bot{
 
 
                 else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && user !== this.lyrics_group){
-                    await message.reply("Join the group to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
+                    await message.reply("Join the chat to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                     // this.messageCount++;
                     await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
