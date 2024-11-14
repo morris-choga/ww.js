@@ -6,7 +6,8 @@ import json
 import requests
 
 oauth = f"{os.getcwd()}/oauth.json"
-yt = YTMusic(oauth)
+# yt = YTMusic(oauth)
+yt = YTMusic()
 import urllib
 import os
 from mutagen.id3 import ID3, TIT2, TALB, TPE1, TPE2, COMM, TCOM, TCON, TDRC, TRCK, APIC
@@ -122,8 +123,10 @@ def get_videos_metadata(video):
 def lyrics(song):
     try:
         results = yt.search(song, filter="songs")
+
         title = results[0]['title']
         artist = results[0]['artists'][0]['name']
+
 
         album = yt.get_album(results[0]["album"]["id"])
         album_art = album['thumbnails'][-1]['url']
@@ -139,6 +142,7 @@ def lyrics(song):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+
 
 
 def tagger(location, video_id, album_id=None, track_num=1):
