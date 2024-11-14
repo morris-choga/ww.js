@@ -240,8 +240,9 @@ const sendLyrics =  async (message,client) => {
 
             try {
                 // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
-                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized})
-                console.log(lyrics)
+                await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"],quotedMessageId:message.id._serialized}).catch((err)=>{
+                    console.log(err)})
+
 
                 // await client.sendMessage(message._data.from,picture,{caption: lyrics["lyrics"]})
             } catch (error) {
