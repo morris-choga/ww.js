@@ -40,7 +40,7 @@ class Bot{
             puppeteer: {
                 headless: true,
                 // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-                executablePath: "/usr/src/app/chrome/google-chrome",
+                // executablePath: "/usr/src/app/chrome/google-chrome",
                 args: [
                     '--no-sandbox',
                     '--no-experiments',
@@ -578,9 +578,9 @@ class Bot{
 
 
 //rue
-const bot1 = new Bot("8827",[0,1,2,3,4]);
+// const bot1 = new Bot("8827",[0,1,2,3,4]);
 //eminembot
-// const bot2 = new Bot("6159",[5,6,7,8,]);
+const bot2 = new Bot("6159",[5,6,7,8,]);
 //Chichie
 // const bot3 = new Bot("8573",[9]);
 
