@@ -33,6 +33,7 @@ def download_song(video_id, location):
 
         yt = YouTube(audio_link,use_oauth=True,allow_oauth_cache=True)
 
+
         print(yt)
 
         if yt.length <= 900:
@@ -61,7 +62,7 @@ def download_song(video_id, location):
 
     try:
 
-        mp4_no_frame = vid_file
+        # mp4_no_frame = vid_file
 
 
         mp4_no_frame = AudioFileClip(vid_file)
