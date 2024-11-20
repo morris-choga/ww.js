@@ -154,7 +154,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                console.log(chat)
+                console.log(chat.isGroup)
 
 
 
