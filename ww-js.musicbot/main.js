@@ -154,7 +154,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                console.log(isGroup)
+                console.log(chat)
 
 
 
@@ -192,7 +192,7 @@ class Bot{
 
             if ((message_body.startsWith("!song") || message_body.startsWith("!lyrics")) && message.body.length > 6 && !isGroup){
 
-                await message.reply("For now the bot can only work in a chat chat. Please add me in a chat to  request for songs...")
+                await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
                 // this.messageCount++;
                 await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
