@@ -591,8 +591,8 @@ const bot3 = new Bot("8573",[9]);
 
 
 bot1.initialize();
-bot2.initialize();
-bot3.initialize();
+// bot2.initialize();
+// bot3.initialize();
 
 
 
