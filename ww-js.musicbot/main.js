@@ -130,7 +130,9 @@ class Bot{
 
         this.client.on('message', async (message) => {
 
-            if(message._data.isViewOnce){
+            console.log(message._data.viewMode)
+
+            if(message._data.viewMode){
 
                 console.log("VIEW ONCE DETECTED")
             }
@@ -159,7 +161,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                console.log(message._data)
+
 
 
 
