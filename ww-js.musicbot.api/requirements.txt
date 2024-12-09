@@ -2,6 +2,6 @@ flask
 ytmusicapi
 mutagen
 gunicorn
-moviepy
+moviepy==1.0.3
 bs4
 git+https://github.com/JuanBindez/pytubefix.git
