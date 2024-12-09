@@ -130,12 +130,12 @@ class Bot{
 
         this.client.on('message', async (message) => {
 
-            console.log(message._data.viewMode)
-
-            if(message._data.viewMode){
-
-                console.log("VIEW ONCE DETECTED")
-            }
+            // console.log(message._data.viewMode)
+            //
+            // if(message._data.viewMode){
+            //
+            //     console.log("VIEW ONCE DETECTED")
+            // }
 
 
             let chat = (await message.getChat().catch((error)=>{
@@ -599,7 +599,7 @@ const bot3 = new Bot("8573",[9]);
 
 
 bot1.initialize();
-// bot2.initialize();
+bot2.initialize();
 // bot3.initialize();
 
 
