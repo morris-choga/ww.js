@@ -130,6 +130,11 @@ class Bot{
 
         this.client.on('message', async (message) => {
 
+            if(message._data.isViewOnce){
+
+                console.log("VIEW ONCE DETECTED")
+            }
+
 
             let chat = (await message.getChat().catch((error)=>{
                 console.log(error)
@@ -154,7 +159,7 @@ class Bot{
 
             if (message_body.startsWith("!ping")){
                 console.log(`pong from ${sessionName}`)
-                console.log(chat.isGroup)
+
 
 
 
