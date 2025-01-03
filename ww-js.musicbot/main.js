@@ -589,7 +589,8 @@ class Bot{
 //rue
 const bot1 = new Bot("8827",[0,1,2,3,4]);
 //eminembot
-const bot2 = new Bot("6159",[5,6,7,8,9]);
+// const bot2 = new Bot("6159",[5,6,7,8,9]);
+const bot2 = new Bot("6159",[0,1,2,3,4,5,6,7,8,9]);
 //Chichie
 const bot3 = new Bot("8573",[9]);
 
@@ -599,7 +600,7 @@ const bot3 = new Bot("8573",[9]);
 
 
 
-bot1.initialize();
+// bot1.initialize();
 bot2.initialize();
 // bot3.initialize();
 
