@@ -40,7 +40,7 @@ class Bot{
             puppeteer: {
                 headless: true,
                 // executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-                executablePath: "/usr/src/app/chrome/google-chrome",
+                // executablePath: "/usr/src/app/chrome/google-chrome",
                 args: [
                     '--no-sandbox',
                     '--no-experiments',
