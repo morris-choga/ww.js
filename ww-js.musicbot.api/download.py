@@ -10,7 +10,7 @@ from songmetadata import tagger, get_playlist, get_songs_metadata
 from downloaded_albums import album_ids
 # from moviepy.editor import *
 os.environ["FFMPEG_BINARY"] = "/usr/bin/ffmpeg"
-from moviepy.editor import AudioFileClip
+# from moviepy.editor import AudioFileClip
 
 oauth = f"{os.getcwd()}/oauth.json"
 from pytubefix import Playlist
@@ -31,13 +31,14 @@ def download_song(video_id, location):
 
     try:
 
-        yt = YouTube(audio_link,use_oauth=True,allow_oauth_cache=True)
+        yt = YouTube(audio_link,'WEB',use_oauth=True,allow_oauth_cache=True)
         yt = YouTube(audio_link)
 
 
-        print(yt)
 
-        if yt.length <= 900:
+
+        # if yt.length <= 900:
+        if True:
             #         if yt.length <= 900000000:
             yt.title = "".join([c for c in yt.title if c not in ['/', '\\', '|', '?', '*', ':', '>', '<', '"']])
             video = yt.streams.filter(only_audio=True).first()
@@ -63,10 +64,11 @@ def download_song(video_id, location):
 
     try:
 
-        # mp4_no_frame = vid_file
+        mp4_no_frame = vid_file
 
 
-        mp4_no_frame = AudioFileClip(vid_file)
+        # mp4_no_frame = AudioFileClip(vid_file)
+
         mp4_no_frame.write_audiofile(audio_file, logger=None)
         mp4_no_frame.close()
         os.remove(vid_file)
