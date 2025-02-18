@@ -32,7 +32,8 @@ def download_song(video_id, location):
     try:
 
         # yt = YouTube(audio_link,'WEB',use_oauth=True,allow_oauth_cache=True)
-        yt = YouTube(audio_link,allow_oauth_cache=True)
+        # yt = YouTube(audio_link,allow_oauth_cache=True)
+        yt = YouTube(audio_link)
 
 
 
