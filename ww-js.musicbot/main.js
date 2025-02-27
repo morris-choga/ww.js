@@ -202,7 +202,7 @@ class Bot{
 
                 await message.reply("For now the bot can only work in a group chat. Please add me in a group to  request for songs...")
                 // this.messageCount++;
-                await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
             }  //problem
@@ -221,7 +221,7 @@ class Bot{
                     setTimeout(async () => {
                         await message.reply(`The music bot only works in a group with at least 10 participants. Please add ${11 - chat.participants.length} more people to the group`)
                         // this.messageCount++;
-                        await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                        // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                     }, 5000);
                 }
 
@@ -229,7 +229,7 @@ class Bot{
 
                     await message.reply("Join the chat to request for songs \n\nhttps://chat.whatsapp.com/F1l3b5zU8N652cm0gmUuUS")
                     // this.messageCount++;
-                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                    // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
 
                 }
@@ -239,8 +239,8 @@ class Bot{
             if (message_body.startsWith("!lyrics ") && message.body.length > 8 && (user === this.lyrics_group || user === this.test_group)){
                 console.log("Lyrics called")
                 await sendLyrics(message,this.client)
-                // this.messageCount++;
-                await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+
+                // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)  enable this when u got time
             }
 
 
@@ -467,7 +467,7 @@ class Bot{
                 else if((message_body.startsWith("!menu") || message_body.startsWith("!help")) && (user === this.song_group || user === this.lyrics_group || user === this.test_group)){
                     await message.reply("*Bot commands*\n\n🤖*!song* (eg !song rihanna diamonds)\n🤖*!video* (eg !video how to install whatsapp) (temporarily unavailable)\n🤖*!album* (eg !metro booming heroes & villains) (temporarily unavailable)\n🤖*!lyrics* (eg !lyrics Maroon 5 sugar)\n🤖*!song-info* (eg !song-info eminem not afraid. Get information about a song.)")
                     // this.messageCount++;
-                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                    // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
 
 
@@ -475,13 +475,13 @@ class Bot{
                 else if (message_body.startsWith("!lyrics ") && message.body.length > 8 && user !== this.lyrics_group){
                     await message.reply("Join the chat to request for lyrics \n\nhttps://chat.whatsapp.com/DGeFgy7DRODIIgF68mojTP")
                     // this.messageCount++;
-                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                    // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
                 }
 
                 else if ((message_body.startsWith("!song-info ") || message_body.startsWith("!song_info ")) && (message.body.length > 11) && (user === this.lyrics_group || user === this.song_group)) {
                     await sendSongInfo(message,this.client)
                     // this.messageCount++;
-                    await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                    // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
                 }
 
@@ -490,7 +490,7 @@ class Bot{
                     if (user === this.test_group  || user === this.song_group) {
 
                         await searchSong(message,this.client)
-                        await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
+                        // await botMessageIncrement(Bot.registeredBots[sessionName][0],sessionName)
 
                         // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
 
