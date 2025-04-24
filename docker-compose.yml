@@ -12,9 +12,9 @@ services:
 
     volumes:
       - shared-data:/usr/src/app/media
-      - /usr/bin:/usr/src/app/chrome
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /run/dbus/:/run/dbus/
+      - shared-data:/usr/local/bin/node
+
+
 
     security_opt:
       - seccomp=unconfined
