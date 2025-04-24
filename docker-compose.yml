@@ -33,7 +33,7 @@ services:
     volumes:
       - shared-data:/usr/src/api/media
       - /remotefiles:/usr/src/api/morris
-      - /usr/bin/node:/usr/src/api/node
+      - /usr/bin:/usr/src/api/node
 
 
 volumes:
