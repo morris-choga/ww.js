@@ -7,7 +7,10 @@ WORKDIR /usr/src/api
 COPY requirements.txt .
 
 
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg && apt-get install -y curl gnupg && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    node --version && npm --version
 
 ENV FFMPEG_BINARY=/usr/bin/ffmpeg
 
