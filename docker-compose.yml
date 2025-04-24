@@ -15,7 +15,7 @@ services:
       - /usr/bin:/usr/src/app/chrome
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /run/dbus/:/run/dbus/
-
+      - node:/usr/local/bin/node/
 
     security_opt:
       - seccomp=unconfined
