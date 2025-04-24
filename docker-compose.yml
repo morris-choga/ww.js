@@ -12,7 +12,7 @@ services:
 
     volumes:
       - shared-data:/usr/src/app/media
-      - /usr/local/bin/node:shared-data
+      - shared-data:/usr/local/bin
 
 
 
