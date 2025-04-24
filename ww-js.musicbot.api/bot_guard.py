@@ -10,7 +10,7 @@ NODE_PATH = os.path.dirname(os.path.realpath(__file__)) + f'/binaries/{NODE}'
 
 if not os.path.isfile(NODE_PATH):
     # NODE_PATH = '/usr/src/api/node'
-    NODE_PATH = 'node'
+    NODE_PATH = '/usr/bin/node'
 
 VM_PATH = os.path.dirname(os.path.realpath(__file__)) + '/vm/botGuard.js'
 
