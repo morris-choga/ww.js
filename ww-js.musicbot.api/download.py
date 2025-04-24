@@ -55,12 +55,12 @@ def download_song(video_id, location):
 
     except AgeRestrictedError as e:
 
-        print(f"Error has occurred with pytube because of age restriction:{type(e).__name__} {str(e)}")
+
         return {"Error": "oops! This song seems to be unavailable"}, 502
 
     except (Exception, SystemExit) as e:
     
-        print(f"Error has occurred with pytube: {type(e).__name__} {str(e)}")
+
     
         return f"Error has occurred with pytube: {str(e)}"
 
@@ -113,12 +113,12 @@ def download_video(video_id, location):
 
     except AgeRestrictedError as e:
 
-        print(f"Error has occurred with pytube:{type(e).__name__} {str(e)}")
+
         return {"Error": "oops! This song seems to be unavailable"}, 502
 
     except (Exception, SystemExit) as e:
 
-        print(f"Error has occurred with pytube: {type(e).__name__} {str(e)}")
+
         return f"Error has occurred with pytube: {str(e)}"
 
     return ""
