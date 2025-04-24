@@ -34,7 +34,7 @@ def download_song(video_id, location):
 
         # yt = YouTube(audio_link,'WEB',use_oauth=True,allow_oauth_cache=True)
         # yt = YouTube(audio_link,allow_oauth_cache=True)
-        yt = YouTube(audio_link)
+        yt = YouTube(audio_link,'WEB')
 
 
 
@@ -76,6 +76,7 @@ def download_song(video_id, location):
         os.remove(vid_file)
         os.replace(audio_file, location + "/" + yt.title + ".mp3")
         audio_file = location + "/" + yt.title + ".mp3"
+
         return audio_file
 
     except (SystemExit, KeyboardInterrupt):
