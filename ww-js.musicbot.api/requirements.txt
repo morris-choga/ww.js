@@ -4,4 +4,4 @@ mutagen
 gunicorn
 moviepy==1.0.3
 bs4
-git+https://github.com/felipeucelli/pytubefix.git@new-player
+git+https://github.com/felipeucelli/pytubefix.git
