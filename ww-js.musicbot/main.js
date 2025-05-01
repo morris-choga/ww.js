@@ -286,7 +286,7 @@ class Bot{
                                 let userSongs = await fetchUsers();
 
                                 // if (userSongs[userID][1] < 10) {
-                                if (userSongs[userID][1] < 2) {
+                                if (userSongs[userID][1] < 100) {
 
                                     await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
