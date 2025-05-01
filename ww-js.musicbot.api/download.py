@@ -35,6 +35,7 @@ def download_song(video_id, location):
         # yt = YouTube(audio_link,'WEB',use_oauth=True,allow_oauth_cache=True)
         # yt = YouTube(audio_link,allow_oauth_cache=True)
         yt = YouTube(audio_link,client='ANDROID',allow_oauth_cache=True,use_oauth=True)
+        print(yt.length)
 
 
 
