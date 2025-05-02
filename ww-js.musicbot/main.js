@@ -285,8 +285,8 @@ class Bot{
 
                                 let userSongs = await fetchUsers();
 
-                                // if (userSongs[userID][1] < 10) {
-                                if (userSongs[userID][1] < 100) {
+                                if (userSongs[userID][1] < 10) {
+                                // if (userSongs[userID][1] < 100) {
 
                                     await sendSong(data,message,Bot.registeredUsers,userID,this,Bot)
                                     // await message.reply("The bot is undergoing maintenance. Contact the admin to offer support for the project 😊")
@@ -587,16 +587,20 @@ class Bot{
 
 
 //rue
-const bot1 = new Bot("8827",[0,1,2,3,4]);
+const bot1 = new Bot("8827",[0,1,2,3]);
 //eminembot
 // const bot2 = new Bot("6159",[5,6,7,8,9]);
-const bot2 = new Bot("6159",[0,1,2,3,4]);
+const bot2 = new Bot("6159",[]);
 //Chichie
-const bot3 = new Bot("8573",[9]);
-
-const bot4 = new Bot("3985",[5,6,7,8,9]);
+const bot3 = new Bot("8573",[]);
 
 // 263 78 024 8827
+
+const bot4 = new Bot("3985",[4,5,6,7,8,9]);
+
+//263782493985
+
+
 
 
 
