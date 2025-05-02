@@ -605,7 +605,7 @@ const bot4 = new Bot("3985",[5,6,7,8,9]);
 // bot1.initialize();
 bot2.initialize();
 // bot3.initialize();
-bot3.initialize();
+bot4.initialize();
 
 
 
