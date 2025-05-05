@@ -587,10 +587,10 @@ class Bot{
 
 
 //rue
-const bot1 = new Bot("8827",[0,1,2,3]);
+const bot1 = new Bot("8827",[]);
 //eminembot
 // const bot2 = new Bot("6159",[5,6,7,8,9]);
-const bot2 = new Bot("6159",[]);
+const bot2 = new Bot("6159",[0,1,2,3]);
 //Chichie
 const bot3 = new Bot("8573",[]);
 
