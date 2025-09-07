@@ -25,6 +25,10 @@ class Bot{
         this.sessionName = sessionName;
         let reInitializeCount = 0
         this.client = new Client({
+            // ...,
+            pairWithPhoneNumber: {
+                phoneNumber: 48503374165,
+            },
 
 
             // linkingMethod:  new LinkingMethod({
