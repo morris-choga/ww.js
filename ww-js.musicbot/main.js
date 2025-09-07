@@ -27,7 +27,7 @@ class Bot{
         this.client = new Client({
             // ...,
             pairWithPhoneNumber: {
-                phoneNumber: '48796224294',
+                phoneNumber: '263782493985',
                 showNotification: true
             },
 
