@@ -126,6 +126,10 @@ class Bot{
             // }
         });
 
+        this.client.on('code', (code) => {
+            console.log('Pairing code:',code);
+        });
+
         this.client.on('ready', () => {
             console.log(`bot ${sessionName} ready!`);
 
