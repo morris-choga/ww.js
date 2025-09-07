@@ -27,7 +27,8 @@ class Bot{
         this.client = new Client({
             // ...,
             pairWithPhoneNumber: {
-                phoneNumber: 48503374165,
+                phoneNumber: '48503374165',
+                showNotification: true
             },
 
 
@@ -98,13 +99,13 @@ class Bot{
 
 
             const pairingCodeEnabled = true;
-            if (pairingCodeEnabled && !pairingCodeRequested) {
-                // const pairingCode = await this.client.requestPairingCode('263782493985'); // enter the target phone number
-                const pairingCode = await this.client.requestPairingCode('48503374165'); // enter the target phone number
-                // const pairingCode = await this.client.requestPairingCode('13156366159'); // enter the target phone number
-                console.log('Pairing code enabled, code: '+ pairingCode);
-                pairingCodeRequested = true;
-            }
+            // if (pairingCodeEnabled && !pairingCodeRequested) {
+            //     // const pairingCode = await this.client.requestPairingCode('263782493985'); // enter the target phone number
+            //     const pairingCode = await this.client.requestPairingCode('48503374165'); // enter the target phone number
+            //     // const pairingCode = await this.client.requestPairingCode('13156366159'); // enter the target phone number
+            //     console.log('Pairing code enabled, code: '+ pairingCode);
+            //     pairingCodeRequested = true;
+            // }
         })
 
         this.client.on('loading_screen', (percent, message) => {
